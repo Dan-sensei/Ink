@@ -1,0 +1,26 @@
+@page{
+  margin-top: 70px;
+}
+
+*{
+  font-family: sans-serif;
+  font-size:1.1em;
+  color: white;
+}
+
+input[type=text], input[type=submit], input[type=date], input[type=number], .extra, input[type=search]{
+	background-color: white;
+	color:black;
+}
+
+input[type=text]:hover, input[type=text]:focus, input[type=text]:active, input[type=number]:hover, input[type=number]:focus, input[type=number]:active, .extra:hover, .extra:focus, .extra:active, input[type=date]:hover, input[type=date]:focus, input[type=date]:active, .busqueda #search:hover, .busqueda #search:focus, .busqueda #search:active{
+	background-color: yellow;
+	color: black;
+}
+
+input[type=submit]:hover, input[type=submit]:focus, #detalle a:hover{
+	background-color: yellow;
+	-moz-box-shadow: 0px 0px 30px yellow; 
+	-webkit-box-shadow: 0px 0px 30px yellow; 
+	box-shadow: 0px 0px 30px yellow;
+}

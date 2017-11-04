@@ -1,0 +1,273 @@
+@media screen and (max-width: 1400px){
+	header > div + div{
+		width: 65%;
+	}
+	header > div + div +div{
+		width:19%;
+	}
+	#solicitar{padding-top: 75px;}
+	#solicitar > div:first-child{
+		padding: 0;
+		width: 100%;
+		height: 480px;
+	}
+	#solicitar > div:first-child > p{
+		padding: 8px;
+		width: 95%;
+	}
+	#solicitar > div:first-child table{
+		width: 50%;
+		margin: 0 auto;
+		padding: 8px;
+	}
+	#solicitar > div + div{
+		width: 100%;
+		height: auto;
+	}
+	header > div + div + div a div{width: 60%;}
+	#logout {
+		line-height: 30px;
+		height: 30px;
+	}
+	#logout span{font-size: 15px;}
+	.saludo_small{font-size:11px;}
+	.saludo_big{font-size: 13px;}
+	#user_mini {height: 50px; width: 50px; margin-left: 5px;}
+	/*.saludo_big{font-size: 13px;}*/
+}
+
+@media screen and (max-width: 1250px){
+	
+	#busqueda_avanzada input, #busqueda_avanzada label, #busqueda_avanzada span{width:40%;}
+	.user{width: 250px; height: 250px;}
+	#perfil aside{
+		z-index: 2;
+		position: fixed;
+		width: 100%;
+		height: 150px;
+	}
+	#perfil aside nav a{
+		display: inline-block;
+		text-align: left;
+		margin: 0;
+		padding:10px;
+	}
+	#perfil > div{
+		margin-top: 250px;
+		width: 100%;
+		height: 100px;
+		position: relative;
+		clear: both;
+	}
+	#perfil > section{
+		padding:0;
+		width: 100%;
+		height: 100px;
+		position: relative;
+	}
+	#perfil section div, #insercion section div{
+		display:block; 
+		margin: 0 auto;
+		width:25%;
+	}
+
+}
+
+@media screen and (max-width: 1050px){
+	header > div + div{
+		width: 60%;
+	}
+	header > div + div +div{
+		width:24%;
+	}
+	#acceso #logo_jl{background-size: 150px;}
+	#acceso div form{
+		display: initial;
+    	vertical-align: middle;
+	}
+	#acceso div:first-child{
+		width: 100%;
+		height: 20%;
+	}
+	#acceso div + div{
+		position: relative;
+		float:left;
+		width: 100%;
+		height: 5%;
+		display:table;
+	}
+	#acceso > div + div + div{width: 100%;}
+	#acceso input, #acceso form label{width:40%;}
+	#acceso > div + div + div{height: 50%;}
+	#panel{
+		z-index: 2;
+		position: fixed;
+		margin-top: -3%;
+		padding-top: 3%;
+		height: 100px;
+		width: 100%;
+		background-color: #191919; 
+	}
+	#parametros{width: 100%;}
+	#parametros input{width: 80%; margin-left: 3px; }
+	#parametros span{margin-left:-5px;margin-right: -1px;}
+	#parametros  > div{
+		font-size:12px;
+		margin: 0;
+		padding:0;
+		width: 20%;
+		float:left;
+	}
+	#parametros input[type=date]{width: 31%;}
+	#parametros > div + div{width: 40%; }
+	#parametros > div+div+div{width: 20%;}
+	#parametros > div:last-child{width:20%;}
+	#parametros input[type=submit]{margin-top:13px;height: 38px;}
+	#parametros input{
+		clear: none;
+		display: inline;
+	}
+	#columnas2{
+		padding-top: 125px;
+		width: 96%;
+	}
+	#perfil section div{width:30%;}
+
+	#solicitar > div+div section:first-child{width:100%; height: auto;}
+	#solicitar > div+div section + section{width:100%; height: auto;}
+	#solicitar > div+div section + section + section{width:100%; height: auto;}
+	#solicitar > div:first-child table tr >td{padding:2px;}
+	#confirmacion p{width: 60%;}
+	#columnas figure a > div > div, #columnas2 figure a > div > div{
+		opacity:1;
+		width:100%;
+		position: relative;
+		display: block;
+	}
+	#crear_album label, #crear_album input, #crear_album .fuente_centrada{width: 40%;}
+	#acceso #cookie_div a{text-align: center;}
+}
+
+@media screen and (max-width: 820px){
+	#logo{
+		width:105px;
+	}
+	.busqueda{
+		margin-right: 0;
+		margin-left: 20px;
+	}
+	.busqueda input[type=search]{width: 80%;}
+	header > div + div{
+		width: 55%;
+	}
+	header > div + div +div{
+		width:29%;
+	}
+	#login{
+		margin-left:5px; 
+	}
+	#columnas,#columnas2{
+		column-width:240px;
+	}
+	#detalle > div:first-child{
+		background-color: #191919;
+		position: relative;
+		float: left;
+		height: 250px;
+		width: 100%;
+		padding: 0 0 10px 0;
+	}
+	#detalle > div:first-child img{
+		height: 100%;
+		width: auto; 
+		display:block; 
+		margin: 0 auto;
+	}
+	#detalle > div + div{
+		padding:0;
+		margin: 0;
+		position: relative;
+		float: left;
+		width: 100%;
+		height: 360px;
+	}
+	#detalle a, #detalle p{margin-left:auto; margin-right: auto; width: 80%;}
+	#perfil section div, #insercion section div{width:40%;}
+	#solicitar input[type=text], #solicitar input[type=number],#solicitar input[type=date], #solicitar label, .extra, #solicitar input[type=color], input[type=email], .centered{width: 70%;}
+	#confirmacion p{width: 70%;}
+}
+
+@media screen and (max-width: 620px){
+	header{	height: 50px;}
+	header > div + div{
+		width: 55%;
+		padding-top: 7px;
+	}
+	header > div + div + div{width:30%;}
+	header + section{margin-top:50px;}
+	.busqueda{
+		margin-left: 0;
+		padding: 0;
+	}
+	.busqueda input[type=search]{width: 71%;}
+	.busqueda .icon{
+		top:0;
+	}
+	#logo{
+		width:30px;
+		height: 45px;
+		background: url("../img/ink_jl.png") center no-repeat;
+		background-size: 100%;
+	}
+	#logo:hover, #logo:focus{
+		background: url("../img/ink_jl2.png") center no-repeat;
+		background-size: 100%;
+	}
+	#login{
+		margin-left: 10%;
+		margin-top: -1px;
+		width: 95px;
+	}
+
+	#acceso input, #acceso form label, .fuente_centrada, #acceso input[type=file]{width:60%;}
+	#columnas,#columnas2{
+		column-width:200px;
+	}
+	#columnas2{margin-top: 50px;
+	padding-top: 115px;}
+	#busqueda_avanzada input, #busqueda_avanzada label, #busqueda_avanzada span{width:60%;}
+	#detalle{padding-top: 50px;}
+	.user{width: 120px; height: 120px;}
+	#user_mini {
+	  width: 40px;
+	  height: 40px;
+	  margin: 0;
+	}
+	#perfil{padding-top: 50px;}
+	#perfil section div, #insercion section div{width:60%;}
+	#solicitar{padding-top: 50px;}
+	#solicitar > div:first-child{height: 470px;}
+	#solicitar > div:first-child table{width:90%; margin:0;overflow: hidden;}
+	#solicitar > div:first-child table tr >td{padding:0px;}
+	#confirmacion{padding-top: 50px;}
+	#crear_album label, #crear_album input, #crear_album .fuente_centrada{width: 60%;}
+
+	header > div + div + div a div > span{margin-left: 2px;}
+	.saludo_small{font-size:11px;}
+	.saludo_big{font-size: 12px;}
+	header > div + div + div a div{margin-left: 5px;width: 60%;}
+	header > div + div + div > div{width: 25%;}
+	#logout {
+		width: 38px;
+		height: 38px;
+		background-size: 80%;
+		background-position: center;
+	}
+	#logout:hover {
+		background-size: 80%;
+		background-position: center;
+	}
+	#logout span{margin-left:-10000px; }
+	#acceso .cookie + input[type=submit]{width: 35%;}
+
+}

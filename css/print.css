@@ -1,0 +1,105 @@
+@page{
+  margin-top: 70px;
+}
+
+*{
+  font-family: "Times New Roman", Times, serif;
+  color:black;
+}
+
+a{
+  text-decoration: underline;
+}
+
+body{
+  background: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+header{
+  clear:both;
+  display:block;
+  position: relative;
+}
+body > header > div:first-child{
+  width: 100%;
+}
+body > header div + div, body > header div + div + div{
+  display:none;
+}
+
+#logo img{
+  display: block;
+  margin: 0 auto;
+}
+
+#columnas, #columnas2 {
+  overflow: hidden;
+  float: left;
+  margin-left: 10%;
+  width:100%;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 20px;
+  -moz-column-count: 2;
+  -moz-column-gap: 20px;
+  column-count: 2;
+  column-gap: 25px;
+
+}
+#parametros{
+  display: none;
+}
+#columnas figure img, #columnas2 figure img{
+  position: relative;
+  width:40%;
+  float: left;
+}
+
+#columnas figure a > div > div, #columnas2 figure a > div > div{
+  position: relative;
+  padding-left:5px;
+  float: left;
+  display: initial;
+  opacity: 1;
+  color: #333333;
+}
+
+label{color:black;}
+input[type=text], input[type=submit], input[type=file], input[type=date]{
+	box-shadow: 0 0 0pt 2pt #151515;
+  color: grey;
+}
+
+#acceso #logo_jl img{
+  display: block;
+  margin: 0 auto;
+}
+
+  #acceso #logo_jl{background-size: 150px;}
+  #acceso div form{
+    display: initial;
+      vertical-align: middle;
+  }
+  #acceso div:first-child{
+    width: 100%;
+    height: 20%;
+  }
+  #acceso div + div{
+    position: relative;
+    float:left;
+    width: 100%;
+    height: 5%;
+    display:table;
+  }
+  #acceso > div + div + div{width: 100%;}
+  #acceso input, #acceso form label{width:40%;}
+  #acceso > div + div + div{height: 50%;}
+
+#busqueda_avanzada #logo_jl img{
+  display: block;
+  margin-left: 0;
+  
+}
+  #busqueda_avanzada input, #busqueda_avanzada label, #busqueda_avanzada span{width:30%;}
