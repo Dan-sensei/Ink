@@ -10,8 +10,9 @@
 			<a href="Detalle_foto.php?trigger=true">
 				<div>
 					<img src="img/Zed.jpg" alt="Zed" class="img" title="Sona">
-					<div><p>Titulo 1<br>
-							21/7/2017 <br>
+					<div><p>
+							<span class="titulo">Titulo 1</span><br>
+							21/7/2017<br>
 							Alemania</p>
 						</div>
 				</div>
@@ -24,7 +25,7 @@
 					<img src="img/p5.jpg" alt="Sona" title="Imagen5">
 					<div>
 						<p>
-							Titulo 1<br>
+							<span class="titulo">Titulo 1</span><br>
 							21/7/2017<br>
 							Alemania
 						</p>
@@ -40,7 +41,7 @@
 					<img src="img/p1.jpg" alt="Sona" title="Imagen2">
 					<div>
 						<p>
-						Titulo 1<br>
+						<span class="titulo">Titulo 1</span><br>
 						21/7/2017<br>
 						Alemania
 					</p>
@@ -56,7 +57,7 @@
 					<img src="img/Midoriya.jpg" alt="Sona">
 					<div>
 						<p>
-						Titulo 1 <br>
+						<span class="titulo">Titulo 1</span><br>
 						21/7/2017 <br>
 						Alemania
 					</p>
@@ -72,7 +73,7 @@
 					<img src="img/p2.jpg" alt="Sona">
 					<div>
 						<p>
-						Titulo 1 <br>
+						<span class="titulo">Titulo 1</span><br>
 						21/7/2017 <br>
 						Alemania
 					</p>

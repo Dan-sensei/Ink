@@ -15,7 +15,7 @@
 				<a href="Baja.php">Darse de baja</a>
 				-->
 				<a href="#">Modificar datos</a><br>
-				<a href="#">Mis álbumes</a><br>
+				<a href="albumes.php">Mis álbumes</a><br>
 				<a href="crear_album.php">Crear un nuevo álbum</a><br>
 				<a href="Solicitar.php">Solicitar álbum impreso</a><br>
 				<a href="#">Darse de baja</a>

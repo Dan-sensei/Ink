@@ -16,6 +16,7 @@
 		<div>
 			<form action="access.php" method="post">
 				<h3>Crear álbum</h3>
+				<img src="img/album_icon.png">
 				<label for="title">Título<span>*</span></label>
 				<p><input type="text" name="titulo" id="titulo" required></p>
 			
