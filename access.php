@@ -57,27 +57,32 @@
 
 		$bool=false;
 
-		foreach ($usuarios as $key => $value) {
-			if($key == $GET_Usuario && $usuarios[$key]==$GET_Code){
-				$_SESSION["usuario"]=$GET_Usuario;
-				$_SESSION["code"]=$GET_Code;
-
-				$datos = array(
-					"0" => $GET_Usuario,
-					"1" => $GET_Code,
-					"3" => getdate(),
-					"4" => "1",
-				);
-				//GALLETAS---------------------------------------------------------------------
-				if(isset($_POST["recordar"]) && $_POST["recordar"]=="recordar"){
-					setcookie("recuerdame", json_encode($datos), time() + 365 * 24 * 60 * 60);
-				}
-				$extra = "index.php";
-				
-				$bool=true;
-				break;
-			}
+		$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE NomUsuario='". $GET_Usuario ."' AND Clave ='". $GET_Code ."'";
+		if(!($resultado = $inkbd->query($sql))) { 
+			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+			echo "</p>"; 
+			exit;
 		}
+		$c = $resultado->fetch_assoc();
+
+		if($c['exists'] == 1){
+			$_SESSION["usuario"]=$GET_Usuario;
+
+			$datos = array(
+				"0" => $GET_Usuario,
+				"1" => $GET_Code,
+				"3" => getdate(),
+				"4" => "1",
+			);
+			//GALLETAS---------------------------------------------------------------------
+			if(isset($_POST["recordar"]) && $_POST["recordar"]=="recordar"){
+				setcookie("recuerdame", json_encode($datos), time() + 365 * 24 * 60 * 60);
+			}
+			$extra = "index.php";
+			
+			$bool=true;
+		}
+		
 		if(!$bool){
 			if(isset($_COOKIE["recuerdame"])){
 				setcookie("recuerdame", "asd",time()-3600);

@@ -60,7 +60,6 @@ $usuario= $usuario['NomUsuario'];		//--------------NOMBRE DE USUARIO
 				
 				$detalle = $detalle . "<a href=#> Album: " . $album . "</a>
 									<a href=#> Usuario: " . $usuario . "</a>";
-				$detalle = $detalle . "<a href=#> ". $c['exists'] ."</a>";
 				echo $detalle;
 
 			?>

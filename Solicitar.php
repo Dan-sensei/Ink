@@ -1,6 +1,14 @@
 <?php 
 	require_once("inc/head.php"); 
 	require_once("inc/header_logged.php"); 
+
+	$sql = "SELECT Titulo FROM `usuarios`, `albumes` WHERE IdUsuario=Usuario";
+	if(!($resultado = $inkbd->query($sql))) { 
+		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+		echo "</p>"; 
+		exit;
+	}
+
 ?>
 	
 	<section id="solicitar">
@@ -171,11 +179,11 @@
 
 					<label for="album">Álbum<span>*</span></label>
 					<select form="f_solicitar" class="extra" name="album" id="album">
-						<option value="Album 1">Álbum 1</option>
-						<option value="Album 2">Álbum 2</option>
-						<option value="Album 3">Álbum 3</option>
-						<option value="Album 4">Álbum 4</option>
-						<option value="Album 5">Álbum 5</option>
+					<?php 
+						while($option = $resultado->fetch_assoc() ) { 
+							echo  "<option value='".$option['Titulo']."'>".$option['Titulo'] ."</option>"; 
+					 	} 
+					?>
 					</select> 
 
 					<p><label for="date">Fecha de recepción<span>*</span></label></p>
