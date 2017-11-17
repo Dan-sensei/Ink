@@ -4,7 +4,7 @@ session_start();
 //Fichero de configuracion
 
 $init = parse_ini_file("inc/config.ini");
-/*
+
 $inkbd = @new mysqli( 
          $init["Server"],   // El servidor 
          $init["User"],    // El usuario 
@@ -16,7 +16,7 @@ $inkbd = @new mysqli(
    echo '</p>'; 
    exit; 
  } 
-*/
+
 $actual_link = "$_SERVER[REQUEST_URI]";
 switch (true) {
 	case stristr($actual_link,'/index.php'):

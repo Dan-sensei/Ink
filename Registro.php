@@ -58,7 +58,14 @@
 				<p class='fuente_centrada'><span>".$message."</span></p>
 				<input type='submit' value='Login'>";
 	}
+	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
 
+	if(!($resultado = $inkbd->query($sql_getPais))) { 
+	   echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: " . $inkbd->error; 
+	   echo "</p>"; 
+	   exit; 
+	 } 
+		
 ?>
 	<section id="acceso">
 		<div>
@@ -74,7 +81,7 @@
 			</a>
 		</div>
 		<div>
-		  <form action="Insercion.php" method="post" enctype="multipart/form-data">
+		  <form action="Insercion.php" method="post" enctype="multipart/form-data" id="registro">
 		  		<h3>Registro</h3>
 		  		<label for="name2">Nombre<span>*</span></label>
 				<p><input type="text" name="name2"  id="name2" placeholder="Nombre de usuario" required></p>
@@ -91,17 +98,17 @@
 				<div>
 					<div class="radio_div">
 						<label for="hombre">Hombre</label>
-						<input type="radio" name="gender" id="hombre" value="hombre">
+						<input type="radio" name="gender" id="hombre" value=0>
 					</div>
 
 					<div class="radio_div">
 						<label for="mujer">Mujer</label>
-						<input type="radio" name="gender" id="mujer" value="mujer">
+						<input type="radio" name="gender" id="mujer" value=1>
 					</div>
 
 					<div class="radio_div">
 						<label for="otro">Otro</label>
-						<input type="radio" name="gender" id="otro" value="otro">
+						<input type="radio" name="gender" id="otro" value=2>
 					</div>
 				</div>
 				<label for="date">Fecha de nacimiento<span>*</span></label>
@@ -109,9 +116,20 @@
 
 				<label for="city">Ciudad<span>*</span></label>
 				<p><input type="text" name="city" id="city" placeholder="Ciudad" required></p>
-
-				<label for="pais">Pais<span>*</span></label>
-				<p><input type="text" name="pais" id="pais" placeholder="Pais de residencia" required></p>
+						
+				<label for="pais">País<span>*</span></label>
+				<select form="registro" class="extra" name="pais" id="pais">
+					<?php 
+						while($option = $resultado->fetch_assoc() ) { 
+							if($option['NomPais']=="Spain"){
+								echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
+							}
+							else{
+								echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+							}
+					 	} 
+					?>
+				</select>
 				<label for="pic">Foto</label>
 				<p><input type="file" name="pic" id="pic" accept="image/*"></p>
 				<p class="fuente_centrada"><span>*</span><span class="obligatorio">Obligatorio</span></p>
@@ -122,5 +140,7 @@
 	</section>
 
 <?php
+	$resultado->close(); 
+	$inkbd->close(); 
 	require_once("inc/footer.inc"); 
 ?>

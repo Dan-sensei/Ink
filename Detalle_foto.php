@@ -2,33 +2,68 @@
 require_once("inc/head.php"); 
 require_once("inc/header_logged.php"); 
 
-if($_GET['trigger']=="true"){
-	$foto = "'"."img/681367.jpg"."'";
-	$titulo="Miku";
-	$fecha="29/02/2017";
-	$pais="Alemania";
-	$album="Vocaloid";
-	$usuario="Dan";
+$sql= "SELECT * FROM `fotos` WHERE IdFoto='".$_GET['id']."'";
+if(!($resultado = $inkbd->query($sql))) { 
+	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+	echo "</p>"; 
+	exit;
 }
-else{
-	$foto = "img/p2.jpg";
-	$titulo="Puerto";
-	$fecha="05/08/2017";
-	$pais="Ámsterdam";
-	$album="Paisaje";
-	$usuario="Datrix";
+
+$image = $resultado->fetch_assoc();
+
+$foto = "'".$image['Fichero']  . "'";			//--------------------PATH
+$titulo = $image['Titulo'];						//--------------------TITULO
+$descripcion = $image['Descripcion'];			//--------------------DESCRIPCION
+$fecha = $image['Fecha'];						//--------------------FECHA
+
+//Cojo el nombre del pais en vez de su Id
+$sql = "SELECT * FROM `paises` WHERE IdPais='".$image['Pais']."'";
+if(!($resultado = $inkbd->query($sql))) { 
+	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+	echo "</p>"; 
+	exit;
 }
+$pais = $resultado->fetch_assoc();
+$pais=	$pais['NomPais'];	//-------------------NOMBRE DEL PAIS
+
+$sql = "SELECT * FROM `albumes` WHERE IdAlbum='".$image['Album']."'";
+if(!($resultado = $inkbd->query($sql))) { 
+	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+	echo "</p>"; 
+	exit;
+}
+$album = $resultado->fetch_assoc();
+$sql = "SELECT * FROM `usuarios` WHERE IdUsuario='".$album['Usuario']."'";
+if(!($resultado = $inkbd->query($sql))) { 
+	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+	echo "</p>"; 
+	exit;
+}
+$usuario = $resultado->fetch_assoc();
+
+$album = $album['Titulo'];			//--------------TITULO DEL ALBUM
+$usuario= $usuario['NomUsuario'];		//--------------NOMBRE DE USUARIO
+
+
 ?>
+
 	<section id="detalle">
 		<div>
 			<img src=<?php echo $foto?> alt="PI">
 		</div>
 		<div>
-			<p><?php echo $titulo?></p>
-			<p><?php echo $fecha?></p>
-			<p><?php echo $pais?></p>
-			<a href=#><?php echo $album?></a>
-			<a href=#><?php echo $usuario?></a>
+			<?php
+				$detalle = 	"<p>" . $titulo . "</p>";
+				
+				if($fecha!="0000-00-00") $detalle = $detalle . "<p>" . $fecha . "</p>";
+				if($pais!="") $detalle = $detalle . "<p>" . $pais . "</p>";
+				
+				$detalle = $detalle . "<a href=#> Album: " . $album . "</a>
+									<a href=#> Usuario: " . $usuario . "</a>";
+				$detalle = $detalle . "<a href=#> ". $c['exists'] ."</a>";
+				echo $detalle;
+
+			?>
 		</div>
 	</section>
 

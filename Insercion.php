@@ -1,6 +1,8 @@
 <?php 
 	require_once("inc/head.php"); 
-	require_once("inc/header_logged.php"); 
+	
+
+	
 
 	$host = $_SERVER["HTTP_HOST"];
 	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
@@ -44,15 +46,23 @@
 	        }       
 	    }
 	}
+	
+	
 
-	$logged =
-			"<a href='perfil.php'>
-				<img src=".$pic." id='user_mini'>
-			</a>
-		</div>
-	</header>";
+	$sql_newUser = "INSERT INTO `usuarios`(`NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`, `FRegistro`) VALUES ('".$name2."','".$code."', '".$email."', '".$gender."', '".$date."', '".$city."', '".$pais."', ".$pic.", '".$date."')";
 
-	echo $logged;
+	if(!($resultado = $inkbd->query($sql_newUser))) { 
+	   	echo "<p>Error al ejecutar la sentencia <b>$sql_newUser</b>: " . $inkbd->error; 
+	   	//header("Location: http://$host$uri/Registro.php");
+		$_SESSION["error2"] = "Permiso denegado"
+		exit;
+	 }
+	 else{
+	 	$_SESSION["usuario"]=$name2;
+	 }
+	
+
+	require_once("inc/header_logged.php"); 
 
 ?>
 

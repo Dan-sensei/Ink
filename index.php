@@ -3,85 +3,40 @@
 	require_once("inc/head.php"); 
 	require_once("inc/header.php"); 
 
-	
+	$sql_getFotos = "SELECT * FROM `fotos` ORDER BY IdFoto DESC LIMIT 5";
+	if(!($resultado = $inkbd->query($sql_getFotos))) { 
+		echo "<p>Error al ejecutar la sentencia <b>$sql_getFotos</b>: " . $inkbd->error; 
+		echo "</p>"; 
+		exit; 
+	} 
 ?>
 	<section id="columnas">
-		<figure>
-			<a href="Detalle_foto.php?trigger=true">
-				<div>
-					<img src="img/Zed.jpg" alt="Zed" class="img" title="Sona">
-					<div><p>
-							<span class="titulo">Titulo 1</span><br>
-							21/7/2017<br>
-							Alemania</p>
-						</div>
-				</div>
-			</a>
-		</figure>
+		<?php
+		while($image = $resultado->fetch_assoc() ) {
+			if($image['Fecha']!="0000-00-00")
+				$date = date_create($image['Fecha'])->format('d-m-Y')."<br>";
+			else
+				$date = "";
 
-		<figure>
-			<a href="Detalle_foto.php?trigger=false">
-				<div>
-					<img src="img/p5.jpg" alt="Sona" title="Imagen5">
-					<div>
-						<p>
-							<span class="titulo">Titulo 1</span><br>
-							21/7/2017<br>
-							Alemania
-						</p>
-					</div>
-				</div>
-
-			</a>
-		</figure>
-
-		<figure>
-			<a href="Detalle_foto.php?trigger=true">
-				<div>
-					<img src="img/p1.jpg" alt="Sona" title="Imagen2">
-					<div>
-						<p>
-						<span class="titulo">Titulo 1</span><br>
-						21/7/2017<br>
-						Alemania
-					</p>
-					</div>
-				</div>
-				
-			</a>
-		</figure>
-
-		<figure>
-			<a href="Detalle_foto.php?trigger=false">
-				<div>
-					<img src="img/Midoriya.jpg" alt="Sona">
-					<div>
-						<p>
-						<span class="titulo">Titulo 1</span><br>
-						21/7/2017 <br>
-						Alemania
-					</p>
-					</div>
-					
-				</div>
-			</a>
-		</figure>
-
-		<figure>
-			<a href="Detalle_foto.php?trigger=true">
-				<div>
-					<img src="img/p2.jpg" alt="Sona">
-					<div>
-						<p>
-						<span class="titulo">Titulo 1</span><br>
-						21/7/2017 <br>
-						Alemania
-					</p>
-					</div>
-				</div>
-			</a>
-		</figure>
-
+			$sql_getPaisC = "SELECT * FROM `paises` WHERE IdPais = '".$image['Pais']."'";
+			if(!($resultado2 = $inkbd->query($sql_getPaisC))) { 
+				echo "<p>Error al ejecutar la sentencia <b>$sql_getPaisC</b>: " . $inkbd->error; 
+				echo "</p>"; 
+				exit; 
+			} 
+			$pais = $resultado2->fetch_assoc();
+			echo   "<figure>
+						<a href='Detalle_foto.php?id=".$image['IdFoto']."'>
+							<div>
+								<img src='".$image['Fichero']."' alt='".$image['Titulo']."'>
+								<div><p>
+										<span class='titulo'>".$image['Titulo']."</span><br>".$date.$pais['NomPais']."</p>
+								</div>
+							</div>
+						</a>
+					</figure>";
+		} 
+		?>
 	</section>
 
 <?php
