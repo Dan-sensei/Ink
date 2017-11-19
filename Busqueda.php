@@ -7,6 +7,8 @@
 	   echo "</p>"; 
 	   exit; 
 	 } 
+
+	 
 ?>
 
 	<section id="busqueda_avanzada">

@@ -2,13 +2,20 @@
 	require_once("inc/head.php"); 
 	require_once("inc/header_logged.php"); 
 
-	$sql = "SELECT Titulo FROM `usuarios`, `albumes` WHERE IdUsuario=Usuario";
+	$sql = "SELECT * FROM `usuarios`, `albumes` WHERE NomUsuario = '".$_SESSION["usuario"]."' AND IdUsuario=Usuario";
 	if(!($resultado = $inkbd->query($sql))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 		echo "</p>"; 
 		exit;
 	}
 
+	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
+
+	if(!($resultado2 = $inkbd->query($sql_getPais))) { 
+	   echo "<p>Error al ejecutar la sentencia <b>$sql_getPais</b>: " . $inkbd->error; 
+	   echo "</p>"; 
+	   exit; 
+	 } 
 ?>
 	
 	<section id="solicitar">
@@ -153,8 +160,15 @@
 					<p><input type="text" name="direccion" id="direccion" placeholder="Calle y número" required></p>
 					<p><input type="text" name="direccion2" id="direccion2" placeholder="Bloque, piso, escalera, etc."></p>
 
-					<label for="pais">País<span>*</span></label>
-					<p><input type="text" name="pais" id="pais" required></p>
+					<label for="country">País</label>
+					<select form="busqueda" class="extra" name="country" id="country">
+						<option selected='selected' value=''></option>
+						<?php 
+							while($option = $resultado2->fetch_assoc() ) { 
+								echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+						 	} 
+						?>
+					</select>
 
 					<label for="ciudad">Ciudad<span>*</span></label>
 					<p><input type="text" name="ciudad" id="ciudad" required></p>

@@ -84,10 +84,10 @@
 		</div>
 
 		<div>
-			<form action="Resultado.php">
+			<form action="Resultado.php" method="post">
 				<div class="busqueda">
 	      			<input tabindex="3" class="icon" type="submit" value="">
-					<input tabindex="2" type="search" id="search" name="fname" placeholder="Fotos, lugares, ideas...">
+					<input tabindex="2" type="search" id="title" name="title" placeholder="Fotos, lugares, ideas...">
 
 					<a class="avanzada" href="Busqueda.php"><span>Búsqueda avanzada</span></a>
 				</div>

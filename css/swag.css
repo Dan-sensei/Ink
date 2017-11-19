@@ -264,7 +264,8 @@ header + section{
 	border-radius: 10px;
 	vertical-align: bottom;
 }
-#columnas figure a > div > div, #columnas2 figure a > div > div, #columnas3 figure a > div > div{
+#columnas3 figure img{border-radius:0px;}
+#columnas figure a > div > div, #columnas2 figure a > div > div{
 	background-color: black;
 	border-radius: 10px;
 	position: absolute;
@@ -283,8 +284,9 @@ header + section{
 	opacity: 0;
 }
 #columnas3{width: 90%;}
-#columnas3 figure a > div > div{border-radius: 10px}
-#columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo, #columnas3 figure a > div > div .titulo{font-size: 20px; color: #9741af;}
+#columnas3 figure a > div + div{color: white;}
+#columnas3 figure a > div + div > p {font-size: 15px; font-weight: bold; text-align: center;}
+#columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo, #columnas3 figure a > div + div .titulo{font-size: 17px; color: #9741af;}
 #columnas figure a:hover > div > div, #columnas2 figure a:hover > div > div, #columnas3 figure a:hover > div > div{opacity:0.8;}
 
 #columnas2 {
@@ -821,6 +823,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #crear_album label, #crear_album input, #crear_album .fuente_centrada{
 	width: 20%;
 }
+#crear_album select{width: 20%;}
 .fuente_centrada a{color: white;}
 
 #insercion{
@@ -870,7 +873,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	margin: 0 auto;
 	width: 20%;
 }
-
+#albumes{padding-top: 100px; margin: 0;}
 footer{
 	font-size: 11px;
 	padding-left: 10px;

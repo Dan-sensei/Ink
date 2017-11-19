@@ -38,8 +38,9 @@
 		 	$sql_getFotos = $sql_getFotos .$and. " Pais = '".$country."'";
 		}
 	}
-	else
+	else{
 		$sql_getFotos = "SELECT * FROM `fotos`";
+	}
 	
 
 	if(!($resultado = $inkbd->query($sql_getFotos))) { 
@@ -68,7 +69,7 @@
 			</div>
 			<div class="filtro">
 				<label for="country">País</label>
-				<select form="busqueda" class="extra" name="country" id="country">
+				<select form="parametros" class="extra" name="country" id="country">
 					<option selected='selected' value=''></option>
 					<?php 
 						while($option = $resultado2->fetch_assoc() ) { 
@@ -84,8 +85,9 @@
 	</div>
   <section id="columnas2">
   		<?php
-
+  		$c = 0;
 		while($image = $resultado->fetch_assoc() ) {
+			$c=$c+1;
 			if($image['Fecha']!="0000-00-00")
 				$date = date_create($image['Fecha'])->format('d m Y')."<br>";
 			else
@@ -109,6 +111,9 @@
 						</a>
 					</figure>";
 		} 
+		if($c==0){
+			echo "<h2 style='color:white;'> No hay resultados</h2>";
+		}
   		?>
 	</section>
 

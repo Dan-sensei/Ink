@@ -1,7 +1,8 @@
 ﻿<?php 
 require_once("inc/head.php"); 
 require_once("inc/header_logged.php"); 
-
+$host = $_SERVER["HTTP_HOST"];
+	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
 $sql= "SELECT * FROM `fotos` WHERE IdFoto='".$_GET['id']."'";
 if(!($resultado = $inkbd->query($sql))) { 
 	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
@@ -41,6 +42,7 @@ if(!($resultado = $inkbd->query($sql))) {
 }
 $usuario = $resultado->fetch_assoc();
 
+$idAlbum = $album['IdAlbum'];	
 $album = $album['Titulo'];			//--------------TITULO DEL ALBUM
 $usuario= $usuario['NomUsuario'];		//--------------NOMBRE DE USUARIO
 
@@ -53,12 +55,16 @@ $usuario= $usuario['NomUsuario'];		//--------------NOMBRE DE USUARIO
 		</div>
 		<div>
 			<?php
+				if($titulo==""){
+					header("Location: http://$host$uri/Busqueda.php"); 
+					exit;
+				}
 				$detalle = 	"<p>" . $titulo . "</p>";
-				
+				if($descripcion!="") $detalle = $detalle . "<p>" . $descripcion . "</p>";
 				if($fecha!="0000-00-00") $detalle = $detalle . "<p>" . $fecha . "</p>";
 				if($pais!="") $detalle = $detalle . "<p>" . $pais . "</p>";
 				
-				$detalle = $detalle . "<a href=#> Album: " . $album . "</a>
+				$detalle = $detalle . "<a href='Album.php?id=".$idAlbum."''> Album: " . $album . "</a>
 									<a href=#> Usuario: " . $usuario . "</a>";
 				echo $detalle;
 

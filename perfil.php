@@ -18,6 +18,7 @@
 				<a href="albumes.php">Mis álbumes</a><br>
 				<a href="crear_album.php">Crear un nuevo álbum</a><br>
 				<a href="Solicitar.php">Solicitar álbum impreso</a><br>
+				<a href="addFoto.php">Añadir foto a album</a><br>
 				<a href="#">Darse de baja</a>
 
 			</nav>

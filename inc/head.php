@@ -16,6 +16,10 @@ $inkbd = @new mysqli(
    echo '</p>'; 
    exit; 
  } 
+if (!$inkbd->set_charset("utf8")) {
+    printf("Error cargando el conjunto de caracteres utf8: %s\n", $inkbd->error);
+    exit;
+}
 
 $actual_link = "$_SERVER[REQUEST_URI]";
 switch (true) {

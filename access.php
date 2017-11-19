@@ -57,7 +57,7 @@
 
 		$bool=false;
 
-		$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE NomUsuario='". $GET_Usuario ."' AND Clave ='". $GET_Code ."'";
+		$sql = "SELECT COUNT(IdUsuario) as 'exists', IdUsuario FROM `usuarios` WHERE NomUsuario='". $GET_Usuario ."' AND Clave ='". $GET_Code ."'";
 		if(!($resultado = $inkbd->query($sql))) { 
 			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 			echo "</p>"; 
@@ -67,7 +67,7 @@
 
 		if($c['exists'] == 1){
 			$_SESSION["usuario"]=$GET_Usuario;
-
+			$_SESSION["IDusuario"]=$c['IdUsuario'];
 			$datos = array(
 				"0" => $GET_Usuario,
 				"1" => $GET_Code,
