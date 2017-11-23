@@ -2,21 +2,20 @@
 	include_once("inc/head.php");
 	include_once("inc/header_logged.php");
 
-	$sql = "SELECT * FROM `usuarios`, `albumes` WHERE NomUsuario = '".$_SESSION["usuario"]."' AND IdUsuario=Usuario";
+	$sql = "SELECT Fecha, NomPais, IdAlbum, Titulo 
+			FROM (`usuarios` INNER JOIN `albumes` ON IdUsuario = '".$_SESSION["IdUsuario"]."' AND Usuario = IdUsuario) LEFT JOIN `paises` ON albumes.Pais=IdPais";
+
 	if(!($resultado = $inkbd->query($sql))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 		echo "</p>"; 
 		exit;
 	}
-	$pais = $resultado->fetch_assoc();
-
 ?>
 
 	<section id="albumes">
 
-		<h3>Mis albumes</h3>	
-		<div id="columnas3">
-
+		<h3>Mis albumes</h3>
+		
 			<?php 
 			$c = 0;
 				while($option = $resultado->fetch_assoc() ) { 
@@ -24,17 +23,12 @@
 					$c=$c+1;
 					$fecha="";
 					if($option['Fecha']!="0000-00-00"){
-						$date = date_create($option['Fecha'])->format('d m Y')."<br>";
+						$fecha = date_create($option['Fecha'])->format('d m Y')."<br>";
 					}
 
-					$sql_getPaisC = "SELECT * FROM `paises` WHERE IdPais = '".$option['Pais']."'";
-					if(!($resultado2 = $inkbd->query($sql_getPaisC))) { 
-						echo "<p>Error al ejecutar la sentencia <b>$sql_getPaisC</b>: " . $inkbd->error; 
-						echo "</p>"; 
-						exit; 
-					} 
-					$pais = $resultado2->fetch_assoc();
-					echo "<figure>
+					
+					echo "<div id='columnas3'>
+							<figure>
 							<a href='Album.php?id=".$option['IdAlbum']."'>
 								<div>
 									<img src='img/album_icon.png'>
@@ -42,21 +36,22 @@
 								</div>
 								<div>
 									<p>
-										<span class='titulo'>".$option['Titulo']."</span><br>".$fecha.$pais['NomPais']."
+										<span class='titulo'>".$option['Titulo']."</span><br>".$fecha.$option['NomPais']."
 									</p>
 								</div>
 							</a>
-						</figure>";
+						</figure>
+						</div>";
 
 
 			 	} 
 
 			 	if($c==0){
-					echo "<h2 style='color:white; text-align: center;'> Nada que mostrar</h2>";
+					echo "<h2 style='color:white; text-align: center;'>No tienes nigun album</h2>";
 				}
 			?>
 
-		</div>
+		
 	</section>
 
 <?php

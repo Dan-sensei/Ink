@@ -1,9 +1,11 @@
 ﻿<?php 
 require_once("inc/head.php"); 
 require_once("inc/header_logged.php"); 
-$host = $_SERVER["HTTP_HOST"];
-	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
-$sql= "SELECT * FROM `fotos` WHERE IdFoto='".$_GET['id']."'";
+
+$sql=  "SELECT fotos.Titulo as fTitulo, fotos.Descripcion as fDescripcion, fotos.Fecha as fFecha, Fichero, NomPais, IdAlbum, albumes.Titulo as aTitulo, NomUsuario 
+		FROM `fotos`,`paises`,`albumes`,`usuarios` 
+		WHERE IdFoto='".$_GET['id']."' AND fotos.Pais = IdPais AND Album = IdAlbum and Usuario = IdUsuario";
+
 if(!($resultado = $inkbd->query($sql))) { 
 	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 	echo "</p>"; 
@@ -12,53 +14,31 @@ if(!($resultado = $inkbd->query($sql))) {
 
 $image = $resultado->fetch_assoc();
 
-$foto = "'".$image['Fichero']  . "'";			//--------------------PATH
-$titulo = $image['Titulo'];						//--------------------TITULO
-$descripcion = $image['Descripcion'];			//--------------------DESCRIPCION
-$fecha = $image['Fecha'];						//--------------------FECHA
+$foto = "'" . $image['Fichero'] . "'";
+$titulo = $image['fTitulo'];
+$descripcion = $image['fDescripcion'];
+$fecha = $image['fFecha'];
+$pais= $image['NomPais'];
+$idAlbum = $image['IdAlbum'];	
+$album = $image['aTitulo'];
+$usuario= $image['NomUsuario'];	
 
-//Cojo el nombre del pais en vez de su Id
-$sql = "SELECT * FROM `paises` WHERE IdPais='".$image['Pais']."'";
-if(!($resultado = $inkbd->query($sql))) { 
-	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
-	echo "</p>"; 
-	exit;
+if($titulo==""){
+	echo "<section id='albumes'>
+			<div id='NotFound'>
+				<img  src='img/404 not found.png' alt='Elemento no encontrado'>
+			</div>
+		</section>";
 }
-$pais = $resultado->fetch_assoc();
-$pais=	$pais['NomPais'];	//-------------------NOMBRE DEL PAIS
-
-$sql = "SELECT * FROM `albumes` WHERE IdAlbum='".$image['Album']."'";
-if(!($resultado = $inkbd->query($sql))) { 
-	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
-	echo "</p>"; 
-	exit;
-}
-$album = $resultado->fetch_assoc();
-$sql = "SELECT * FROM `usuarios` WHERE IdUsuario='".$album['Usuario']."'";
-if(!($resultado = $inkbd->query($sql))) { 
-	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
-	echo "</p>"; 
-	exit;
-}
-$usuario = $resultado->fetch_assoc();
-
-$idAlbum = $album['IdAlbum'];	
-$album = $album['Titulo'];			//--------------TITULO DEL ALBUM
-$usuario= $usuario['NomUsuario'];		//--------------NOMBRE DE USUARIO
-
-
+else{
 ?>
-
 	<section id="detalle">
+
 		<div>
 			<img src=<?php echo $foto?> alt="PI">
 		</div>
 		<div>
 			<?php
-				if($titulo==""){
-					header("Location: http://$host$uri/Busqueda.php"); 
-					exit;
-				}
 				$detalle = 	"<p>" . $titulo . "</p>";
 				if($descripcion!="") $detalle = $detalle . "<p>" . $descripcion . "</p>";
 				if($fecha!="0000-00-00") $detalle = $detalle . "<p>" . $fecha . "</p>";
@@ -73,5 +53,6 @@ $usuario= $usuario['NomUsuario'];		//--------------NOMBRE DE USUARIO
 	</section>
 
 <?php
+}
 require_once("inc/footer.inc"); 
 ?>

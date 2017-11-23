@@ -67,7 +67,7 @@
 
 		if($c['exists'] == 1){
 			$_SESSION["usuario"]=$GET_Usuario;
-			$_SESSION["IDusuario"]=$c['IdUsuario'];
+			$_SESSION["IdUsuario"]=$c['IdUsuario'];
 			$datos = array(
 				"0" => $GET_Usuario,
 				"1" => $GET_Code,
