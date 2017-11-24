@@ -18,6 +18,7 @@
 		
 			<?php 
 			$c = 0;
+			echo "<div id='columnas3'>";
 				while($option = $resultado->fetch_assoc() ) { 
 
 					$c=$c+1;
@@ -27,8 +28,7 @@
 					}
 
 					
-					echo "<div id='columnas3'>
-							<figure>
+					echo "<figure>
 							<a href='Album.php?id=".$option['IdAlbum']."'>
 								<div>
 									<img src='img/album_icon.png'>
@@ -40,12 +40,11 @@
 									</p>
 								</div>
 							</a>
-						</figure>
-						</div>";
+						</figure>";
 
 
 			 	} 
-
+			 	echo "</div>";
 			 	if($c==0){
 					echo "<h2 style='color:white; text-align: center;'>No tienes nigun album</h2>";
 				}

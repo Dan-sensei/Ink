@@ -1,13 +1,9 @@
 ﻿<?php 
 	require_once("inc/head.php");
-	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
-
-	if(!($resultado = $inkbd->query($sql_getPais))) { 
-	   echo "<p>Error al ejecutar la sentencia <b>$sql_getPais</b>: " . $inkbd->error; 
-	   echo "</p>"; 
-	   exit; 
-	 } 
-
+	$sql_getPais = "SELECT IdPais, NomPais FROM `paises` ORDER BY NomPais ASC";
+	$error= false;
+	if(!($resultado = $inkbd->query($sql_getPais)))
+		$error= true;
 	 
 ?>
 
@@ -24,16 +20,23 @@
 				<label for="date1">Fecha entre </label>
 				<p><input id="date1" name="date1" type="date"> <span>y</span> <input id="date2" name="date2" type="date"></p>
 
-				<label for="country">País</label>
-				<select form="busqueda" class="extra" name="country" id="country">
-					<option selected='selected' value=''></option>
-					<?php 
-						while($option = $resultado->fetch_assoc() ) { 
-							echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
-					 	} 
-					?>
-				</select>
+				
 
+				<label for="country">País</label>
+				<?php 
+				if (!$error){
+					echo "<select form='busqueda' class='extra' name='country' id='country'>
+						<option selected='selected' value=''></option>";
+					
+							while($option = $resultado->fetch_assoc() ) { 
+								echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+						 	} 
+						
+					echo "</select>";
+				}
+				else
+					echo "<p><input type='text' id='country' name='country'></p>";
+				?>
 				<p><input type="submit" value="Buscar"></p>
 		  </form>
 		</div>  
