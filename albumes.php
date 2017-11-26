@@ -2,7 +2,7 @@
 	include_once("inc/head.php");
 	include_once("inc/header_logged.php");
 
-	$sql = "SELECT Fecha, NomPais, IdAlbum, Titulo 
+	$sql = "SELECT Fecha, NomPais, IdAlbum, Titulo, Descripcion, Cover 
 			FROM (`usuarios` INNER JOIN `albumes` ON IdUsuario = '".$_SESSION["IdUsuario"]."' AND Usuario = IdUsuario) LEFT JOIN `paises` ON albumes.Pais=IdPais";
 
 	if(!($resultado = $inkbd->query($sql))) { 
@@ -19,24 +19,25 @@
 			<?php 
 			$c = 0;
 			echo "<div id='columnas3'>";
-				while($option = $resultado->fetch_assoc() ) { 
-
+				while($option = $resultado->fetch_assoc() ) {
 					$c=$c+1;
 					$fecha="";
 					if($option['Fecha']!="0000-00-00"){
 						$fecha = date_create($option['Fecha'])->format('d m Y')."<br>";
 					}
-
+					if(empty($option['Cover']))
+						$option['Cover'] = 'img/icon.png';
 					
 					echo "<figure>
 							<a href='Album.php?id=".$option['IdAlbum']."'>
 								<div>
-									<img src='img/album_icon.png'>
-									
+									<img src='".$option['Cover']."' alt='Album ".$c."'>	
 								</div>
 								<div>
 									<p>
-										<span class='titulo'>".$option['Titulo']."</span><br>".$fecha.$option['NomPais']."
+										<span class='titulo'>".$option['Titulo']."</span><br>
+										<span>".$option['Descripcion']."</span><br>
+										".$fecha.$option['NomPais']."
 									</p>
 								</div>
 							</a>
@@ -54,5 +55,5 @@
 	</section>
 
 <?php
-	require_once("inc/footer.inc"); 
+	require_once("inc/footer.php"); 
 ?>

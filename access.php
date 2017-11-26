@@ -16,11 +16,9 @@
 						"3" => getdate(),
 						"4" => "0",
 			);
-
 			//GALLETAS---------------------------------------------------------------------		
 			setcookie("recuerdame", json_encode($datos), time() + 365 * 24 * 60 * 60);
 		}
-		//setcookie("recuerdame", "asd",time()-3600);
 		header("Location: http://$host$uri/index.php");
 		exit;
 	}
@@ -30,19 +28,11 @@
 		exit;
 	}
 
-
-	if((!(isset($_POST["fname"])) || $_POST["fname"]=="") && !(isset($_COOKIE["recuerdame"])) ){
-		
+	if((!(isset($_POST["fname"])) || empty($_POST["fname"])) && !(isset($_COOKIE["recuerdame"])) ){		
 		header("Location: http://$host$uri/Registro.php"); 
 		exit;
 	}
 	else{
-
-		$usuarios = array(
-		    "Dan" => "123",
-		    "Danny" => "1234",
-		    "Datrix" => "12345",
-		);
 
 		if(!(isset($_POST["fname"])) && isset($_COOKIE["recuerdame"])){
 			$data = json_decode($_COOKIE['recuerdame'], true);
@@ -53,7 +43,6 @@
 			$GET_Usuario = $_POST["fname"];
 			$GET_Code = $_POST["code_login"];
 		}
-		require_once("inc/footer.inc"); 
 
 		$bool=false;
 
@@ -91,6 +80,7 @@
 			$extra = "registro.php";
 		}
 
+		require_once("inc/footer.php"); 
 		header("Location: http://$host$uri/$extra"); 
 		exit;
 	}

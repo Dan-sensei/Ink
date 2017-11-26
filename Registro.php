@@ -65,7 +65,23 @@
 	   echo "</p>"; 
 	   exit; 
 	 } 
-		
+	
+	if(!isset($_SESSION['datosYerrores'])){
+		$datosYerrores = array(
+			0 => array("",""),
+			1 => array("",""),
+			2 => array("",""),
+			3 => array("-1",""),
+			4 => array("",""),
+			5 => array("",""),
+			6 => array("",""),
+			7 => array("",""),
+			8 => ""
+		);
+	}else{
+		$datosYerrores = $_SESSION['datosYerrores'];
+		unset($_SESSION['datosYerrores']);
+	}
 ?>
 	<section id="acceso">
 		<div>
@@ -84,39 +100,48 @@
 		  <form action="Insercion.php" method="post" enctype="multipart/form-data" id="registro">
 		  		<h3>Registro</h3>
 		  		<label for="name2">Nombre<span>*</span></label>
-				<p><input type="text" name="name2"  id="name2" placeholder="Nombre de usuario" required></p>
+				<p><input type="text" name="name2" id="name2" placeholder="Nombre de usuario" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[0][1]?></span></p>
 
 				<label for="code">Contraseña<span>*</span></label>
 				<p><input type="password" name="code"  id="code" placeholder="Contraseña" required></p>
 
 				<label for="code2">Confirmar contraseña<span>*</span></label>
 				<p><input type="password" name="code2"  id="code2" placeholder="Repetir contraseña" required></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[1][1]?></span></p>
 
 				<label for="email">Email<span>*</span></label>
-				<p><input type="email" name="email" id="email" placeholder="example@gmail.com" required></p>
-				<p class="fuente_centrada"><br>Sexo</p>
+				<p><input type="email" name="email" id="email" placeholder="example@gmail.com" value=<?php echo "'".$datosYerrores[2][0]."'" ?> required></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[2][1]?></span></p>
+
+				<label for="otro">Sexo<span>*</span></label>
 				<div>
+					
 					<div class="radio_div">
 						<label for="hombre">Hombre</label>
-						<input type="radio" name="gender" id="hombre" value=0>
+						<input type="radio" name="gender" id="hombre" <?php if($datosYerrores[3][0]==0) echo "checked='checked'"?> value=0 required>
 					</div>
 
 					<div class="radio_div">
 						<label for="mujer">Mujer</label>
-						<input type="radio" name="gender" id="mujer" value=1>
+						<input type="radio" name="gender" id="mujer" <?php if($datosYerrores[3][0]==1) echo "checked='checked'"?> value=1>
 					</div>
 
 					<div class="radio_div">
 						<label for="otro">Otro</label>
-						<input type="radio" name="gender" id="otro" value=2>
+						<input type="radio" name="gender" id="otro" <?php if($datosYerrores[3][0]==2) echo "checked='checked'"?> value=2>
 					</div>
 				</div>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[3][1]?></span></p>
+
 				<label for="date">Fecha de nacimiento<span>*</span></label>
-				<p><input id="date" name="date" type="date" required></p>
+				<p><input id="date" name="date" type="date" value=<?php echo "'".$datosYerrores[4][0]."'" ?> required></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1]?></span></p>
 
 				<label for="city">Ciudad<span>*</span></label>
-				<p><input type="text" name="city" id="city" placeholder="Ciudad" required></p>
-						
+				<p><input type="text" name="city" id="city" placeholder="Ciudad" value=<?php echo "'".$datosYerrores[5][0]."'" ?> required></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1]?></span></p>
+
 				<label for="pais">País<span>*</span></label>
 				<select form="registro" class="extra" name="pais" id="pais">
 					<?php 
@@ -130,9 +155,14 @@
 					 	} 
 					?>
 				</select>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
+
 				<label for="pic">Foto</label>
 				<p><input type="file" name="pic" id="pic" accept="image/*"></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[7][1]?></span></p>
+
 				<p class="fuente_centrada"><span>*</span><span class="obligatorio">Obligatorio</span></p>
+				<p class="fuente_centrada"><span><?php echo $datosYerrores[8]?></span></p>
 				<p class="fuente_centrada"><span><?php echo $message2?></span></p>
 				<p><br><input type="submit" name="submit" value="Registrarse"></p>
 		  </form>
@@ -140,7 +170,7 @@
 	</section>
 
 <?php
+
 	$resultado->close(); 
-	$inkbd->close(); 
-	require_once("inc/footer.inc"); 
+	require_once("inc/footer.php"); 
 ?>

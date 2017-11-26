@@ -7,9 +7,20 @@
 				$data = json_decode($_COOKIE['recuerdame'], true);
 				$fecha="<br>ult. vez <br><span>".$data['3']['mday']."/".$data['3']['mon']."/".$data['3']['year']."</span> <span>".$data['3']['hours'].":".$data['3']['minutes']."</span>";
 			}
+
+			$id=intval($_SESSION['IdUsuario']);
+			$sql = "SELECT Foto FROM `usuarios` WHERE IdUsuario =".$id;
+			if(!($resultado = $inkbd->query($sql))) { 
+				echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+				echo "</p>"; 
+				exit;
+			}
+
+			$user = $resultado->fetch_assoc();
+
 			$logged =	"<a href='perfil.php'>
 							<div>
-								<img src='img/Sona_profile.png' id='user_mini'>
+								<img src='".$user['Foto']."' id='user_mini'>
 
 								<span class='saludo_small'> Hola, <span class='saludo_big'>" . $_SESSION["usuario"] ."</span>".$fecha."</span>
 
@@ -45,34 +56,8 @@
 						</a>
 					</div>
 				</header>";
-			}
-			
-			/*
-			
-			$logged = 	"<a href='registro.php' id='login'>
-							<span>Homeee</span>
-						</a>
-					</div>
-				</header>";
-
-				*/
-				
+			}		
 		}
-
-		/*
-		$logged =	"<a href='perfil.php'>
-							<div>
-								<img src='img/Sona_profile.png' id='user_mini'>
-								<span class='saludo_small'> Hola, <span class='saludo_big'>" . $_SESSION["usuario"] ."</span> <br>ult. vez <br>10/10/2010 10:10</span>
-							</div>
-						</a>
-						<div>
-							<a id='logout' href='access.php?logout=true'><span>Logout</span></a>
-						</div>
-					</div>
-				</header>";
-		*/
-
 	?>
 
 	<header>

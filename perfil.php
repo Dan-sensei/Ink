@@ -1,6 +1,21 @@
 <?php 
 	require_once("inc/head.php"); 
-	require_once("inc/header_logged.php"); 
+	require_once("inc/header_logged.php");
+
+	$id=intval($_SESSION['IdUsuario']);
+	$sql = "SELECT Foto, Email, Sexo, FNacimiento, Ciudad, NomPais FROM `usuarios`,`paises` WHERE IdUsuario =".$id." AND Pais=IdPais";
+	if(!($resultado = $inkbd->query($sql))) { 
+		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+		echo "</p>"; 
+		exit;
+	}
+
+	$user = $resultado->fetch_assoc();
+	$Sexo = array(
+		0 => 'Hombre',
+		1 => 'Mujer',
+		2 => 'Otro'
+	);
 ?>
 
 	<section id="perfil">
@@ -25,20 +40,26 @@
 		</aside>
 		<div>
 			<span>
-				<img src="img/Sona_profile.png" class="user">
+				<?php echo "<img src='".$user['Foto']."' class='user'> "?>
 				<h1><?php echo $_SESSION["usuario"] ?></h1>
 			</span>	
 		</div>
 		<section>
 			<div>
-				<p><b>Sexo:</b> Hombre</p>
-				<p><b>Email: </b>datrixz997@gmail.com</p>
-				<p><b>Móvil: </b>658640065</p>
-				<p><b>Ciudad: </b>Ibi</p>
-				<p><b>País: </b>España</p>
+				<?php
+				if($user['Sexo']!=null)
+					echo "<p><b>Sexo: </b>".$Sexo[$user['Sexo']]."</p>";
+				$date = date_create($user['FNacimiento'])->format('d-m-Y');
+
+				echo   "<p><b>Email: </b>".$user['Email']."</p>
+						<p><b>Ciudad: </b>".$user['Ciudad']."</p>
+						<p><b>País: </b>".$user['NomPais']."</p>
+						<p><b>Fecha de nacimiento: </b>".$date."</p>";
+				?>
 			</div>
 		</section>
 	</section>
 <?php
-	require_once("inc/footer.inc"); 
+	$resultado->close();
+	require_once("inc/footer.php"); 
 ?>

@@ -9,56 +9,66 @@
 		exit;
 	}
 	$title = $resultado->fetch_assoc();
+	$resultado->close();
 
-	$sql = "SELECT albumes.Titulo, IdFoto, fotos.Titulo as fTitulo, fotos.Descripcion as fDescripcion, fotos.fecha as fFecha, fotos.Pais as fPais, Fichero, NomPais
-			FROM (`fotos`,`albumes` WHERE Album = '".$_GET['id']."' ) LEFT JOIN `paises` ON fotos.Pais = IdPais";
+	$id = intval($_GET['id']);
+
+	$sql = "SELECT COUNT(*) as 'exists'
+			FROM `fotos` INNER JOIN `albumes` ON Album=IdAlbum AND Album = ".$id;
 	if(!($resultado = $inkbd->query($sql))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 		echo "</p>"; 
 		exit;
 	}
-	
-?>
-	<section id="albumes">
-		<?php
-		if($title['Titulo']!=""){
-			 echo "<h3>".$title['Titulo'],"</h3>";	
-				echo "<div id='columnas'>";
+	$image = $resultado->fetch_assoc();
 
-				$c=0;
-				while($image = $resultado->fetch_assoc() ) {
-					$c=$c+1;
-					if($image['fFecha']!="0000-00-00")
-						$date = date_create($image['fFecha'])->format('d-m-Y')."<br>";
-					else
-						$date = "";
-
-					echo   "<figure>
-								<a href='Detalle_foto.php?id=".$image['IdFoto']."'>
-									<div>
-										<img src='".$image['Fichero']."' alt='".$image['fTitulo']."'>
-										<div><p>
-												<span class='titulo'>".$image['fTitulo']."</span><br>".$date.$image['NomPais']."</p>
-										</div>
-									</div>
-								</a>
-							</figure>";
-				} 
-				echo "</div>";
-				if($c==0){
-					echo "<h2 style='color:white; text-align:center;'>No hay fotos añadidas a este album</h2>";
-				}
+	if(empty($title['Titulo'])){
+		$error = 0;
+		require("inc/error.php");
+	}
+	else{
+		echo "<section id='albumes'>
+				<h3>".$title['Titulo']."</h3>";
+		if($image['exists']==0){
+			echo "<h2 style=' margin:0; padding-top:20px; color:white; text-align:center;'>No hay fotos añadidas a este album</h2>";
 		}
 		else{
-			echo "<div id='NotFound'>
-					<img  src='img/404 not found.png' alt='Elemento no encontrado'>
-				</div>";
+
+			$sql = "SELECT albumes.Titulo as aTitulo, IdFoto, fotos.Titulo as fTitulo, fotos.Descripcion as fDescripcion, fotos.fecha as fFecha, fotos.Pais as fPais, Fichero, NomPais
+			FROM (`fotos` INNER JOIN `albumes` ON Album=IdAlbum AND Album = ".$id.") LEFT JOIN `paises` ON fotos.Pais = IdPais";
+			
+			if(!($resultado = $inkbd->query($sql))) { 
+				echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+				echo "</p>"; 
+				exit;
+			}
+			$image = $resultado->fetch_assoc();
+
+			echo "<div id='columnas'>";
+			do {
+				if($image['fFecha']!="0000-00-00")
+					$date = date_create($image['fFecha'])->format('d-m-Y')."<br>";
+				else
+					$date = "";
+
+				echo   "<figure>
+							<a href='Detalle_foto.php?id=".$image['IdFoto']."'>
+								<div>
+									<img src='".$image['Fichero']."' alt='".$image['fTitulo']."'>
+									<div><p>
+											<span class='titulo'>".$image['fTitulo']."</span><br>".$date.$image['NomPais']."</p>
+									</div>
+								</div>
+							</a>
+						</figure>";
+
+			} while($image = $resultado->fetch_assoc() );
+
+			echo "</div>
+				</section>";
 		}
-			?>
+	}
 
-		
-	</section>
-
-<?php
-	require_once("inc/footer.inc"); 
+	$resultado->close(); 
+	require_once("inc/footer.php"); 
 ?>

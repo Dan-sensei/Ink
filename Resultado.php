@@ -20,38 +20,35 @@
 
 	$and = "";
 	if(!empty($title) || !empty($date1) || !empty($date2) || !empty($country)){
-		$sql_getFotos = "SELECT IdFoto, Titulo, Fecha, Fichero, NomPais FROM `fotos` WHERE (";
-		if($title!=""){
+		$sql_getFotos = "SELECT IdFoto, Titulo, Fecha, Fichero, NomPais FROM `fotos` LEFT JOIN `paises` ON fotos.Pais = IdPais WHERE ";
+		if(!empty($title)){
 			$sql_getFotos = $sql_getFotos . "Titulo like '%".$title."%' ";
 			$and = "AND";
 		}
-		if($date1!=""){
+		if(!empty($date1)){
 			$sql_getFotos = $sql_getFotos .$and. " Fecha > '".$date1."' ";
 			$and = "AND";
 		}
-		if($date2!=""){
+		if(!empty($date2)){
 			$sql_getFotos = $sql_getFotos .$and. " Fecha < '".$date2."' ";
 			$and = "AND";
 		}
-		if($country!=""){
+		if(!empty($country)){
 		 	$sql_getFotos = $sql_getFotos .$and. " Pais = '".$country."'";
 		}
-		$sql_getFotos = $sql_getFotos + ") LEFT JOIN `paises` ON fotos.Pais = IdPais";
 	}
 	else
 		$sql_getFotos = "SELECT IdFoto, Titulo, Fecha, Fichero, NomPais FROM `fotos` LEFT JOIN `paises` ON fotos.Pais = IdPais";
 	
-
 	if(!($resultado = $inkbd->query($sql_getFotos))) 
 		$error_consulta = true;
 
 	$sql_getPais = "SELECT IdPais, NomPais FROM `paises` ORDER BY NomPais ASC";
 	if(!($paises = $inkbd->query($sql_getPais))) 
 		$error_paises = true;
-
 ?>
 	<div id="panel">
-		<form action="Resultado.php" method="post" id="parametros">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="parametros">
 			<div class="filtro">
 				<label for="title">Título</label>
 				<p><input type="text" id="title" name="title" value=<?php echo "'".$title."'" ?>  ></p>
@@ -82,8 +79,10 @@
 			</div>
 		</form>
 	</div>
+	
   <section id="columnas2">
   		<?php
+
   		$c = 0;
 		while($image = $resultado->fetch_assoc() ) {
 			$c=$c+1;
@@ -96,8 +95,10 @@
 						<a href='Detalle_foto.php?id=".$image['IdFoto']."'>
 							<div>
 								<img src='".$image['Fichero']."' alt='".$image['Titulo']."'>
-								<div><p>
-										<span class='titulo'>".$image['Titulo']."</span><br>".$date.$image['NomPais']."</p>
+								<div>
+									<p>
+										<span class='titulo'>".$image['Titulo']."</span><br>".$date.$image['NomPais']."
+									</p>
 								</div>
 							</div>
 						</a>
@@ -111,6 +112,5 @@
 
 <?php
 	$resultado->close(); 
-	$inkbd->close(); 
-	require_once("inc/footer.inc"); 
+	require_once("inc/footer.php"); 
 ?>

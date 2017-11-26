@@ -63,5 +63,5 @@
 	</section>
 
 <?php
-	require_once("inc/footer.inc"); 
+	require_once("inc/footer.php"); 
 ?>

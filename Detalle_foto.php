@@ -3,8 +3,9 @@ require_once("inc/head.php");
 require_once("inc/header_logged.php"); 
 
 $sql=  "SELECT fotos.Titulo as fTitulo, fotos.Descripcion as fDescripcion, fotos.Fecha as fFecha, Fichero, NomPais, IdAlbum, albumes.Titulo as aTitulo, NomUsuario 
-		FROM `fotos`,`paises`,`albumes`,`usuarios` 
-		WHERE IdFoto='".$_GET['id']."' AND fotos.Pais = IdPais AND Album = IdAlbum and Usuario = IdUsuario";
+		FROM (`fotos`,`albumes` INNER JOIN `usuarios` ON Usuario = IdUsuario)
+		LEFT JOIN `paises` ON fotos.Pais = IdPais
+		WHERE IdFoto='".$_GET['id']."' AND Album = IdAlbum";
 
 if(!($resultado = $inkbd->query($sql))) { 
 	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
@@ -23,12 +24,9 @@ $idAlbum = $image['IdAlbum'];
 $album = $image['aTitulo'];
 $usuario= $image['NomUsuario'];	
 
-if($titulo==""){
-	echo "<section id='albumes'>
-			<div id='NotFound'>
-				<img  src='img/404 not found.png' alt='Elemento no encontrado'>
-			</div>
-		</section>";
+if(empty($titulo)){
+	$error=0;
+	require("inc/error.php");
 }
 else{
 ?>
@@ -54,5 +52,5 @@ else{
 
 <?php
 }
-require_once("inc/footer.inc"); 
+require_once("inc/footer.php");
 ?>

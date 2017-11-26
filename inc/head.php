@@ -4,22 +4,15 @@ session_start();
 //Fichero de configuracion
 
 $init = parse_ini_file("inc/config.ini");
-
+$error = -1;
 $inkbd = @new mysqli( 
-         $init["Server"],   // El servidor 
-         $init["User"],    // El usuario 
-         $init["Password"],          // La contraseña 
-         $init["Database"]); // La base de datos 
+         $init["Server"],   	// El servidor 
+         $init["User"],    		// El usuario 
+         $init["Password"],     // La contraseña 
+         $init["Database"]); 	// La base de datos 
  
- if($inkbd->connect_errno) { 
-   echo '<p>Error al conectar con la base de datos: ' . $inkbd->connect_error; 
-   echo '</p>'; 
-   exit; 
- } 
-if (!$inkbd->set_charset("utf8")) {
-    printf("Error cargando el conjunto de caracteres utf8: %s\n", $inkbd->error);
-    exit;
-}
+if($inkbd->connect_errno) 
+   $error = 1;
 
 $actual_link = "$_SERVER[REQUEST_URI]";
 switch (true) {
@@ -56,7 +49,6 @@ switch (true) {
 	case stristr($actual_link,'/Solicitar.php'):
 		$actual_link = "Solicitar album";
 		break;
-		
 	default:
 		$actual_link = "Ink";
 		break;
@@ -79,4 +71,19 @@ switch (true) {
 	<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 
 </head>
+
+<?php
+	if($error === 1){
+		require("inc/error.php");
+   		exit; 
+	}
+
+	if (!$inkbd->set_charset("utf8")) {
+	    printf("Error cargando el conjunto de caracteres utf8: %s\n", $inkbd->error);
+	    exit;
+	}
+
+	?>
+
 <body>
+	

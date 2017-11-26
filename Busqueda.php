@@ -3,10 +3,8 @@
 	$sql_getPais = "SELECT IdPais, NomPais FROM `paises` ORDER BY NomPais ASC";
 	$error= false;
 	if(!($resultado = $inkbd->query($sql_getPais)))
-		$error= true;
-	 
+		$error= true;	 
 ?>
-
 	<section id="busqueda_avanzada">
 		<div>
 			<a href="index.php" id="logo_jl">
@@ -44,6 +42,5 @@
 
 <?php
 	$resultado->close(); 
-	$inkbd->close(); 
-	require_once("inc/footer.inc"); 
+	require_once("inc/footer.php"); 
 ?>

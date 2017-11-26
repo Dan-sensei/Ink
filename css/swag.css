@@ -188,9 +188,7 @@ header > div + div + div > div{
 	-webkit-transition: background-image 0.5s ease-in-out;
 	transition: background-image 0.5s ease-in-out;
 }
-#login span{
-	display: none;
-}
+#login span{display: none;}
 #login:hover{
 	background:url("../img/acceder2.png") center no-repeat;	
 	background-size: 100%;
@@ -199,8 +197,7 @@ header > div + div + div > div{
 /*---------------------------------------------------------MAIN---------------------------------------------------------*/
 
 header + section{
-	margin-top:75px;
-	padding-top: 25px;
+	padding-top: 100px;
 	background-color: #2e2e2e;
 	overflow: auto;
 }
@@ -232,26 +229,26 @@ header + section{
 	transition: none;
 }
 #columnas{column-width: 300px}
-#columnas3{column-width: 200px}
 #columnas3{
-	margin-top: 75px;
-	padding-top: 15px;
-	width:100%;
-	-webkit-column-count: 5;
-	-moz-column-count: 5;
-	column-count: 5;
-	margin-right:2%;
-	margin-left:auto;
+	display: block;
+	padding: 40px 0 30px;
+	width:90%;
+	-webkit-column-count: 2;
+	-moz-column-count: 2;
+	column-count: 2;
+	margin: 0 auto;
 }
 #columnas figure, #columnas2 figure, #columnas3 figure{
 	animation: slide 1s ease-out 0s 1;
 	position: relative;
 	width: 100%;
+	height: auto;
 	margin: 0 0px 25px;
 	overflow: hidden;
 	-webkit-transition: none;
 	transition: none;
 }
+#columnas3 figure{background-color: #191919;}
 #columnas figure a > div, #columnas2 figure a > div, #columnas3 figure a > div{
 	height: 100%;
 	width:100%;
@@ -259,12 +256,19 @@ header + section{
 	-webkit-transition: none;
 	transition: none;
 }
-#columnas figure img, #columnas2 figure img, #columnas3 figure img{
+#columnas figure img, #columnas2 figure img{
 	width: 100%; 
 	border-radius: 10px;
 	vertical-align: bottom;
 }
-#columnas3 figure img{border-radius:0px;}
+#columnas3 figure img{
+	display:block;
+	border-radius:0px;
+	width: initial;
+	margin: 0 auto;
+	max-width: 100%;
+	max-height: 1000px;
+}
 #columnas figure a > div > div, #columnas2 figure a > div > div{
 	background-color: black;
 	border-radius: 10px;
@@ -283,15 +287,16 @@ header + section{
 	transition: all 0.5s ease;
 	opacity: 0;
 }
-#columnas3{width: 90%;}
+#columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo{font-size: 17px; color: #9741af;}
+
 #columnas3 figure a > div + div{color: white;}
 #columnas3 figure a > div + div > p {font-size: 15px; font-weight: bold; text-align: center;}
-#columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo, #columnas3 figure a > div + div .titulo{font-size: 17px; color: #9741af;}
+#columnas3 figure a > div + div .titulo{font-size: 20px; color: #9741af;}
+#columnas3 figure a > div + div br + span{font-size: 15px; color: #712887;}
 #columnas figure a:hover > div > div, #columnas2 figure a:hover > div > div, #columnas3 figure a:hover > div > div{opacity:0.8;}
 
 #columnas2 {
-	margin-top: 75px;
-	padding-top: 15px;
+	padding-top: 100px;
 	width:80%;
 	-webkit-column-count: 4;
 	-moz-column-count: 4;
@@ -356,8 +361,7 @@ label, #busqueda_avanzada span{
 }
 h3{
 	text-align: center;
-	font-size: 18px;
-	padding: 10px;
+	font-size: 20px;
 	color: white;
 }
 #acceso form label{
@@ -452,7 +456,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #busqueda_avanzada{width: 100%; background-color:#191919;}
 #busqueda_avanzada input{width:20%;}
 #busqueda_avanzada .extra{width:20.5%;}
-#acceso >div{padding: 30px 0;}
+#acceso >div{padding: 20px 0 0;}
 #acceso div:first-child{width: 45%;}
 #acceso > div + div{
 	position: relative;
@@ -794,11 +798,10 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 
 #panel{
 	position: fixed;
-	margin-top: -3%;
-	padding-top: 3%;
+	padding-top: 6%;
 	height: 100%;
 	width: 16%;
-	background-color: #191919; 
+	background-color: #191919;
 }
 #panel .extra{width:62%; margin-left: 10px}
 #crear_album{
@@ -874,6 +877,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	width: 20%;
 }
 #albumes{padding-top: 100px; margin: 0;}
+#error{height: 100%; width: 100%; padding: 0;}
 footer{
 	font-size: 11px;
 	padding-left: 10px;
@@ -895,6 +899,7 @@ footer{
 	justify-content:center;
 	align-items:center;
 	width: 100%;
+	height: 100%;
 }
 #NotFound img{
 	display: block;

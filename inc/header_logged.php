@@ -7,10 +7,10 @@
 		</div>
 
 		<div>
-			<form action="Resultado.php">
+			<form action="Resultado.php" method="post">
 				<div class="busqueda">
 	      			<input tabindex="3" class="icon" type="submit" value="">
-					<input tabindex="2" type="search" id="search" name="fname" placeholder="Fotos, lugares, ideas...">
+					<input tabindex="2" type="search" id="title" name="title" placeholder="Fotos, lugares, ideas...">
 
 					<a class="avanzada" href="Busqueda.php"><span>Búsqueda avanzada</span></a>
 				</div>
@@ -26,10 +26,20 @@
 				$data = json_decode($_COOKIE['recuerdame'], true);
 				$fecha="<br>ult. vez <br><span>".$data['3']['mday']."/".$data['3']['mon']."/".$data['3']['year']."</span> <span>".$data['3']['hours'].":".$data['3']['minutes']."</span>";
 			}
+		$id=intval($_SESSION['IdUsuario']);
+		$sql = "SELECT Foto FROM `usuarios` WHERE IdUsuario =".$id;
+		if(!($resultado = $inkbd->query($sql))) { 
+			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+			echo "</p>"; 
+			exit;
+		}
+
+		$user = $resultado->fetch_assoc();
+
 			$logged =
 				"<a href='perfil.php'>
 					<div>
-						<img src='img/Sona_profile.png' id='user_mini'>
+						<img src='".$user['Foto']."' id='user_mini'>
 
 						<span class='saludo_small'> Hola, <span class='saludo_big'>" . $_SESSION["usuario"] ."</span>".$fecha."</span>
 
