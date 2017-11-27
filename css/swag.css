@@ -46,7 +46,7 @@ header > div:first-child{
 	background-image: url("../img/ink-2.png");
 	outline:none;
 }
-#logo span, #logo img, #logo_jl span, #logo_jl img, #busqueda_avanzada a > span, .avanzada span{
+#logo span, #logo img, #logo_jl span, #logo_jl img, #busqueda_avanzada a > span, #baja a > span, .avanzada span{
 	margin-left:-100000px;
 }
 
@@ -338,19 +338,19 @@ p, label, img, input, header,span, section, div, table, figure, a{
 #acceso #cookie_div{width: 40%;}
 
 #acceso div.fuente_centrada, #acceso div.cookie{height: 20px; margin-top:25px; margin-bottom: 0;}
-#acceso > div:first-child, #busqueda_avanzada, #solicitar{
+#acceso > div:first-child, #busqueda_avanzada, #baja, #solicitar{
 	display:table;
 	position: relative;
 	float:left;
 	height: 100%;
 }
 
-#acceso div form, #busqueda_avanzada div{
+#acceso div form, #busqueda_avanzada div, #baja div{
 	display: table-cell;
     vertical-align: middle;
 }
 
-label, #busqueda_avanzada span{
+label, #busqueda_avanzada span, #baja span{
 	clear:both;
 	display: block;
 	position: relative;
@@ -454,8 +454,8 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 }
 
 /*---------------------------------------------------------BUSQUEDA---------------------------------------------------------*/
-#busqueda_avanzada{width: 100%; background-color:#191919;}
-#busqueda_avanzada input{width:20%;}
+#busqueda_avanzada, #baja{width: 100%; background-color:#191919;}
+#busqueda_avanzada input, #baja input{width:20%;}
 #busqueda_avanzada .extra{width:20.5%;}
 #acceso >div{padding: 20px 0 0;}
 #acceso div:first-child{width: 45%;}
@@ -523,11 +523,13 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 }
 #perfil aside nav{
 	position: fixed;
-	padding-top: 170px;
     background-color: #191919;
     width: 10%;
     height: 100%;
+    display:flex;
+    align-items:center;
 }
+#perfil aside nav div{margin-top: -50%;}
 #perfil aside nav a{
 	color: #e5e5e5;
 	display: block;
@@ -586,12 +588,12 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
     padding: 5px 12px 5px;
     margin-bottom: 15px;
 }
-#perfil .fuente_centrada {width: 100%; color: #ea4c44; font-size: 12px; font-weight: bold;}
+#perfil .fuente_centrada {width: auto; color: #ea4c44; font-size: 12px; font-weight: bold; margin-left: 0; }
 #perfil section div form#cuenta > div, #perfil section div form#personal > div, #perfil section div form#password > div {width: 100%;float: left; padding: 0; margin: 0;}
 #perfil section div form#cuenta > div >div, #perfil section div form#personal > div > div{width: 50%;float: left; padding: 0; margin: 0;}
 #perfil section div form#password > div > div{width: 33%;float: left; padding: 0;}
 #perfil section div form#password > div + div > div{width: 50%; float: left; padding: 0;}
-#perfil section div form#personal > div + div + div {width: 33%;  float: left; margin-top: -30px;}
+#perfil section div form#personal > div + div > div {width: 33%;  float: left;}
 #perfil section div form#personal input[type=submit]{width: 77%; float: right; margin-top: 20px;}
 #perfil .radio_div{width: 20%; float:left;}
 #perfil .radio_div label{text-align: center;}
@@ -943,3 +945,10 @@ footer{
 	width: 70%;
 	max-width: 1502px;
 }
+
+#baja .fuente_centrada{width: 100%; font-size: 17px; text-align: center; padding-bottom: 1px;}
+#baja form{overflow: auto;}
+#baja span{width: 50%;}
+#baja form div {width: 20%; margin: 0 auto; display: block; overflow: auto;}
+#baja form div input {width: 49%; float: left; clear: none;}
+#baja form div input:first-child {margin-left: 1px; margin-right: 4px;}

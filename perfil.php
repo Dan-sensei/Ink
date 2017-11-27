@@ -55,12 +55,13 @@
 				<a href="Solicitar.php">Solicitar álbum impreso</a><br>
 				<a href="Baja.php">Darse de baja</a>
 				-->
-				<a href="albumes.php">Mis álbumes</a><br>
-				<a href="crear_album.php">Crear un nuevo álbum</a><br>
-				<a href="Solicitar.php">Solicitar álbum impreso</a><br>
-				<a href="addFoto.php">Añadir foto a album</a><br>
-				<a href="#">Darse de baja</a>
-
+				<div>
+					<a href="albumes.php">Mis álbumes</a><br>
+					<a href="crear_album.php">Crear un nuevo álbum</a><br>
+					<a href="Solicitar.php">Solicitar álbum impreso</a><br>
+					<a href="addFoto.php">Añadir foto a album</a><br>
+					<a href="Baja.php">Darse de baja</a>
+				</div>
 			</nav>
 		</aside>
 		<div>
@@ -70,7 +71,7 @@
 			</span>	
 		</div>
 		<section>
-			<div class='encabezado'>Mi cuenta</div>
+			<div class='encabezado'>Mi cuenta <p class="fuente_centrada"><span><?php echo $datosYerrores[0][0]?></span></p></div>
 			<div>
 			  	<form action ='Modify.php' method='post' enctype='multipart/form-data' id='cuenta'>
 			  		<div>
@@ -97,7 +98,7 @@
 					</div>
 				</form>
 			</div>
-			<div class='encabezado'>Contraseña</div>
+			<div class='encabezado'>Contraseña <p class="fuente_centrada"><span><?php echo $datosYerrores[1][0]?></span></p></div>
 			<div>
 			  	<form action ='Modify.php' method='post' id='password'>
 			  		<div>
@@ -125,13 +126,14 @@
 				</form>
 			</div>
 				
-			<div class='encabezado'>Datos personales</div>
+			<div class='encabezado'>Datos personales <p class="fuente_centrada"><span><?php echo $datosYerrores[2][0]?></span></p></div>
 			<div>
 			  	<form action ='Modify.php' method='post' id='personal'>
 			  		<div>
 				  		<div>
 							<p><label for="date">Fecha de nacimiento</label></p>
 							<input type='date' name='date' id='date' value=<?php echo "'".$user['FNacimiento']."'"?>>
+							<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1]?></span></p>
 						</div>
 						<div>
 							<p><label for="otro">Sexo</label></p>
@@ -150,12 +152,14 @@
 								<label for="otro">Otro</label>
 								<input type="radio" name="gender" id="otro" <?php if($user['Sexo']==2) echo "checked='checked'"?> value=2>
 							</div>
+							<p class="fuente_centrada"><span><?php echo $datosYerrores[3][1]?></span></p>
 						</div>
 					</div>
 					<div>
 				  		<div>
 							<p><label for='city'>Ciudad</label></p>
 							<input type='text' name='city' id='city' value=<?php echo "'".$user['Ciudad']."'"?> >
+							<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1]?></span></p>
 						</div>
 						<div>
 							<p><label for="pais">País</label></p>
@@ -171,8 +175,8 @@
 								 	} 
 								?>
 							</select>
-						</div>
-				  		
+							<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
+						</div>	
 						<div>
 							<p><input type='submit' name='personal' value='Guardar'></p>
 						</div>

@@ -7,12 +7,12 @@
 	}
 
 	//NOMBRE DE USUARIO
-	function validate_name($name){
+	function validate_name($name, $bool){
 		if (!preg_match("/^[a-zA-Z\d]{3,15}$/",$name)) {
 			$GLOBALS['fail_detector'] = true;
 			$_SESSION["datosYerrores"][0][1] = "El nombre de usuario solo puede contener letras y numeros, y debe tener una longitud de 3 a 15 caracteres.";
 		}
-		else{
+		else if($bool == 1){
 			$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE NomUsuario='".$name."'";
 			if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
 				$GLOBALS['fail_detector'] = true;
@@ -53,10 +53,23 @@
 	}
 
 	//EMAIL
-	function validate_email($email){
+	function validate_email($email, $bool){
 		if (!preg_match("/^[a-zA-Z\d.-_]+@[a-zA-Z]+.[a-zA-Z]{2,4}$/", $email)){	 // !($email=filter_var($email,FILTER_VALIDATE_EMAIL))
 			$GLOBALS['fail_detector'] = true;
 			$_SESSION["datosYerrores"][2][1] = "Introduce una direccion de correo válida.";
+		}
+		else if($bool == 1){
+			$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE Email='".$email."'";
+			if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
+				$GLOBALS['fail_detector'] = true;
+				$_SESSION["datosYerrores"][2][1] = "Error al comprobar disponibilidad del email. Inténtelo de nuevo.".$pais; 
+			}
+			$exists = $resultado->fetch_assoc();
+			if($exists['exists'] == 1){
+				$GLOBALS['fail_detector'] = true;
+				$_SESSION["datosYerrores"][2][1] = $email." está asociado a otra cuenta.";
+			}
+			$resultado -> close();
 		}
 	}
 

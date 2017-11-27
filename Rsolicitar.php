@@ -1,15 +1,8 @@
 <?php 
 	require_once("inc/head.php"); 
-	require_once("inc/header.php"); 
-	
-	$logged =
-			"<a href='perfil.php'>
-				<img src='img/Sona_profile.png' id='user_mini'>
-			</a>
-		</div>
-	</header>";
+	require_once("inc/header_logged.php"); 
+	require_once("inc/validation.php");
 
-	echo $logged;
 	if(!isset($_POST["name"]) || $_POST["name"]==""){
 		$host = $_SERVER["HTTP_HOST"];
 		$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
@@ -19,17 +12,28 @@
 
 	$name = $talbum = $destinatario = $adicional = $direccion = $color = $copias = $res = $album = $date = $acolor = "";
 	
-	$name = 		htmlspecialchars($_POST["name"])." ".htmlspecialchars($_POST["surname"]);
-	$talbum = 		htmlspecialchars($_POST["talbum"]);
-	$destinatario = htmlspecialchars($_POST["destinatario"]);
-	$adicional = 	htmlspecialchars($_POST["adicional"]);
-	$direccion = 	htmlspecialchars($_POST["direccion"])." ".htmlspecialchars($_POST["direccion2"]).", <br>".htmlspecialchars($_POST["ciudad"]).", ".htmlspecialchars($_POST["provincia"])." ".htmlspecialchars($_POST["cp"])."<br>".htmlspecialchars($_POST["pais"]);
-	$color = 		htmlspecialchars($_POST["color"]);
-	$copias = 		htmlspecialchars($_POST["copias"]);
-	$res = 			htmlspecialchars($_POST["res"]);
-	$album = 	htmlspecialchars($_POST["album"]);
-	$date = 	htmlspecialchars($_POST["date"]);
-	$acolor = 	htmlspecialchars($_POST["acolor"]);
+	$name = 		validate_input($_POST["name"])." ".validate_input($_POST["surname"]);
+	$talbum = 		validate_input($_POST["talbum"]);
+	$destinatario = validate_input($_POST["destinatario"]);
+	$adicional = 	validate_input($_POST["adicional"]);
+
+	$direccion = 	validate_input($_POST["direccion"])." ".validate_input($_POST["direccion2"]);
+	//$direccion = 	validate_input($_POST["direccion"])." ".validate_input($_POST["direccion2"]).", <br>".validate_input($_POST["ciudad"]).", ".validate_input($_POST["provincia"])." ".validate_input($_POST["cp"])."<br>".validate_input($_POST["pais"]);
+	$pais = validate_input($_POST["pais"]);
+	$ciudad = validate_input($_POST["ciudad"]);
+	$provincia = validate_input($_POST["provincia"]);
+	$cp = validate_input($_POST["cp"]);
+	$color = 		validate_input($_POST["color"]);
+	$copias = 		validate_input($_POST["copias"]);
+	$res = 			validate_input($_POST["res"]);
+	$album = 	validate_input($_POST["album"]);
+	$date = 	validate_input($_POST["date"]);
+	$acolor = 	validate_input($_POST["acolor"]);
+
+	validate_name($name, 0);
+	validate_email($destinatario, 0);
+	validate_pais($pais);
+	validate_cit($city);
 
 	$paginas=15;
 	$precio=0;

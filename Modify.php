@@ -16,9 +16,6 @@
 
 	$name = $code  = $code2 = $email = $gender = $date = $ciudad = $pais = $foto = "";
 
-	if(empty( validate_input($_FILES['pic']['name'])) )
-		$pic =	"'img/icon.png'";
-
 	$datosYerrores = array(
 		0 => array("", ""),
 		1 => array("", ""),
@@ -36,13 +33,13 @@
 	$fail_detector = false;
 	$booleano_molon = false;
 	$update = "UPDATE `usuarios` SET "; 
-
+	$result = -1;
 	//FORM DATOS DE LA CUENTA
 	if(isset($_POST['cuenta'])){
 		if(isset($_POST['name'])){
 			$name=validate_input($_POST["name"]);
 			if($user['NomUsuario'] != $name){
-				validate_name($name);
+				validate_name($name, 1);
 				$update .= "NomUsuario ='".$name."' ";
 				$booleano_molon = true;
 			}
@@ -50,7 +47,7 @@
 		if(isset($_POST['email'])){
 			$email = validate_input($_POST["email"]);
 			if($user['Email'] != $email){
-				validate_email($email);
+				validate_email($email,1);
 				$update .= "Email ='".$email."' ";
 				$booleano_molon = true;
 			}
@@ -61,6 +58,7 @@
 			$update .= "Foto =".$pic." ";
 			$booleano_molon = true;
 		}
+		$result = 0;
 	}
 	//FORM CONTRASEÑA
 	else if(isset($_POST['password'])){
@@ -81,40 +79,56 @@
 		}
 		else
 			$_SESSION["datosYerrores"][1][1] = "Introduce todos los datos.";
+		$result = 1;
 	}
 	//FORM DATOS PERSONALES
-	else if(isst($_POST['personal'])){
-		if(isset($_POST['old_code'])){
-			$name=validate_input($_POST["name"]);
-			if($user['NomUsuario'] != $name){
-				validate_name($name);
-				$update .= "NomUsuario ='".$name."' ";
+	else if(isset($_POST['personal'])){
+		if(isset($_POST['date'])){
+			$date=validate_input($_POST["date"]);
+			if($user['FNacimiento'] != $date){
+				validate_date($date);
+				$update .= "FNacimiento ='".$date."' ";
 				$booleano_molon = true;
 			}
 		}
-		if(isset($_POST['email'])){
-			$email = validate_input($_POST["email"]);
-			if($user['Email'] != $email){
-				validate_email($email);
-				$update .= "Email ='".$email."' ";
+		if(isset($_POST['gender'])){
+			$gender = validate_input($_POST["gender"]);
+			if($user['Sexo'] != $gender){
+				validate_gender($gender);
+				$update .= "Sexo ='".$gender."' ";
 				$booleano_molon = true;
 			}
 		}
-		if(!empty( validate_input($_FILES['pic']['name'])) ){
-			$pic=$user['Foto'];
-			validate_pic();
-			$update .= "Foto =".$pic." ";
-			$booleano_molon = true;
+		if(isset($_POST['city'])){
+			$city = validate_input($_POST["city"]);
+			if($user['Ciudad'] != $city){
+				validate_city($city);
+				$update .= "Ciudad ='".$city."' ";
+				$booleano_molon = true;
+			}
 		}
+		if(isset($_POST['pais'])){
+			$pais = validate_input($_POST["pais"]);
+			if($user['Pais'] != $pais){
+				validate_pais($pais);
+				$update .= "Pais ='".$pais."' ";
+				$booleano_molon = true;
+			}
+		}
+		$result = 2;
 	}
 
 	$update .= "WHERE IdUsuario =".$id;
-	if(!$fail_detector && $booleano_molon)
-		if(!($inkbd->query($update))) { 
-			die("Error: no se pudo realizar la inserción"); 
+	if(!$fail_detector && $booleano_molon && $result!=-1){
+		if(!($inkbd->query($update))) {
+			$_SESSION["datosYerrores"][$result][0] = "<span style='color:#ea4c44'>&nbsp;| Algo salio mal, inténtalo de nuevo</span>";
 		}
+		else
+			$_SESSION["datosYerrores"][$result][0] = "<span style='color:#43eaa4'>&nbsp;| Datos actualizados</span>";
+	}
+
+	require_once("inc/footer.php"); 
 
 	header("Location: http://$host$uri/Perfil.php");
 	exit;
-	require_once("inc/footer.php"); 
 ?>

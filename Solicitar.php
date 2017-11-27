@@ -160,8 +160,8 @@
 					<p><input type="text" name="direccion" id="direccion" placeholder="Calle y número" required></p>
 					<p><input type="text" name="direccion2" id="direccion2" placeholder="Bloque, piso, escalera, etc."></p>
 
-					<label for="country">País</label>
-					<select form="busqueda" class="extra" name="country" id="country">
+					<label for="country">País<span>*</span></label>
+					<select form="busqueda" class="extra" name="country" id="country" required>
 						<option selected='selected' value=''></option>
 						<?php 
 							while($option = $resultado2->fetch_assoc() ) { 
