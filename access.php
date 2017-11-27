@@ -54,7 +54,6 @@
 		$c = $resultado->fetch_assoc();
 
 		if($c['exists'] == 1){
-			$_SESSION["usuario"]=$GET_Usuario;
 			$_SESSION["IdUsuario"]=$c['IdUsuario'];
 			$datos = array(
 				"0" => $GET_Usuario,

@@ -33,22 +33,26 @@
 		4 => array($date, ""),
 		5 => array($city, ""),
 		6 => array($pais, ""),
-		7 => array("", "<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>"),
-		8 => ""
+		7 => array("", "<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
 	);
-	$_SESSION['datosYerrores'] = $datosYerrores;
+	
 
 	$fail_detector = false;
+	echo $fail_detector."<br>";
+	$datosYerrores[0][1] = validate_name($name2) ? validate_name($name2) : $datosYerrores[0][1];
+	echo $fail_detector." ".validate_name($name2)."<br>";
+	$datosYerrores[1][1] = validate_password($code, $code2) ? validate_password($code, $code2) : $datosYerrores[1][1];
+	echo $fail_detector."<br>";
+	$datosYerrores[2][1] = validate_email($email, 1);
+	$datosYerrores[3][1] = validate_gender($gender);
+	$datosYerrores[4][1] = validate_date($date);
+	$datosYerrores[5][1] = validate_city($city);
+	$datosYerrores[6][1] = validate_pais($pais);
+	$datosYerrores[7][1] = validate_pic() ? validate_pic() : $datosYerrores[7][1];
 
-	validate_name($name2);
-	validate_password($code, $code2);
-	validate_email($email, 1);
-	validate_gender($gender);
-	validate_date($date);
-	validate_city($city);
-	validate_pais($pais);
-	validate_pic();
-
+	$_SESSION['datosYerrores'] = $datosYerrores;
+	
+	
 	if($fail_detector){
 		header("Location: http://$host$uri/Registro.php");
 		exit;
@@ -70,7 +74,6 @@
 		}
 		$c = $resultado->fetch_assoc();
 		$_SESSION["IdUsuario"]=$c['IdUsuario'];
-	 	$_SESSION["usuario"]=$name2;
 	}
 
 	require_once("inc/header_logged.php"); 

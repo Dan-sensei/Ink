@@ -16,18 +16,21 @@
 
 	$name = $code  = $code2 = $email = $gender = $date = $ciudad = $pais = $foto = "";
 
-	$datosYerrores = array(
-		0 => array("", ""),
-		1 => array("", ""),
-		2 => array("", ""),
-		3 => array("", ""),
-		4 => array("", ""),
-		5 => array("", ""),
-		6 => array("", ""),
-		7 => array("", ""),
-		8 => ""
+	$errores = array(
+		0 => "",	//Nombre
+		1 => "",	//Email
+		2 => "",	//Foto
+		3 => "",	//Contraseña
+		4 => "",	//Fecha de nacimiento
+		5 => "",	//Sexo
+		6 => "",	//Ciudad
+		7 => "",	//Pais
+
+		8 => "",	//Encabezado Cuenta
+		9 => "",	//Encabezado Contraseña
+		10 => ""	//Encabezado Datos personales
 	);
-	$_SESSION['datosYerrores'] = $datosYerrores;
+	
 
 
 	$fail_detector = false;
@@ -39,7 +42,7 @@
 		if(isset($_POST['name'])){
 			$name=validate_input($_POST["name"]);
 			if($user['NomUsuario'] != $name){
-				validate_name($name);
+				$errores[0] = validate_name($name);
 				$update .= "NomUsuario ='".$name."' ";
 				$booleano_molon = true;
 			}
@@ -47,46 +50,45 @@
 		if(isset($_POST['email'])){
 			$email = validate_input($_POST["email"]);
 			if($user['Email'] != $email){
-				validate_email($email,1);
+				$errores[1] = validate_email($email,1);
 				$update .= "Email ='".$email."' ";
 				$booleano_molon = true;
 			}
 		}
 		if(!empty( validate_input($_FILES['pic']['name'])) ){
 			$pic=$user['Foto'];
-			validate_pic();
+			$errores[2] = validate_pic();
 			$update .= "Foto =".$pic." ";
 			$booleano_molon = true;
 		}
-		$result = 0;
+		$result = 8;
 	}
 	//FORM CONTRASEÑA
 	else if(isset($_POST['password'])){
 		if(isset($_POST['old_code']) && isset($_POST['code']) && isset($_POST['code2']) && !empty($_POST['old_code']) && !empty($_POST['code']) && !empty($_POST['code2'])){
-			//$_SESSION["datosYerrores"][1][1]
 			$old_code = validate_input($_POST['old_code']);
 			
 			if($old_code == $user['Clave']){
 				$code = validate_input($_POST['code']);
 				$code2 = validate_input($_POST['code2']);
 
-				validate_password($code, $code2);
+				$errores[3] = validate_password($code, $code2);
 				$update .= "Clave ='".$code."' ";
 				$booleano_molon = true;	
 			}
 			else
-				$_SESSION["datosYerrores"][1][1] = "Antigua contraseña incorrecta.";	
+				$errores[3] = "Antigua contraseña incorrecta.";	
 		}
 		else
-			$_SESSION["datosYerrores"][1][1] = "Introduce todos los datos.";
-		$result = 1;
+			$errores[3] = "Introduce todos los datos.";
+		$result = 9;
 	}
 	//FORM DATOS PERSONALES
 	else if(isset($_POST['personal'])){
 		if(isset($_POST['date'])){
 			$date=validate_input($_POST["date"]);
 			if($user['FNacimiento'] != $date){
-				validate_date($date);
+				$errores[4] = validate_date($date);
 				$update .= "FNacimiento ='".$date."' ";
 				$booleano_molon = true;
 			}
@@ -94,7 +96,7 @@
 		if(isset($_POST['gender'])){
 			$gender = validate_input($_POST["gender"]);
 			if($user['Sexo'] != $gender){
-				validate_gender($gender);
+				$errores[5] = validate_gender($gender);
 				$update .= "Sexo ='".$gender."' ";
 				$booleano_molon = true;
 			}
@@ -102,7 +104,7 @@
 		if(isset($_POST['city'])){
 			$city = validate_input($_POST["city"]);
 			if($user['Ciudad'] != $city){
-				validate_city($city);
+				$errores[6] = validate_city($city);
 				$update .= "Ciudad ='".$city."' ";
 				$booleano_molon = true;
 			}
@@ -110,23 +112,24 @@
 		if(isset($_POST['pais'])){
 			$pais = validate_input($_POST["pais"]);
 			if($user['Pais'] != $pais){
-				validate_pais($pais);
+				$errores[7] = validate_pais($pais);
 				$update .= "Pais ='".$pais."' ";
 				$booleano_molon = true;
 			}
 		}
-		$result = 2;
+		$result = 10;
 	}
 
 	$update .= "WHERE IdUsuario =".$id;
 	if(!$fail_detector && $booleano_molon && $result!=-1){
 		if(!($inkbd->query($update))) {
-			$_SESSION["datosYerrores"][$result][0] = "<span style='color:#ea4c44'>&nbsp;| Algo salio mal, inténtalo de nuevo</span>";
+			$errores[$result] = "<span style='color:#ea4c44'>| Algo salio mal, inténtalo de nuevo</span>";
 		}
 		else
-			$_SESSION["datosYerrores"][$result][0] = "<span style='color:#43eaa4'>&nbsp;| Datos actualizados</span>";
+			$errores[$result] = "<span style='color:#43eaa4'>| Datos actualizados</span>";
 	}
 
+	$_SESSION['errores'] = $errores;
 	require_once("inc/footer.php"); 
 
 	header("Location: http://$host$uri/Perfil.php");

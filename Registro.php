@@ -75,8 +75,7 @@
 			4 => array("",""),
 			5 => array("",""),
 			6 => array("",""),
-			7 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>"),
-			8 => ""
+			7 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
 		);
 	}else{
 		$datosYerrores = $_SESSION['datosYerrores'];
@@ -162,7 +161,6 @@
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[7][1]?></span></p>
 
 				<p class="fuente_centrada"><span>*</span><span class="obligatorio">Obligatorio</span></p>
-				<p class="fuente_centrada"><span><?php echo $datosYerrores[8]?></span></p>
 				<p class="fuente_centrada"><span><?php echo $message2?></span></p>
 				<p><br><input type="submit" name="submit" value="Registrarse"></p>
 		  </form>

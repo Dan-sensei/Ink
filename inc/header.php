@@ -1,6 +1,6 @@
 	<?php
 	
-		if(isset($_SESSION["usuario"])){
+		if(isset($_SESSION["IdUsuario"])){
 			
 			$fecha="";
 			if(isset($_COOKIE['recuerdame'])){

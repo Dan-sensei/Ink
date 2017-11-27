@@ -26,21 +26,24 @@
 		2 => 'Otro'
 	);
 
-	if(!isset($_SESSION['datosYerrores'])){
-		$datosYerrores = array(
-			0 => array("", ""),
-			1 => array("", ""),
-			2 => array("", ""),
-			3 => array("", ""),
-			4 => array("", ""),
-			5 => array("", ""),
-			6 => array("", ""),
-			7 => array("", ""),
-			8 => ""
+	if(!isset($_SESSION['errores'])){
+		$errores = array(
+			0 => "",		//Nombre
+			1 => "",		//Email
+			2 => "",		//Foto
+			3 => "",		//Contraseña
+			4 => "",		//Fecha de nacimiento
+			5 => "",		//Sexo
+			6 => "",		//Ciudad
+			7 => "",		//Pais
+
+			8 => "",		//Encabezado Cuenta
+			9 => "",		//Encabezado Contraseña
+			10 => ""		//Encabezado Datos personales
 		);
 	}else{
-		$datosYerrores = $_SESSION['datosYerrores'];
-		unset($_SESSION['datosYerrores']);
+		$errores = $_SESSION['errores'];
+		unset($_SESSION['errores']);
 	}
 ?>
 
@@ -67,30 +70,31 @@
 		<div>
 			<span>
 				<?php echo "<img src='".$user['Foto']."' class='user'> "?>
-				<h1><?php echo $user['NomUsuario']; ?></h1>
+				<h1><?php echo $user['NomUsuario'];?>
+				</h1>
 			</span>	
 		</div>
 		<section>
-			<div class='encabezado'>Mi cuenta <p class="fuente_centrada"><span><?php echo $datosYerrores[0][0]?></span></p></div>
+			<div class='encabezado'>Mi cuenta <p class="fuente_centrada"><span><?php echo $errores[8]?></span></p></div>
 			<div>
 			  	<form action ='Modify.php' method='post' enctype='multipart/form-data' id='cuenta'>
 			  		<div>
 				  		<div>
 							<p><label for='name'>Nombre de usuario</label></p>
 							<input type='text' name='name' id='name' placeholder='Nick' value=<?php echo "'".$user['NomUsuario']."'"?> >
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[0][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[0]?></span></p>
 						</div>
 						<div>
 							<p><label for='email'>Email</label></p>
 							<input type='email' name='email' id='email' placeholder='example@gmail.com' value=<?php echo "'".$user['Email']."'"?>>
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[2][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[1]?></span></p>
 						</div>
 					</div>
 					<div>
 						<div>
 							<p><label for='pic'>Foto de perfil</label></p>
 							<input type='file' name='pic' id='pic' accept='image/*'>
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[7][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[2]?></span></p>
 						</div>
 						<div>
 							<p><input type='submit' name='cuenta' value='Guardar'></p>
@@ -98,7 +102,7 @@
 					</div>
 				</form>
 			</div>
-			<div class='encabezado'>Contraseña <p class="fuente_centrada"><span><?php echo $datosYerrores[1][0]?></span></p></div>
+			<div class='encabezado'>Contraseña <p class="fuente_centrada"><span><?php echo $errores[9]?></span></p></div>
 			<div>
 			  	<form action ='Modify.php' method='post' id='password'>
 			  		<div>
@@ -117,7 +121,7 @@
 					</div>
 					<div>
 						<div>
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[1][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[3]?></span></p>
 						</div>
 						<div>
 							<p><input type='submit' name='password' value='Guardar'></p>
@@ -126,14 +130,14 @@
 				</form>
 			</div>
 				
-			<div class='encabezado'>Datos personales <p class="fuente_centrada"><span><?php echo $datosYerrores[2][0]?></span></p></div>
+			<div class='encabezado'>Datos personales <p class="fuente_centrada"><span><?php echo $errores[10]?></span></p></div>
 			<div>
 			  	<form action ='Modify.php' method='post' id='personal'>
 			  		<div>
 				  		<div>
 							<p><label for="date">Fecha de nacimiento</label></p>
 							<input type='date' name='date' id='date' value=<?php echo "'".$user['FNacimiento']."'"?>>
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[4]?></span></p>
 						</div>
 						<div>
 							<p><label for="otro">Sexo</label></p>
@@ -152,14 +156,14 @@
 								<label for="otro">Otro</label>
 								<input type="radio" name="gender" id="otro" <?php if($user['Sexo']==2) echo "checked='checked'"?> value=2>
 							</div>
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[3][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[5]?></span></p>
 						</div>
 					</div>
 					<div>
 				  		<div>
 							<p><label for='city'>Ciudad</label></p>
 							<input type='text' name='city' id='city' value=<?php echo "'".$user['Ciudad']."'"?> >
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[6]?></span></p>
 						</div>
 						<div>
 							<p><label for="pais">País</label></p>
@@ -175,7 +179,7 @@
 								 	} 
 								?>
 							</select>
-							<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
+							<p class="fuente_centrada"><span><?php echo $errores[7]?></span></p>
 						</div>	
 						<div>
 							<p><input type='submit' name='personal' value='Guardar'></p>
