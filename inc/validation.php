@@ -192,6 +192,7 @@
 			$GLOBALS['fail_detector'] = true;
 			$error = "El nombre solo puede contener letras.";
 		}
+		$error = $name ? 
 	}
 
 ?>
