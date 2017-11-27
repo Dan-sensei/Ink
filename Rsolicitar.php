@@ -12,28 +12,47 @@
 
 	$name = $talbum = $destinatario = $adicional = $direccion = $color = $copias = $res = $album = $date = $acolor = "";
 	
-	$name = 		validate_input($_POST["name"])." ".validate_input($_POST["surname"]);
+	//$name = 		validate_input($_POST["name"])." ".validate_input($_POST["surname"]);
+
+	$name = 		validate_input($_POST["name"]);
+	$surname = 		validate_input($_POST["surname"]);
 	$talbum = 		validate_input($_POST["talbum"]);
 	$destinatario = validate_input($_POST["destinatario"]);
 	$adicional = 	validate_input($_POST["adicional"]);
 
 	$direccion = 	validate_input($_POST["direccion"])." ".validate_input($_POST["direccion2"]);
 	//$direccion = 	validate_input($_POST["direccion"])." ".validate_input($_POST["direccion2"]).", <br>".validate_input($_POST["ciudad"]).", ".validate_input($_POST["provincia"])." ".validate_input($_POST["cp"])."<br>".validate_input($_POST["pais"]);
-	$pais = validate_input($_POST["pais"]);
-	$ciudad = validate_input($_POST["ciudad"]);
-	$provincia = validate_input($_POST["provincia"]);
-	$cp = validate_input($_POST["cp"]);
+	$pais = 		validate_input($_POST["pais"]);
+	$ciudad = 		validate_input($_POST["ciudad"]);
+	$provincia = 	validate_input($_POST["provincia"]);
+	$cp = 			validate_input($_POST["cp"]);
 	$color = 		validate_input($_POST["color"]);
-	$copias = 		validate_input($_POST["copias"]);
-	$res = 			validate_input($_POST["res"]);
-	$album = 	validate_input($_POST["album"]);
-	$date = 	validate_input($_POST["date"]);
-	$acolor = 	validate_input($_POST["acolor"]);
+	$copias = 		intval(validate_input($_POST["copias"]));
+	$res = 			intval(validate_input($_POST["res"]));
+	$album = 		validate_input($_POST["album"]);
+	$date = 		validate_input($_POST["date"]);
+	$acolor = 		validate_input($_POST["acolor"]);
+
+	$datosYerrores = array(
+		0 => array($name, ""),
+		1 => array("", ""),
+		2 => array("", ""),
+		3 => array("", ""),
+		4 => array("", ""),
+		5 => array("", ""),
+		6 => array("", ""),
+		7 => array("", ""),
+		8 => ""
+	);
+	$_SESSION['datosYerrores'] = $datosYerrores;
 
 	validate_name($name, 0);
 	validate_email($destinatario, 0);
 	validate_pais($pais);
-	validate_cit($city);
+	validate_city($city);
+	validate_city($provincia);
+	validate_cp($cp);
+
 
 	$paginas=15;
 	$precio=0;

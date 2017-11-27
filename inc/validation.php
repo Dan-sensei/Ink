@@ -7,12 +7,12 @@
 	}
 
 	//NOMBRE DE USUARIO
-	function validate_name($name, $bool){
+	function validate_name($name){
 		if (!preg_match("/^[a-zA-Z\d]{3,15}$/",$name)) {
 			$GLOBALS['fail_detector'] = true;
 			$_SESSION["datosYerrores"][0][1] = "El nombre de usuario solo puede contener letras y numeros, y debe tener una longitud de 3 a 15 caracteres.";
 		}
-		else if($bool == 1){
+		else if($bool){
 			$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE NomUsuario='".$name."'";
 			if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
 				$GLOBALS['fail_detector'] = true;
@@ -136,5 +136,12 @@
 	    }
 	}
 
+	//CODIGO POSTAL
+	function validate_cp($cp){
+		if (!preg_match("/^[\d]{5}$/",$name)) {
+			$GLOBALS['fail_detector'] = true;
+			//$_SESSION["datosYerrores"][0][1] = "El nombre de usuario solo puede contener letras y numeros, y debe tener una longitud de 3 a 15 caracteres.";
+		}
+	}
 
 ?>

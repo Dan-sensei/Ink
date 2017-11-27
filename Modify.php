@@ -39,7 +39,7 @@
 		if(isset($_POST['name'])){
 			$name=validate_input($_POST["name"]);
 			if($user['NomUsuario'] != $name){
-				validate_name($name, 1);
+				validate_name($name);
 				$update .= "NomUsuario ='".$name."' ";
 				$booleano_molon = true;
 			}

@@ -177,7 +177,7 @@
 					<p><input type="text" name="provincia" id="provincia" required></p>
 
 					<label for="cp">Código postal<span>*</span></label>
-					<p><input type="number" name="cp" id="cp" maxlength="5" required></p>
+					<p><input type="text" name="cp" id="cp" maxlength="5" required></p>
 				</section>
 
 				<section>

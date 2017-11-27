@@ -40,7 +40,7 @@
 
 	$fail_detector = false;
 
-	validate_name($name2, 1);
+	validate_name($name2);
 	validate_password($code, $code2);
 	validate_email($email, 1);
 	validate_gender($gender);
