@@ -1,7 +1,6 @@
 <?php
-	
-	require_once("inc/head.php");
-	require_once("inc/header.php");
+	session_start();
+	require_once("inc/connect.php");
 
 	$host = $_SERVER["HTTP_HOST"];
 	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");

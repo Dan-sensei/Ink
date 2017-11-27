@@ -68,14 +68,14 @@
 	
 	if(!isset($_SESSION['datosYerrores'])){
 		$datosYerrores = array(
-			0 => array("",""),
-			1 => array("",""),
+			0 => array("","<span style='color:white; font-size:11px;'>Solos letras y numeros, 3 a 15 caracteres.</span>"),
+			1 => array("","<span style='color:white; font-size:11px;'>Solos letras, numeros y '_'. <br>Mínimo 1 mayúscula, 1 minúscula, 1 número. <br> De 6 a 15 caracteres.</span>"),
 			2 => array("",""),
 			3 => array("-1",""),
 			4 => array("",""),
 			5 => array("",""),
 			6 => array("",""),
-			7 => array("",""),
+			7 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>"),
 			8 => ""
 		);
 	}else{

@@ -25,10 +25,7 @@
 		height: auto;
 	}
 	header > div + div + div a div{width: 60%;}
-	#logout {
-		line-height: 30px;
-		height: 30px;
-	}
+	#logout {line-height: 30px;height: 30px;}
 	#logout span{font-size: 15px;}
 	.saludo_small{font-size:11px;}
 	.saludo_big{font-size: 13px;}
@@ -46,6 +43,7 @@
 		width: 100%;
 		height: 150px;
 	}
+	#perfil aside nav{position: initial; width: 100%; padding-top: 20px;}
 	#perfil aside nav a{
 		display: inline-block;
 		text-align: left;

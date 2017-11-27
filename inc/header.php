@@ -9,7 +9,7 @@
 			}
 
 			$id=intval($_SESSION['IdUsuario']);
-			$sql = "SELECT Foto FROM `usuarios` WHERE IdUsuario =".$id;
+			$sql = "SELECT NomUsuario, Foto FROM `usuarios` WHERE IdUsuario =".$id;
 			if(!($resultado = $inkbd->query($sql))) { 
 				echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 				echo "</p>"; 
@@ -22,7 +22,7 @@
 							<div>
 								<img src='".$user['Foto']."' id='user_mini'>
 
-								<span class='saludo_small'> Hola, <span class='saludo_big'>" . $_SESSION["usuario"] ."</span>".$fecha."</span>
+								<span class='saludo_small'> Hola, <span class='saludo_big'>" . $user['NomUsuario'] ."</span>".$fecha."</span>
 
 							</div>
 						</a>
