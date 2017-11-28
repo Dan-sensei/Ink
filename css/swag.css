@@ -611,6 +611,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #solicitar{
 	width: 100%;
 	padding-top:75px;
+	padding-bottom: 50px;
 	margin-top: 0;
 	display: table;
 	background-color: #262626;
@@ -659,6 +660,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #solicitar > div:first-child table tr >td:hover{background-color: #313033;}
 #solicitar > div:first-child table th{color:#9d27b2;}
 #solicitar > div + div{
+	padding-top: 10px;
 	position: relative;
 	float:left;
 	width: 68%;
@@ -850,11 +852,10 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	background-color: #262626;
 	padding: 0;
 	margin:0;
-	display: table;
 }
 #crear_album div{
 	width: 100%;
-	padding-top: 10px;
+	padding-top: 100px;
 	padding-bottom: 50px;
 }
 #crear_album div img{
@@ -947,8 +948,10 @@ footer{
 	max-width: 1502px;
 }
 
-#baja .fuente_centrada{width: 100%; font-size: 17px; text-align: center; padding-bottom: 1px;}
+#baja .fuente_centrada{width: 100%; font-size: 17px; font-weight: bold; text-align: center; padding-bottom: 1px;}
+#baja .fuente_centrada span {margin-top: 0;}
 #baja form{overflow: auto;}
+#baja form img {display:block; width: 10%; margin: 0 auto; padding-top: 20px;}
 #baja span{width: 50%;}
 #baja form div {width: 20%; margin: 0 auto; display: block; overflow: auto;}
 #baja form div input {width: 49%; float: left; clear: none;}

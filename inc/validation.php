@@ -196,16 +196,18 @@
 	}
 
 	function validate_album($album){
-		$sql = "SELECT COUNT(IdAlbum) as 'exists' FROM `usuarios`,`albumes` WHERE Usuario=".$_SESSION['IdUsuario']." AND IdAlbum='".$album."'";
+		$error = "";
+		$sql = "SELECT COUNT(IdAlbum) as 'exists', Titulo FROM `albumes` WHERE Usuario=".$_SESSION['IdUsuario']." AND IdAlbum=".$album;
 		if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
 			$GLOBALS['fail_detector'] = true;
 			$error = "Error al comprobar album. Inténtelo de nuevo.".$pais; 
 		}
 		$exists = $resultado->fetch_assoc();
-		if($exists['exists'] != 1){
+		if($exists['exists'] == 0){
 			$GLOBALS['fail_detector'] = true;
 			$error = "Elige un album de la lista.";
 		}
 		$resultado -> close();
+		return $error;
 	}
 ?>

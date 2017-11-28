@@ -42,6 +42,7 @@
 				<img src="img/dark_ink.png" lat="Logo">
 			</a>
 			<form action="Baja.php" method="post">
+				<img src="img/sg-soraka.png" alt="Abandono">
 				<p class="fuente_centrada"><span>¿Seguro de que quieres eliminar tu cuenta?</span></p>
 				<div>
 					<input type="submit" name="si" value="Sí">
@@ -53,7 +54,5 @@
 	</section>
 
 <?php
-	//<p><input type="text" id="title" name="title"></p>
-	$resultado->close(); 
 	require_once("inc/footer.php"); 
 ?>

@@ -45,15 +45,15 @@
 
 		$bool=false;
 
-		$sql = "SELECT COUNT(IdUsuario) as 'exists', IdUsuario FROM `usuarios` WHERE NomUsuario='". $GET_Usuario ."' AND Clave ='". $GET_Code ."'";
+		$sql = "SELECT COUNT(IdUsuario) as 'exists', IdUsuario, Clave FROM `usuarios` WHERE NomUsuario='". $GET_Usuario ."'";
 		if(!($resultado = $inkbd->query($sql))) { 
 			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 			echo "</p>"; 
 			exit;
 		}
 		$c = $resultado->fetch_assoc();
+		if($c['exists'] == 1 && password_verify($GET_Code, $c['Clave'])){
 
-		if($c['exists'] == 1){
 			$_SESSION["IdUsuario"]=$c['IdUsuario'];
 			$datos = array(
 				"0" => $GET_Usuario,
@@ -74,7 +74,7 @@
 			if(isset($_COOKIE["recuerdame"])){
 				setcookie("recuerdame", "asd",time()-3600);
 			}
-			$_SESSION["error"] = "Nombre de usuario y/o contraseña incorrectos";
+			$_SESSION["error"] = "Nombre de usuario y/o contraseña incorrectos.";
 			$extra = "registro.php";
 		}
 

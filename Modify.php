@@ -68,12 +68,12 @@
 		if(isset($_POST['old_code']) && isset($_POST['code']) && isset($_POST['code2']) && !empty($_POST['old_code']) && !empty($_POST['code']) && !empty($_POST['code2'])){
 			$old_code = validate_input($_POST['old_code']);
 			
-			if($old_code == $user['Clave']){
+			if(password_verify($old_code, $user['Clave'])){
 				$code = validate_input($_POST['code']);
 				$code2 = validate_input($_POST['code2']);
 
 				$errores[3] = validate_password($code, $code2);
-				$update .= "Clave ='".$code."' ";
+				$update .= "Clave ='".password_hash($code, PASSWORD_DEFAULT)."' ";
 				$booleano_molon = true;	
 			}
 			else

@@ -1,109 +1,54 @@
 <?php 
 	require_once("inc/head.php"); 
-	require_once("inc/validation.php");
+	require_once("inc/header_logged.php"); 
 
+	unset($_SESSION['datosYerrores']);
+	unset($_SESSION['error2']);
+	
 	$host = $_SERVER["HTTP_HOST"];
 	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
-
-	$name2 = $code  = $code2 = $email = $gender = $date = $ciudad = $pais = $foto = "";
-
-	if(!isset($_POST['name2']) || !isset($_POST['code']) || !isset($_POST['email']) || !isset($_POST['gender']) || !isset($_POST['date']) || !isset($_POST['city']) || !isset($_POST['pais']) ){
-		$_SESSION['error2']="Algunos datos no se han especificado";
-		header("Location: http://$host$uri/Registro.php");
+	if(!isset($_SESSION["IdUsuario"])){
+		header("Location: http://$host$uri/Registro.php"); 
 		exit;
 	}
 
-	$name2 	= 	validate_input($_POST["name2"]);
-	$code 	= 	validate_input($_POST["code"]);
-	$code2 	= 	validate_input($_POST["code2"]);
-	$email 	= 	validate_input($_POST["email"]);
-	$gender	= 	intval(validate_input($_POST["gender"]));
-	$date 	= 	validate_input($_POST["date"]);
-	$city 	= 	validate_input($_POST["city"]);
-	$pais 	= 	validate_input($_POST["pais"]);
-
-	if(empty( validate_input($_FILES['pic']['name'])) )
-		$pic =	"'img/icon.png'";
-
-	$datosYerrores = array(
-		0 => array($name2,"<span style='color:white; font-size:11px;'>Solos letras y numeros, 3 a 15 caracteres.</span>"),
-		1 => array("","<span style='color:white; font-size:11px;'>Solos letras, numeros y '_'. <br>Mínimo 1 mayúscula, 1 minúscula, 1 número. <br> De 6 a 15 caracteres.</span>"),
-		2 => array($email, ""),
-		3 => array($gender, ""),
-		4 => array($date, ""),
-		5 => array($city, ""),
-		6 => array($pais, ""),
-		7 => array("", "<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
-	);
-	
-
-	$fail_detector = false;
-	echo $fail_detector."<br>";
-	$datosYerrores[0][1] = validate_name($name2) ? validate_name($name2) : $datosYerrores[0][1];
-	echo $fail_detector." ".validate_name($name2)."<br>";
-	$datosYerrores[1][1] = validate_password($code, $code2) ? validate_password($code, $code2) : $datosYerrores[1][1];
-	echo $fail_detector."<br>";
-	$datosYerrores[2][1] = validate_email($email, 1);
-	$datosYerrores[3][1] = validate_gender($gender);
-	$datosYerrores[4][1] = validate_date($date);
-	$datosYerrores[5][1] = validate_city($city);
-	$datosYerrores[6][1] = validate_pais($pais);
-	$datosYerrores[7][1] = validate_pic() ? validate_pic() : $datosYerrores[7][1];
-
-	$_SESSION['datosYerrores'] = $datosYerrores;
-	
-	
-	if($fail_detector){
-		header("Location: http://$host$uri/Registro.php");
+	$id=intval($_SESSION['IdUsuario']);
+	$sql = "SELECT NomUsuario, Clave, Email, Sexo, FNacimiento, Ciudad, NomPais, Foto FROM `usuarios`,`paises` WHERE Pais = IdPais AND IdUsuario =".$id;
+	if(!($resultado = $inkbd->query($sql))) { 
+		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+		echo "</p>"; 
 		exit;
 	}
+	$user = $resultado->fetch_assoc();
 
-	$sql_newUser = "INSERT INTO `usuarios`(`NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`) VALUES ('".$name2."','".$code."', '".$email."', '".$gender."', '".$date."', '".$city."', '".$pais."', ".$pic.")";
-
-	if(!($resultado = $inkbd->query($sql_newUser))) { 
-		$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.";
-	   	header("Location: http://$host$uri/Registro.php");
-		exit;
-	}
-	else{
-	 	$sql = "SELECT COUNT(IdUsuario) as 'exists', IdUsuario, NomPais FROM `usuarios`,`paises` WHERE NomUsuario='". $name2 ."' AND Clave ='". $code ."' AND Pais = IdPais";
-		if(!($resultado = $inkbd->query($sql))) { 
-			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
-			echo "</p>"; 
-			exit;
-		}
-		$c = $resultado->fetch_assoc();
-		$_SESSION["IdUsuario"]=$c['IdUsuario'];
-	}
-
-	require_once("inc/header_logged.php"); 
 	$Sexo = array(
 		0 => 'Hombre',
 		1 => 'Mujer',
 		2 => 'Otro'
 	);
-	$date = date_create($date)->format("d-m-Y");
+	$date = date_create($user['FNacimiento'])->format("d-m-Y");
+
 ?>
 
 	<section id="insercion">
 		<div>
 			<span>
 				<h2>Inserción realizada correctamente</h2>
-				<img src=<?php echo $pic ?> class="user">
-				<h1> <?php echo $name2 ?> </h1>
+				<img src=<?php echo "'".$user['Foto']."'"; ?> class="user">
+				<h1> <?php echo $user['NomUsuario']; ?> </h1>
 			</span>	
 		</div>
 		<section>
 			<div>
-				<p><b>Contraseña:</b> <?php echo $code ?> </p>
-				<p><b>Sexo:</b> <?php echo $Sexo[$gender] ?> </p>
-				<p><b>Email: </b> <?php echo $email ?> </p>
+				<p><b>Sexo:</b> <?php echo $Sexo[$user['Sexo']]; ?> </p>
+				<p><b>Email: </b> <?php echo $user['Email']; ?> </p>
 				<p><b>Fecha de nacimiento: </b> <?php echo $date ?> </p>
-				<p><b>Ciudad: </b> <?php echo $city ?> </p>
-				<p><b>País: </b> <?php echo $c['NomPais'] ?> </p>
+				<p><b>Ciudad: </b> <?php echo $user['Ciudad'] ?> </p>
+				<p><b>País: </b> <?php echo $user['NomPais'] ?> </p>
 			</div>
 		</section>
 	</section>
+
 <?php
 	require_once("inc/footer.php"); 
 ?>

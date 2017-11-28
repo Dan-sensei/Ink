@@ -71,7 +71,7 @@
 			0 => array("","<span style='color:white; font-size:11px;'>Solos letras y numeros, 3 a 15 caracteres.</span>"),
 			1 => array("","<span style='color:white; font-size:11px;'>Solos letras, numeros y '_'. <br>Mínimo 1 mayúscula, 1 minúscula, 1 número. <br> De 6 a 15 caracteres.</span>"),
 			2 => array("",""),
-			3 => array("-1",""),
+			3 => array("2",""),
 			4 => array("",""),
 			5 => array("",""),
 			6 => array("",""),
@@ -96,7 +96,7 @@
 			</a>
 		</div>
 		<div>
-		  <form action="Insercion.php" method="post" enctype="multipart/form-data" id="registro">
+		  <form action="INSERT_User.php" method="post" enctype="multipart/form-data" id="registro">
 		  		<h3>Registro</h3>
 		  		<label for="name2">Nombre<span>*</span></label>
 				<p><input type="text" name="name2" id="name2" placeholder="Nombre de usuario" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required></p>
@@ -144,8 +144,9 @@
 				<label for="pais">País<span>*</span></label>
 				<select form="registro" class="extra" name="pais" id="pais">
 					<?php 
-						while($option = $resultado->fetch_assoc() ) { 
-							if($option['NomPais']=="Spain"){
+						$p = $datosYerrores[6][0] ? $datosYerrores[6][0] : "ES";
+						while($option = $resultado->fetch_assoc() ) {
+							if($option['IdPais']==$p){
 								echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
 							}
 							else{

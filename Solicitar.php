@@ -2,6 +2,13 @@
 	require_once("inc/head.php"); 
 	require_once("inc/header_logged.php"); 
 
+	if(isset($_SESSION['done'])) unset($_SESSION['done']);
+	$message="";
+	if (isset($_SESSION["error"])) {
+	    $message = $_SESSION["error"];
+	    unset($_SESSION["error"]);
+	}
+
 	$sql = "SELECT IdAlbum, Titulo FROM `usuarios`, `albumes` WHERE IdUsuario = '".$_SESSION["IdUsuario"]."' AND IdUsuario=Usuario";
 	if(!($resultado = $inkbd->query($sql))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
@@ -35,7 +42,7 @@
 		   13 => array("150", ""),			//Resolucion
 		   14 => array("", ""),			//Album
 		   15 => array("", ""),			//Fecha de recepcion
-		   16 => array("", "")			//A color?
+		   16 => array("1", "")			//A color?
 		);
 	}else{
 		$datosYerrores = $_SESSION['datosYerrores'];
@@ -161,7 +168,7 @@
 		</div>
 		  	<!--Usar asterisco-->
 		  <div>
-		  	<form action="Rsolicitar.php" method="post" id="f_solicitar">
+		  	<form action="INSERT_Solicitud.php" method="post" id="f_solicitar">
 			  	<section>
 				  	<h2>Datos</h2>
 				  	
@@ -197,18 +204,11 @@
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
 
 					<label for="pais">País<span>*</span></label>
-					<select form="busqueda" class="extra" name="pais" id="pais" required>
+					<select form="f_solicitar" class="extra" name="pais" id="pais" required>
 						<?php 
-							if(!empty($datosYerrores[7][0])){
-								if($option['NomPais']==$datosYerrores[7][0]){
-									echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
-								}
-								else 
-									echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
-							}
-							else
+							$p = $datosYerrores[7][0] ? $datosYerrores[7][0] : "ES";
 							while($option = $resultado2->fetch_assoc() ) {
-								 if($option['NomPais']=="Spain"){
+								 if($option['IdPais']==$p){
 									echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
 								}
 								else 
@@ -216,8 +216,9 @@
 						 	} 
 						?>
 					</select>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[7][1]?></span></p>
 
-					<label for="ciudad">Ciudad<span>*</span></label>
+					<label for="ciudad">Ciudad<?php echo $p?><span>*</span></label>
 					<p><input type="text" name="ciudad" id="ciudad" value=<?php echo "'".$datosYerrores[8][0]."'" ?> required></p>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[8][1]?></span></p>
 
@@ -253,11 +254,17 @@
 					<label for="album">Álbum<span>*</span></label>
 					<select form="f_solicitar" class="extra" name="album" id="album">
 					<?php 
-						while($option = $resultado->fetch_assoc() ) { 
-							echo  "<option value='".$option['IdAlbum']."'>".$option['Titulo'] ."</option>"; 
+						$a = $datosYerrores[14][0];
+						while($option = $resultado->fetch_assoc() ) {
+							if($option['IdAlbum'] == $a) {
+								echo "<option selected='selected' value='".$option['IdAlbum']."'>".$option['Titulo'] ."</option>";
+							}
+							else
+								echo  "<option value='".$option['IdAlbum']."'>".$option['Titulo'] ."</option>"; 
 					 	} 
 					?>
 					</select> 
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[14][1]?></span></p>
 
 					<p><label for="date">Fecha de recepción<span>*</span></label></p>
 					<p><input id="date" type="date" name="date" value=<?php echo "'".$datosYerrores[15][0]."'" ?> required></p>
@@ -266,13 +273,16 @@
 					<p class="centered"><br>Impresión</p>
 					<div>
 						<label for="acolor">Color</label>
-						<input type="radio" name="acolor" id="acolor" value="Color" checked><br>
+						<input type="radio" name="acolor" id="acolor" value="1" <?php if($datosYerrores[16][0]==1) echo "checked='checked'"?>><br>
 
 						<label for="abyn">Blanco y negro</label>
-						<input type="radio" name="acolor" id="abyn" value="Blanco y negro"><br>
+						<input type="radio" name="acolor" id="abyn" value="0" <?php if($datosYerrores[16][0]==0) echo "checked='checked'"?> ><br>
 					</div>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[16][1]?></span></p>
+
 				</section>
 				<p class="fuente_centrada2"><span>*</span><span class="obligatorio">Obligatorio</span></p>
+				<p class="fuente_centrada" style="width: 39%; font-weight: bold;"><span><?php echo $message?></span></p>
 				<p><br><input type="submit" value="Comprar"></p>
 		  </form>
 		</div>
