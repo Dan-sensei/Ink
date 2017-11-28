@@ -3,6 +3,9 @@
 	require_once("inc/header_logged.php"); 
 	require_once("inc/validation.php");
 
+	$host = $_SERVER["HTTP_HOST"];
+	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
+
 	if(!isset($_POST["name"]) || $_POST["name"]==""){
 		$host = $_SERVER["HTTP_HOST"];
 		$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
@@ -30,7 +33,7 @@
 	$color = 		validate_input($_POST["color"]);
 	$copias = 		intval(validate_input($_POST["copias"]));
 	$res = 			intval(validate_input($_POST["res"]));
-	$album = 		validate_input($_POST["album"]);
+	$album = 		intval(validate_input($_POST["album"]));
 	$date = 		validate_input($_POST["date"]);
 	$acolor = 		validate_input($_POST["acolor"]);
 
@@ -56,15 +59,39 @@
 	
 	$fail_detector = false;
 
-	$datosYerrores[0][1] = validate_realname($name, 0);
-	$datosYerrores[0][1] = validate_realname($surname, 0);
+
+	$datosYerrores[0][1] = validate_realname($name);
+	if (!empty($surname))
+		$datosYerrores[0][1] = validate_realname($surname, 0);
 	$datosYerrores[3][1] = validate_email($destinatario, 0);
 	$datosYerrores[7][1] = validate_pais($pais);
-	$datosYerrores[8][1] = validate_city($city);
+	$datosYerrores[8][1] = validate_city($ciudad);
 	$datosYerrores[9][1] = validate_city($provincia) ? "La provincia solo puede contener letras" : "";
    $datosYerrores[10][1] = validate_cp($cp);
    $datosYerrores[11][1] = validate_color($color);
+
+   	if($copias < 1)
+   		$datosYerrores[12][1] = "Elige un valor válido.";
+
+   	if($res != 150 && $res != 300 && $res != 450 && $res != 600 && $res != 750 && $res != 900)
+   		$datosYerrores[13][1] = "Elige un valor válido.";
+
+   	$datosYerrores[14][1] = validate_album($album);
+   	$datosYerrores[15][1] = validate_date2($date);
+
+   	if($acolor != 0 && $acolor != 1)
+   		$datosYerrores[16][1] = "Elige un valor válido.";
+
 	$_SESSION['datosYerrores'] = $datosYerrores;
+
+	if($fail_detector){
+		header("Location: http://$host$uri/Solicitar.php");
+		exit;
+	}
+
+	$name = $name.$surname;
+//$direccion = 	validate_input($_POST["direccion"])." ".validate_input($_POST["direccion2"]).", <br>".validate_input($_POST["ciudad"]).", ".validate_input($_POST["provincia"])." ".validate_input($_POST["cp"])."<br>".validate_input($_POST["pais"]);
+	$direccion = $direccion." ". $direccion2 . ", <br>" . $ciudad . "," . $provincia . " " . $cp . "<br>" . $pais;
 
 	$paginas=15;
 	$precio=0;

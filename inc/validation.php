@@ -166,7 +166,7 @@
 	//CODIGO POSTAL
 	function validate_cp($cp){
 		$error = "";
-		if (!preg_match("/^[\d]{5}$/",$name)) {
+		if (!preg_match("/^[\d]{5}$/",$cp)) {
 			$GLOBALS['fail_detector'] = true;
 			$error = "Introduce un codigo postal valido";
 			//$_SESSION["datosYerrores"][0][1] = "El nombre de usuario solo puede contener letras y numeros, y debe tener una longitud de 3 a 15 caracteres.";
@@ -175,12 +175,12 @@
 	}
 
 	//COLOR
-	function validate_color($){
+	
+	function validate_color($color){
 		$error = "";
-		if (!preg_match("/^#[\dA-Fa-f]{6}$/",$name)) {
+		if (!preg_match("/^#[\dA-Fa-f]{6}$/",$color)) {
 			$GLOBALS['fail_detector'] = true;
 			$error = "Escoge un color válido.";
-			//$_SESSION["datosYerrores"][0][1] = "El nombre de usuario solo puede contener letras y numeros, y debe tener una longitud de 3 a 15 caracteres.";
 		}
 		return $error;
 	}
@@ -192,7 +192,20 @@
 			$GLOBALS['fail_detector'] = true;
 			$error = "El nombre solo puede contener letras.";
 		}
-		$error = $name ? 
+		return $error;
 	}
 
+	function validate_album($album){
+		$sql = "SELECT COUNT(IdAlbum) as 'exists' FROM `usuarios`,`albumes` WHERE Usuario=".$_SESSION['IdUsuario']." AND IdAlbum='".$album."'";
+		if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
+			$GLOBALS['fail_detector'] = true;
+			$error = "Error al comprobar album. Inténtelo de nuevo.".$pais; 
+		}
+		$exists = $resultado->fetch_assoc();
+		if($exists['exists'] != 1){
+			$GLOBALS['fail_detector'] = true;
+			$error = "Elige un album de la lista.";
+		}
+		$resultado -> close();
+	}
 ?>

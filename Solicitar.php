@@ -2,7 +2,7 @@
 	require_once("inc/head.php"); 
 	require_once("inc/header_logged.php"); 
 
-	$sql = "SELECT * FROM `usuarios`, `albumes` WHERE NomUsuario = '".$_SESSION["usuario"]."' AND IdUsuario=Usuario";
+	$sql = "SELECT IdAlbum, Titulo FROM `usuarios`, `albumes` WHERE IdUsuario = '".$_SESSION["IdUsuario"]."' AND IdUsuario=Usuario";
 	if(!($resultado = $inkbd->query($sql))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 		echo "</p>"; 
@@ -12,10 +12,36 @@
 	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
 
 	if(!($resultado2 = $inkbd->query($sql_getPais))) { 
-	   echo "<p>Error al ejecutar la sentencia <b>$sql_getPais</b>: " . $inkbd->error; 
+	   echo "<p>Error al ejecutar la sentencia <b>$sql_getPais</b>: " . $inkbd->error;
 	   echo "</p>"; 
 	   exit; 
 	 } 
+
+	 if(!isset($_SESSION['datosYerrores'])){
+		$datosYerrores = array(
+			0 => array("", ""),			//Nombre
+			1 => array("", ""),		//Nombre 2
+			2 => array("", ""),		//Titulo album
+			3 => array("", ""),	//Destinatario
+			4 => array("", ""),		//Comentario
+			5 => array("", ""),		//Direccion
+			6 => array("", ""),	//Direccin 2
+			7 => array("", ""),			//Pais
+			8 => array("", ""),		//Ciudad
+			9 => array("", ""),		//Provincia
+		   10 => array("", ""),			//Codigo postal
+		   11 => array("#000000", ""),			//Color
+		   12 => array("1", ""),		//Numero de copias
+		   13 => array("150", ""),			//Resolucion
+		   14 => array("", ""),			//Album
+		   15 => array("", ""),			//Fecha de recepcion
+		   16 => array("", "")			//A color?
+		);
+	}else{
+		$datosYerrores = $_SESSION['datosYerrores'];
+		unset($_SESSION['datosYerrores']);
+	}
+
 ?>
 	
 	<section id="solicitar">
@@ -140,68 +166,102 @@
 				  	<h2>Datos</h2>
 				  	
 				  	<label for="name">Nombre<span>*</span></label>
-					<p><input type="text" name="name" id="name" placeholder="(obligatorio)" maxlength="200" required>
-					<input type="text" name="surname" placeholder="(opcional)"></p>
+					<p><input type="text" name="name" id="name" placeholder="(obligatorio)" maxlength="200" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required>
+					<input type="text" name="surname" value=<?php echo "'".$datosYerrores[1][0]."'" ?> placeholder="(opcional)"></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[0][1]?></span></p>
+
 
 					<label for="talbum">Título del album<span>*</span></label>
-					<p><input type="text" name="talbum" id="talbum" placeholder="Album 1" maxlength="200" required></p>
-					
+					<p><input type="text" name="talbum" id="talbum" placeholder="Album 1" maxlength="200" value=<?php echo "'".$datosYerrores[2][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[2][1]?></span></p>
+
 					<label for="destinatario">Destinatario (email)<span>*</span></label>
-					<p><input type="email" name="destinatario" id="destinatario" placeholder="example@gmail.com" maxlength="200" required></p>
+					<p><input type="email" name="destinatario" id="destinatario" placeholder="example@gmail.com" maxlength="200" value=<?php echo "'".$datosYerrores[3][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[3][1]?></span></p>
+
 
 					<label for="adicional">Comentario adicional</label>
-				  	<p><input type="text" name="adicional" id="adicional" maxlength="4000" placeholder="Escribe aquí..."></p>
+				  	<p><input type="text" name="adicional" id="adicional" maxlength="4000" value=<?php echo "'".$datosYerrores[4][0]."'" ?> placeholder="Escribe aquí..."></p>
+				  	<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1]?></span></p>
+
 				</section>
 
 				<section>
 					<h2>Direccion</h2>
 
 					<label for="direccion">Dirección postal<span>*</span></label>
-					<p><input type="text" name="direccion" id="direccion" placeholder="Calle y número" required></p>
-					<p><input type="text" name="direccion2" id="direccion2" placeholder="Bloque, piso, escalera, etc."></p>
+					<p><input type="text" name="direccion" id="direccion" placeholder="Calle y número" value=<?php echo "'".$datosYerrores[5][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1]?></span></p>
 
-					<label for="country">País<span>*</span></label>
-					<select form="busqueda" class="extra" name="country" id="country" required>
-						<option selected='selected' value=''></option>
+					<p><input type="text" name="direccion2" id="direccion2" placeholder="Bloque, piso, escalera, etc." value=<?php echo "'".$datosYerrores[6][0]."'" ?>></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
+
+					<label for="pais">País<span>*</span></label>
+					<select form="busqueda" class="extra" name="pais" id="pais" required>
 						<?php 
-							while($option = $resultado2->fetch_assoc() ) { 
-								echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+							if(!empty($datosYerrores[7][0])){
+								if($option['NomPais']==$datosYerrores[7][0]){
+									echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
+								}
+								else 
+									echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+							}
+							else
+							while($option = $resultado2->fetch_assoc() ) {
+								 if($option['NomPais']=="Spain"){
+									echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
+								}
+								else 
+									echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
 						 	} 
 						?>
 					</select>
 
 					<label for="ciudad">Ciudad<span>*</span></label>
-					<p><input type="text" name="ciudad" id="ciudad" required></p>
+					<p><input type="text" name="ciudad" id="ciudad" value=<?php echo "'".$datosYerrores[8][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[8][1]?></span></p>
+
 
 					<label for="provincia">Provincia<span>*</span></label>
-					<p><input type="text" name="provincia" id="provincia" required></p>
+					<p><input type="text" name="provincia" id="provincia" value=<?php echo "'".$datosYerrores[9][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[9][1]?></span></p>
+
 
 					<label for="cp">Código postal<span>*</span></label>
-					<p><input type="text" name="cp" id="cp" maxlength="5" required></p>
+					<p><input type="text" name="cp" id="cp" maxlength="5" value=<?php echo "'".$datosYerrores[10][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[10][1]?></span></p>
+
 				</section>
 
 				<section>
 					<h2>Personalización</h2>
 					<label for="color">Color de la portada</label>
-					<p><input type="color" name="color" id="color" value="#000000"></p>	
+					<p><input type="color" name="color" id="color" value=<?php echo "'".$datosYerrores[11][0]."'" ?>></p>	
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[11][1]?></span></p>
+
 
 					<label for="copias">Número de copias<span>*</span></label>
-					<p><input type="number" name="copias" id="copias" min="1" value="1" required></p>
+					<p><input type="number" name="copias" id="copias" min="1" value=<?php echo "'".$datosYerrores[12][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[12][1]?></span></p>
+
 
 					<label for="res">Resolución de las fotos (DPI)<span>*</span></label>
-					<p><input type="number" name="res" id="res" min="150" step="150" value="150" required></p>
+					<p><input type="number" name="res" id="res" min="150" max="900" step="150" value=<?php echo "'".$datosYerrores[13][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[13][1]?></span></p>
+
 
 					<label for="album">Álbum<span>*</span></label>
 					<select form="f_solicitar" class="extra" name="album" id="album">
 					<?php 
 						while($option = $resultado->fetch_assoc() ) { 
-							echo  "<option value='".$option['Titulo']."'>".$option['Titulo'] ."</option>"; 
+							echo  "<option value='".$option['IdAlbum']."'>".$option['Titulo'] ."</option>"; 
 					 	} 
 					?>
 					</select> 
 
 					<p><label for="date">Fecha de recepción<span>*</span></label></p>
-					<p><input id="date" type="date" name="date" required></p>
+					<p><input id="date" type="date" name="date" value=<?php echo "'".$datosYerrores[15][0]."'" ?> required></p>
+					<p class="fuente_centrada"><span><?php echo $datosYerrores[15][1]?></span></p>
 
 					<p class="centered"><br>Impresión</p>
 					<div>

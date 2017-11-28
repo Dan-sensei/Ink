@@ -677,8 +677,8 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	width: 33%;
 	height: 90%;
 }
-#solicitar label{width:50%;}
-#solicitar input[type=text], #solicitar input[type=number],#solicitar input[type=date], input[type=email]{width: 50%;}
+#solicitar label{width:60%;}
+#solicitar input[type=text], #solicitar input[type=number],#solicitar input[type=date], input[type=email]{width: 60%;}
 
 #solicitar form div > label{
 	font-size: .7em;
@@ -703,7 +703,8 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	margin: 0 auto;
 }
 
-#solicitar .extra{width: 52%;}
+#solicitar .extra{width: 62%;}
+#solicitar .fuente_centrada{width: 60%;}
 .centered{
 	position: relative;
 	margin: 0 auto;
