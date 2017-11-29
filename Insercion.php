@@ -2,11 +2,15 @@
 	require_once("inc/head.php"); 
 	require_once("inc/header_logged.php"); 
 
+	$host = $_SERVER["HTTP_HOST"];
+	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
+
+	if(!isset($_SESSION['datosYerrores']))
+		header("Location: http://$host$uri/perfil.php");
+
 	unset($_SESSION['datosYerrores']);
 	unset($_SESSION['error2']);
 	
-	$host = $_SERVER["HTTP_HOST"];
-	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
 	if(!isset($_SESSION["IdUsuario"])){
 		header("Location: http://$host$uri/Registro.php"); 
 		exit;

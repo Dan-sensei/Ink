@@ -5,7 +5,7 @@
 
 	
 	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
-	if(!($resultado = $inkbd->query($sql_getPais))) { 
+	if(!($resultadoPais = $inkbd->query($sql_getPais))) { 
 	   echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: " . $inkbd->error; 
 	   echo "</p>"; 
 	   exit; 
@@ -169,8 +169,8 @@
 							<p><label for="pais">País</label></p>
 							<select form="registro" class="extra" name="pais" id="pais">
 								<?php 
-									while($option = $resultado->fetch_assoc() ) { 
-										if($option['NomPais']=="Spain"){
+									while($option = $resultadoPais->fetch_assoc() ) { 
+										if($option['NomPais']==$user['NomPais']){
 											echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
 										}
 										else{
@@ -191,7 +191,7 @@
 		</section>
 	</section>
 <?php
-	
+	$resultadoPais->close();
 	$resultado->close();
 	require_once("inc/footer.php"); 
 ?>

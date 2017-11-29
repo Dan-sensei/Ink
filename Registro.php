@@ -18,7 +18,7 @@
 	$host = $_SERVER["HTTP_HOST"];
 	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
 
-	if(isset($_SESSION["usuario"])){
+	if(isset($_SESSION["IdUsuario"])){
 		header("Location: http://$host$uri/Perfil.php"); 
 		exit;
 	}

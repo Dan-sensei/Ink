@@ -32,8 +32,6 @@
 						
 					echo "</select>";
 				}
-				else
-					echo "<p><input type='text' id='country' name='country'></p>";
 				?>
 				<p><input type="submit" value="Buscar"></p>
 		  </form>

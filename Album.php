@@ -25,6 +25,7 @@
 	if(empty($title['Titulo'])){
 		$error = 0;
 		require("inc/error.php");
+		exit;
 	}
 	else{
 		echo "<section id='albumes'>
@@ -46,7 +47,7 @@
 
 			echo "<div id='columnas'>";
 			do {
-				if($image['fFecha']!="0000-00-00")
+				if($image['fFecha']!= NULL)
 					$date = date_create($image['fFecha'])->format('d-m-Y')."<br>";
 				else
 					$date = "";

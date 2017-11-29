@@ -39,7 +39,7 @@ else{
 			<?php
 				$detalle = 	"<p>" . $titulo . "</p>";
 				if($descripcion!="") $detalle = $detalle . "<p>" . $descripcion . "</p>";
-				if($fecha!="0000-00-00") $detalle = $detalle . "<p>" . $fecha . "</p>";
+				if($fecha!=NULL) $detalle = $detalle . "<p>" . $fecha . "</p>";
 				if($pais!="") $detalle = $detalle . "<p>" . $pais . "</p>";
 				
 				$detalle = $detalle . "<a href='Album.php?id=".$idAlbum."''> Album: " . $album . "</a>

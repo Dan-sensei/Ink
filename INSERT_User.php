@@ -40,7 +40,6 @@
 		7 => array("", "<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
 	);
 	
-
 	$fail_detector = false;
 	$datosYerrores[0][1] = validate_name($name2) ? validate_name($name2) : $datosYerrores[0][1];
 	$datosYerrores[1][1] = validate_password($code, $code2) ? validate_password($code, $code2) : $datosYerrores[1][1];

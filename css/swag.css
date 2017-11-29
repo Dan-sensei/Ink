@@ -4,6 +4,7 @@ html{
 	background-color: #232323;
 	position: relative;
   	height: 100%;
+  	width: 100%; 
 }
 
 body{
@@ -229,7 +230,7 @@ header + section{
 	transition: none;
 }
 #columnas{column-width: 300px}
-#columnas3{
+#columnas3, #columnas_insercion{
 	display: block;
 	padding: 40px 0 30px;
 	width:90%;
@@ -238,7 +239,12 @@ header + section{
 	column-count: 2;
 	margin: 0 auto;
 }
-#columnas figure, #columnas2 figure, #columnas3 figure{
+#columnas_insercion{
+	-webkit-column-count: 1;
+	-moz-column-count: 1;
+	column-count: 1;
+}
+#columnas figure, #columnas2 figure, #columnas3 figure, #columnas_insercion figure{
 	animation: slide 1s ease-out 0s 1;
 	position: relative;
 	width: 100%;
@@ -248,8 +254,8 @@ header + section{
 	-webkit-transition: none;
 	transition: none;
 }
-#columnas3 figure{background-color: #191919;}
-#columnas figure a > div, #columnas2 figure a > div, #columnas3 figure a > div{
+#columnas3 figure, #columnas_insercion figure{background-color: #191919;}
+#columnas figure a > div, #columnas2 figure a > div, #columnas3 figure a > div, #columnas_insercion figure a > div{
 	height: 100%;
 	width:100%;
 	display: inline-block;
@@ -261,7 +267,7 @@ header + section{
 	border-radius: 10px;
 	vertical-align: bottom;
 }
-#columnas3 figure img{
+#columnas3 figure img, #columnas_insercion figure img{
 	display:block;
 	border-radius:0px;
 	width: initial;
@@ -289,10 +295,10 @@ header + section{
 }
 #columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo{font-size: 17px; color: #9741af;}
 
-#columnas3 figure a > div + div{color: white;}
-#columnas3 figure a > div + div > p {font-size: 15px; font-weight: bold; text-align: center;}
-#columnas3 figure a > div + div .titulo{font-size: 20px; color: #9741af;}
-#columnas3 figure a > div + div br + span{font-size: 15px; color: #712887;}
+#columnas3 figure a > div + div, #columnas_insercion figure a > div + div{color: white;}
+#columnas3 figure a > div + div > p, #columnas_insercion figure a > div + div > p {font-size: 15px; font-weight: bold; text-align: center;}
+#columnas3 figure a > div + div .titulo, #columnas_insercion figure a > div + div .titulo{font-size: 20px; color: #9741af;}
+#columnas3 figure a > div + div br + span, #columnas_insercion figure a > div + div br + span{font-size: 15px; color: #712887;}
 #columnas figure a:hover > div > div, #columnas2 figure a:hover > div > div, #columnas3 figure a:hover > div > div{opacity:0.8;}
 
 #columnas2 {
@@ -420,7 +426,7 @@ input[type=file], input[type=radio]{
 	color: white;
 }
 #acceso input[type=file], #acceso input[type=email]{width: 40%;}
-input[type=submit], #detalle a, #cookie_div a{
+input[type=submit], #detalle a, #cookie_div a, #crear_album a{
 	-webkit-transition: background-color,width 0.3s ease-in-out;
 	transition: background-color,width 0.3s ease-in-out;
 	font-size: 1em;
@@ -441,7 +447,7 @@ input[type=submit], #detalle a, #cookie_div a{
 	justify-content:center;
 	align-items:center;
 }
-input[type=submit]:hover, input[type=submit]:focus, #detalle a:hover, #cookie_div a:hover, #cookie_div a:focus, #cookie_div a:hover{
+input[type=submit]:hover, input[type=submit]:focus, #detalle a:hover, #cookie_div a:hover, #cookie_div a:focus, #cookie_div a:hover, #crear_album a:hover, #crear_album a:focus, #crear_album a:active{
 	background-color: #7c208c;
 	-moz-box-shadow: 0px 0px 30px #7c208c; 
 	-webkit-box-shadow: 0px 0px 30px #7c208c; 
@@ -516,7 +522,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	display: table;
 }
 #perfil aside{
-	width:10%;
+	width:160px;
 	height: 100%;
 	position: relative;
 	float:left;
@@ -525,12 +531,11 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #perfil aside nav{
 	position: fixed;
     background-color: #191919;
-    width: 10%;
+    width: 160px;
     height: 100%;
     display:flex;
     align-items:center;
 }
-#perfil aside nav div{margin-top: -50%;}
 #perfil aside nav a{
 	color: #e5e5e5;
 	display: block;
@@ -611,28 +616,23 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 /*---------------------------------------------------------SOLICITAR---------------------------------------------------------*/
 #solicitar{
 	width: 100%;
-	padding-top:75px;
-	padding-bottom: 50px;
+	padding: 0;
 	margin-top: 0;
-	display: table;
 	background-color: #262626;
 }
 
 #solicitar > div:first-child{
-	position: relative;
 	float:left;
 	width: 30%;
 	height: 100%;
-	position: relative;
+	position: fixed;
 	background-color: #191919;
 	color: white;
-	padding:10px;
+	padding: 100px 10px;
 }
 
 #solicitar > div:first-child table{
 	width:100%;
-	position: relative;
-	clear:both;
 	margin: 0 auto;
 	display: block;
 	text-align: center;
@@ -661,13 +661,12 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #solicitar > div:first-child table tr >td:hover{background-color: #313033;}
 #solicitar > div:first-child table th{color:#9d27b2;}
 #solicitar > div + div{
-	padding-top: 10px;
 	position: relative;
-	float:left;
+	float:right;
 	width: 68%;
 	height: 100%;
 	margin:0;
-	padding: 0;
+	padding: 100px 0 40px;
 	color:white;
 	background-color: #262626;
 }
@@ -783,20 +782,18 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #detalle{
 	width: 100%;
 	height: 100%;
-	display: table;
 	margin: 0;
-	padding-top: 75px;
+	padding-top: 0;
+	overflow: hidden;
 }
 #detalle p{margin:5px 0;}
 #detalle > div:first-child{
+	padding: 100px 2% 0;
 	background-color: #191919;
 	position: relative;
 	float: left;
 	height: 100%;
 	width: 30%;
-	padding: 2%;
-	display: table-cell;
-    vertical-align: middle;
     -webkit-transition: none; 
     transition: none;
 }
@@ -806,7 +803,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	float: left;
 	height: 100%;
 	width: 60%;
-	padding: 2%;
+	padding: 100px 2% 0;
 	font-size: 20px;
 	color: white;
 	font-weight: bold;
@@ -863,14 +860,23 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	display: block;
 	text-align: center;
 	margin: 0 auto 20px;
-	width: 10%;
+	width: 19%;
 }
 #crear_album label, #crear_album input, #crear_album .fuente_centrada{
 	width: 20%;
 }
 #crear_album select{width: 20%;}
 .fuente_centrada a{color: white;}
-
+#crear_album a{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	padding:20px;
+	width: 21%;
+	height: auto;
+	text-decoration: none;
+	margin: 0 auto;
+}
 #insercion{
 	width: 100%; 
 	color:white;

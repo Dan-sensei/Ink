@@ -22,9 +22,9 @@
 				while($option = $resultado->fetch_assoc() ) {
 					$c=$c+1;
 					$fecha="";
-					if($option['Fecha']!="0000-00-00"){
+					if($option['Fecha']!= NULL)
 						$fecha = date_create($option['Fecha'])->format('d m Y')."<br>";
-					}
+					
 					if(empty($option['Cover']))
 						$option['Cover'] = 'img/icon.png';
 					

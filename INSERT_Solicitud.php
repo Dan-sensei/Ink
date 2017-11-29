@@ -157,7 +157,7 @@
 		exit;
 	}
 	else{
-		header("Location: http://$host$uri/Rsolicitar.php?id=".$inkbd->insert_id);
+		header("Location: http://$host$uri/Insercion_Solicitud.php.php?id=".$inkbd->insert_id);
 		exit;
 	}
 ?>

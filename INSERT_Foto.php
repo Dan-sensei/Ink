@@ -14,7 +14,7 @@
 	   exit; 
 	 }
 
-	 $titulo = $descripcion = $date = $pais = "";
+	 $titulo = $descripcion = $date = $pais = $album = "";
 
 	 if(!isset($_POST['titulo']) || !isset($_POST['desc']) || empty($_POST['titulo']) || empty($_POST['desc'])){
 		$_SESSION['error2']="El titulo y la descripcion son obligatorios.";
@@ -22,20 +22,21 @@
 		exit;
 	}
 
-	 $titulo = validate_input($_POST['titulo']);
-	 $descripcion = validate_input($_POST['desc']);
-	 $date = validate_input($_POST['date']);
-	 $pais = validate_input($_POST['pais']);
-	 if(empty(validate_input($_FILES['pic']['name'])) )
-		$pic =	"'img/icon.png'";
+	$titulo = validate_input($_POST['titulo']);
+	$descripcion = validate_input($_POST['desc']);
+	$date = validate_input($_POST['date']);
+	$pais = validate_input($_POST['pais']);
+	$album = validate_input($_POST['album']);
 
 	$datosYerrores = array(
 		0 => array($titulo,""),			//Nombre
 		1 => array($descripcion,""),	//Descripcion
 		2 => array($date,""),			//Fecha
 		3 => array($pais,""),			//Pais
-		4 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
+		4 => array($album,""),			//Album
+		5 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
 	);
+
 
 	$fail_detector = false;
 	
@@ -45,7 +46,14 @@
 		$datosYerrores[3][1] = validate_pais($pais);
 		$pais = "'".$pais."'";
 	}
-	$datosYerrores[4][1] = validate_pic() ? validate_pic() : $datosYerrores[4][1];
+
+	$datosYerrores[4][1] = validate_album($album);
+
+	if(empty(validate_input($_FILES['pic']['name'])) ){
+		$datosYerrores[5][1] = "Elige una imagen para subir.";
+	}
+	else	
+		$datosYerrores[5][1] = validate_pic() ? validate_pic() : $datosYerrores[4][1];
 
 	if(empty($date))
 		$date="NULL";
@@ -55,20 +63,19 @@
 	$_SESSION['datosYerrores'] = $datosYerrores;
 
 	if($fail_detector){
-		header("Location: http://$host$uri/crear_album.php");
+		header("Location: http://$host$uri/addFoto.php");
 		exit;
 	}
+	echo $album."<br>";
+	$sql_album = "INSERT INTO `fotos`( `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Album`, `Fichero`) VALUES ('".$titulo."','".$descripcion."',".$date.",".$pais.",".$album.",".$pic.")";
 
-	$id=intval($_SESSION['IdUsuario']);
-	$album = "INSERT INTO `albumes`( `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES ('".$titulo."','".$descripcion."',".$date.",".$pais.",".$id.",".$pic.")";
-
-	if(!($inkbd->query($album))) {
+	if(!($inkbd->query($sql_album))) { 
 		$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.";
-	   	header("Location: http://$host$uri/crear_album.php");
+	   	header("Location: http://$host$uri/addFoto.php");
 		exit;
 	}
 	else{
-		header("Location: http://$host$uri/Insercion_album.php?id=".$inkbd->insert_id);
+		header("Location: http://$host$uri/Insercion_foto.php?id=".$inkbd->insert_id);
 		exit;
 	}
 	require_once("inc/footer.php"); 

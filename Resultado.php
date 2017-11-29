@@ -70,8 +70,6 @@
 						
 					echo "</select>";
 				}
-				else
-					echo "<p><input type='text' id='country' name='country'></p>";
 				?>
 			</div>
 			<div class="filtro">
@@ -86,7 +84,7 @@
   		$c = 0;
 		while($image = $resultado->fetch_assoc() ) {
 			$c=$c+1;
-			if($image['Fecha']!="0000-00-00")
+			if($image['Fecha']!=NULL)
 				$date = date_create($image['Fecha'])->format('d m Y')."<br>";
 			else
 				$date = "";

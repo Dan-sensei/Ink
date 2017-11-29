@@ -13,7 +13,7 @@
 	<section id="columnas">
 		<?php
 		while($image = $resultado->fetch_assoc() ) {
-			if($image['Fecha']!="0000-00-00")
+			if($image['Fecha']!=NULL)
 				$date = date_create($image['Fecha'])->format('d-m-Y')."<br>";
 			else
 				$date = "";
