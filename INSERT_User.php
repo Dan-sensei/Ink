@@ -42,11 +42,8 @@
 	
 
 	$fail_detector = false;
-	echo $fail_detector."<br>";
 	$datosYerrores[0][1] = validate_name($name2) ? validate_name($name2) : $datosYerrores[0][1];
-	echo $fail_detector." ".validate_name($name2)."<br>";
 	$datosYerrores[1][1] = validate_password($code, $code2) ? validate_password($code, $code2) : $datosYerrores[1][1];
-	echo $fail_detector."<br>";
 	$datosYerrores[2][1] = validate_email($email, 1);
 	$datosYerrores[3][1] = validate_gender($gender);
 	$datosYerrores[4][1] = validate_date($date);

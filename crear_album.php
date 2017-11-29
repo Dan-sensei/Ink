@@ -7,7 +7,20 @@
 	   echo "<p>Error al ejecutar la sentencia <b>$sql_getPais</b>: " . $inkbd->error; 
 	   echo "</p>"; 
 	   exit; 
-	} 
+	}
+
+	if(!isset($_SESSION['datosYerrores'])){
+		$datosYerrores = array(
+		0 => array("",""),			//Nombre
+		1 => array("",""),	//Descripcion
+		2 => array("",""),			//Fecha
+		3 => array("",""),			//Pais
+		4 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
+		);
+	}else{
+		$datosYerrores = $_SESSION['datosYerrores'];
+		unset($_SESSION['datosYerrores']);
+	}
 ?>
 
 	<section id="crear_album">
@@ -24,18 +37,28 @@
 				<label for="date">Fecha</label>
 				<p><input type="date" name="date" id="date"></p>
 
-				<label for="crea">País</label>
-				<select form="busqueda" class="extra" name="country" id="country">
+				<label for="pais">País</label>
+				<select form="crea" class="extra" name="pais" id="pais">
 					<option selected='selected' value=''></option>
 					<?php 
-						while($option = $resultado->fetch_assoc() ) { 
-							echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
-					 	} 
+
+						$p = $datosYerrores[3][0] ? $datosYerrores[3][0] : "ES";
+						while($option = $resultado->fetch_assoc() ) {
+							 if($option['IdPais']==$p){
+								echo  "<option selected='selected' value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 		  
+							}
+							else 
+								echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+					 	}
 					?>
 				</select>
 
+				<label for="pic">Foto</label>
+				<p><input type="file" name="pic" id="pic" accept="image/*"></p>
+				<p class="fuente_centrada"><span><?php echo "Uee"; ?></span></p>
+
 				<p class="fuente_centrada"><span>*</span><span class="obligatorio">Obligatorio</span></p>
-				<input type="submit" value="Login">
+				<input type="submit" value="Crea">
 			</form>
 		</div>
 	</section>

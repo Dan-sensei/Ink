@@ -1,53 +1,69 @@
 ﻿<?php 
 	require_once("inc/head.php");
 	require_once("inc/header_logged.php");
+	require_once("inc/validation.php");
+
+	$host = $_SERVER["HTTP_HOST"];
+	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
+
 	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
 
 	if(!($resultado = $inkbd->query($sql_getPais))) { 
 	   echo "<p>Error al ejecutar la sentencia <b>$sql_getPais</b>: " . $inkbd->error; 
 	   echo "</p>"; 
 	   exit; 
-	 } 
-	$logged =
-			"<a href='perfil.php'>
-				<img src='img/Sona_profile.png' id='user_mini'>
-			</a>
-		</div>
-	</header>";
+	 }
 
-	echo $logged;
-?>
+	 $titulo = $descripcion = $date = $pais;
 
-	<section id="crear_album">
-		<div>
-			<form action="access.php" method="post" id ="crea">
-				<h3>Crear álbum</h3>
-				<img src="img/album_icon.png">
-				<label for="title">Título<span>*</span></label>
-				<p><input type="text" name="titulo" id="titulo" required></p>
-			
-				<label for="desc">Descripción<span>*</span></label>
-				<p><input type="text" name="desc" id="desc" required></p>
+	 if(!isset($_POST['titulo']) || !isset($_POST['desc']) || empty($_POST['titulo']) || empty($_POST['desc'])){
+		$_SESSION['error2']="El titulo y la descripcion son obligatorios.";
+		header("Location: http://$host$uri/crear_album.php");
+		exit;
+	}
 
-				<label for="date">Fecha<span>*</span></label>
-				<p><input type="date" name="date" id="date" required></p>
+	 $titulo = validate_input($_POST['titulo']);
+	 $descripcion = validate_input($_POST['desc']);
+	 $date = validate_input($_POST['date']);
+	 $pais = validate_input($_POST['pais']);
+	 if(empty( validate_input($_FILES['pic']['name'])) )
+		$pic =	"'img/icon.png'";
 
-				<label for="crea">País</label>
-				<select form="busqueda" class="extra" name="country" id="country">
-					<option selected='selected' value=''></option>
-					<?php 
-						while($option = $resultado->fetch_assoc() ) { 
-							echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
-					 	} 
-					?>
-				</select>
+	$datosYerrores = array(
+		0 => array($titulo,""),			//Nombre
+		1 => array($descripcion,""),	//Descripcion
+		2 => array($date,""),			//Fecha
+		3 => array($pais,""),			//Pais
+		4 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
 
-				<p class="fuente_centrada"><span>*</span><span class="obligatorio">Obligatorio</span></p>
-				<input type="submit" value="Login">
-			</form>
-		</div>
-	</section>
+	);
 
-<?php
+	$fail_detector = false;
+	
+	if(empty($pais))
+		$pais=NULL;
+	else{
+		$datosYerrores[3][1] = validate_pais($pais);
+		$pais = "'".$pais."'";
+	}
+	$datosYerrores[4][1] = validate_pic() ? validate_pic() : $datosYerrores[4][1];
+
+	if(empty($date))
+		$date=NULL;
+	else
+		$date = "'".$date."'";
+	
+	$id=intval($_SESSION['IdUsuario']);
+	$album = "INSERT INTO `albumes`( `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES ('".$titulo."','"$descripcion"',".$date.",".$pais.",".$id.",".$pic.")";
+
+	if(!($inkbd->query($album))) { 
+		$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.";
+	   	header("Location: http://$host$uri/crear_album.php");
+		exit;
+	}
+	else{
+		header("Location: http://$host$uri/Rsolicitar.php?id=".$inkbd->insert_id);
+		exit;
+	}
 	require_once("inc/footer.php"); 
 ?>
