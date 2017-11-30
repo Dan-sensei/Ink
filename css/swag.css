@@ -553,7 +553,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #perfil aside nav a:hover{background-color: #343a47; margin-left: 0px;}
 #perfil > div{
 	padding: 50px 0 20px;
-	width:90%;
+	width:85%;
 	height: auto;
 	position: relative;
 	float:left;
@@ -568,7 +568,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 }
 #perfil section{
 	margin: 0 auto;
-	width:90%;
+	width:85%;
 	height: auto;
 	position: relative;
 	float:left;
@@ -749,7 +749,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	padding-bottom: 50px;
 }
 
-#confirmacion p, #detalle p{
+#confirmacion p{
 	color: #e5e5e5;
 	display: block;
 	background-color: #434a59;
@@ -761,7 +761,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
     padding: 20px;
 }
 
-#confirmacion p:hover, #detalle p:hover{background-color: #505459;}
+#confirmacion p:hover{background-color: #505459;}
 
 #parametros{
 	position:fixed;
@@ -786,36 +786,72 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	margin: 0;
 	padding-top: 0;
 	overflow: hidden;
-}
-#detalle p{margin:5px 0;}
-#detalle > div:first-child{
-	padding: 100px 2% 0;
-	background-color: #191919;
 	position: relative;
-	float: left;
-	height: 100%;
-	width: 30%;
-    -webkit-transition: none; 
-    transition: none;
-}
-#detalle > div:first-child img{width: 100%;}
-#detalle > div + div{
-	position: relative;
-	float: left;
-	height: 100%;
-	width: 60%;
-	padding: 100px 2% 0;
-	font-size: 20px;
-	color: white;
-	font-weight: bold;
+	text-align: center;
 }
 #detalle a {
-	display:block;
-	height: 30px;
-	padding:20px;
-	width: 40%;
-	margin: 5px 0;
-	border-radius: 0;
+	display: block;
+	padding:5px;
+	border-radius: 50%;
+	margin: 0 auto;
+	background-color: #b238fd;
+}
+#user_mini_f {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+#detalle div:first-child{
+	position: fixed;
+	clear: none;
+	padding-top: 100px;
+	height: 100%;
+	width: 20%;
+}
+#detalle div:first-child a{
+	height: 175px;
+	width: 175px;
+}
+#detalle div:first-child a + a{
+	height: 100px;
+	width: 100px;
+	float: right;
+}
+#detalle div:nth-child(2){
+	display: inline-block;
+	width: auto;
+	height: auto;
+	max-width: 60%;
+	max-height: 65%;
+	margin: 0 auto;
+	padding-top: 100px;
+	text-align: center;
+}
+#detalle div:nth-child(2) span{
+	font-size: 22px;
+	font-family: sans-serif;
+	color: #b238fd;
+}
+#detalle div:nth-child(2) span + br + span{
+	font-size: 16px;
+	font-family: sans-serif;
+	color: white;
+}
+#detalle div:nth-child(2) img{
+	height: initial;
+	width: initial;
+	max-width: 100%;
+	max-height: 100%;
+}
+#detalle div+div+div{
+	position: fixed;
+	clear: none;
+	padding-top: 100px;
+	height: 100%;
+	width: 10%;
+	top: 0;
+	right: 0;
 }
 #detalle p{
 	display: block;

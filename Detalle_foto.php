@@ -2,10 +2,10 @@
 require_once("inc/head.php"); 
 require_once("inc/header_logged.php"); 
 
-$sql=  "SELECT fotos.Titulo as fTitulo, fotos.Descripcion as fDescripcion, fotos.Fecha as fFecha, Fichero, NomPais, IdAlbum, albumes.Titulo as aTitulo, NomUsuario 
+$sql=  "SELECT Foto, fotos.Titulo as fTitulo, fotos.Descripcion as fDescripcion, fotos.Fecha as fFecha, Fichero, NomPais, IdAlbum, albumes.Titulo as aTitulo, NomUsuario 
 		FROM (`fotos`,`albumes` INNER JOIN `usuarios` ON Usuario = IdUsuario)
 		LEFT JOIN `paises` ON fotos.Pais = IdPais
-		WHERE IdFoto='".$_GET['id']."' AND Album = IdAlbum";
+		WHERE IdFoto='".$_GET['id']."' AND Album = IdAlbum AND Usuario = IdUsuario";
 
 if(!($resultado = $inkbd->query($sql))) { 
 	echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
@@ -18,7 +18,7 @@ $image = $resultado->fetch_assoc();
 $foto = "'" . $image['Fichero'] . "'";
 $titulo = $image['fTitulo'];
 $descripcion = $image['fDescripcion'];
-$fecha = $image['fFecha'];
+$fecha = $fecha ? date_create($image['fFecha'])->format("d m Y") : "";
 $pais= $image['NomPais'];
 $idAlbum = $image['IdAlbum'];	
 $album = $image['aTitulo'];
@@ -31,16 +31,22 @@ if(empty($titulo)){
 else{
 ?>
 	<section id="detalle">
-
+		<div>
+			<?php echo "<a href=#> <img id='user_mini_f' src='".$image['Foto']."'> <br><span>". $usuario . "</span></a>
+						<a href='Album.php?id=".$idAlbum."''> " . $album . "</a>"
+			?>
+		</div>
 		<div>
 			<img src=<?php echo $foto?> alt="PI">
+			<?php 
+				echo "<span>".$titulo."</span><br>
+						<span>".$descripcion."</span>"; 
+			?>
 		</div>
 		<div>
 			<?php
-				$detalle = 	"<p>" . $titulo . "</p>";
-				if($descripcion!="") $detalle = $detalle . "<p>" . $descripcion . "</p>";
-				if($fecha!=NULL) $detalle = $detalle . "<p>" . $fecha . "</p>";
-				if($pais!="") $detalle = $detalle . "<p>" . $pais . "</p>";
+				if($fecha!=NULL) $detalle = "<p>" . $fecha . "</p>";
+				if($pais!="") $detalle =  "<p>" . $pais . "</p>";
 				
 				$detalle = $detalle . "<a href='Album.php?id=".$idAlbum."''> Album: " . $album . "</a>
 									<a href=#> Usuario: " . $usuario . "</a>";
