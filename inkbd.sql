@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2017 at 02:25 AM
+-- Generation Time: Nov 30, 2017 at 11:06 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -34,18 +34,20 @@ CREATE TABLE `albumes` (
   `Descripcion` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Pais` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Usuario` int(11) NOT NULL
+  `Usuario` int(11) NOT NULL,
+  `Cover` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `albumes`
 --
 
-INSERT INTO `albumes` (`IdAlbum`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`) VALUES
-(1, 'Random', 'Imagenes sin sentido alguno', NULL, NULL, 1),
-(2, 'Vocaloid', 'Differents vocaloid idols from Japan!', '2017-08-21', 'JP', 1),
-(3, 'GIFs', 'GIFs molones', NULL, NULL, 1),
-(4, 'Landscapes', 'Diferentes paisajes del mundo', '2017-11-14', NULL, 1);
+INSERT INTO `albumes` (`IdAlbum`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES
+(1, 'Random', 'Imagenes sin sentido alguno', NULL, NULL, 1, 'img/random.png'),
+(2, 'Ilustraciones', 'El arte de la pintura digital', '2017-08-21', 'JP', 1, 'img/Battle.jpg'),
+(3, 'GIFs', 'GIFs molones', NULL, NULL, 1, 'img/gif.gif'),
+(4, 'Landscapes', 'Diferentes paisajes del mundo', '2017-11-14', NULL, 1, 'img/landscape.jpg'),
+(14, 'El conocimiento es poder', 'Perezoso molon', '2017-11-07', 'SJ', 1, 'img/CSyGyPvWEAAP3TB.jpg');
 
 -- --------------------------------------------------------
 
@@ -57,7 +59,7 @@ CREATE TABLE `fotos` (
   `IdFoto` int(11) NOT NULL,
   `Titulo` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Descripcion` varchar(4000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `Fecha` date NOT NULL,
+  `Fecha` date DEFAULT NULL,
   `Pais` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `Album` int(11) NOT NULL,
   `Fichero` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -70,18 +72,21 @@ CREATE TABLE `fotos` (
 
 INSERT INTO `fotos` (`IdFoto`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Album`, `Fichero`, `FRegistro`) VALUES
 (54, 'Miku!', 'Hatsune Miku!', '2017-11-07', 'JP', 2, 'img/Miku.jpg', '2017-11-16 19:44:19'),
-(55, 'Midoriya', 'Boku No Hero Academia', '0000-00-00', 'JP', 2, 'img/Midoriya.jpg', '2017-11-16 19:41:43'),
-(57, 'Multicolor', 'Alguna parte', '0000-00-00', NULL, 4, 'img/p1.jpg', '2017-11-16 19:43:33'),
-(58, 'Puerto', 'Alguna parte 2', '0000-00-00', 'CH', 4, 'img/p2.jpg', '2017-11-16 19:43:33'),
-(59, '...', 'Yes', '0000-00-00', NULL, 3, 'img/giphy.gif', '2017-11-16 19:43:33'),
+(55, 'Midoriya', 'Boku No Hero Academia', NULL, 'JP', 2, 'img/Midoriya.jpg', '2017-11-29 19:58:20'),
+(57, 'Multicolor', 'Alguna parte', NULL, NULL, 4, 'img/p1.jpg', '2017-11-29 19:58:20'),
+(58, 'Puerto', 'Alguna parte 2', NULL, 'CH', 4, 'img/p2.jpg', '2017-11-29 19:58:20'),
+(59, '...', 'Yes', NULL, NULL, 3, 'img/giphy.gif', '2017-11-29 19:58:20'),
 (60, 'Cuadro molon', 'Museo del Prado', '1995-08-09', NULL, 4, 'img/p5.jpg', '2017-11-16 19:43:33'),
-(61, '2B', 'Nier: Automata', '0000-00-00', 'JP', 2, 'img/2Bv2.jpg', '2017-11-16 19:43:33'),
-(62, 'Cielo estrellado', 'Alguna parte 3', '0000-00-00', 'CH', 4, 'img/p3.jpg', '2017-11-16 19:43:33'),
-(63, 'Minilago', 'Alguna parte 4', '0000-00-00', 'CH', 4, 'img/p4.jpg', '2017-11-16 19:43:33'),
-(64, 'Flowey', 'Flowey the Flower!', '0000-00-00', 'JP', 3, 'img/flowey_normal.gif', '2017-11-16 19:43:33'),
+(61, '2B', 'Nier: Automata', '2017-11-06', 'JP', 2, 'img/2Bv2.jpg', '2017-11-30 15:54:56'),
+(62, 'Cielo estrellado', 'Alguna parte 3', NULL, 'CH', 4, 'img/p3.jpg', '2017-11-29 19:58:20'),
+(63, 'Minilago', 'Alguna parte 4', NULL, 'CH', 4, 'img/p4.jpg', '2017-11-29 19:58:20'),
+(64, 'Flowey', 'Flowey the Flower!', NULL, 'JP', 3, 'img/flowey_normal.gif', '2017-11-29 19:58:20'),
 (65, 'Sona', 'Custom Halloween Skin!', '2017-08-09', 'US', 2, 'img/Sona_profile.png', '2017-11-16 19:43:33'),
-(66, 'Chitanda', 'Hyouka!', '0000-00-00', 'JP', 3, 'img/tumblr_mtn2ybTrOM1r3xpzxo1_500.gif', '2017-11-16 19:43:33'),
-(67, 'Zed', 'League of Legends', '0000-00-00', 'ES', 2, 'img/Zed.jpg', '2017-11-16 19:43:33');
+(66, 'Chitanda', 'Hyouka!', NULL, 'JP', 3, 'img/tumblr_mtn2ybTrOM1r3xpzxo1_500.gif', '2017-11-29 19:58:20'),
+(67, 'Zed', 'League of Legends', NULL, 'ES', 2, 'img/Zed.jpg', '2017-11-29 19:58:20'),
+(68, 'Smug Riko', 'Best sticker Telegram EU West', '2017-11-15', 'JP', 2, 'img/SmugRiko.png', '2017-11-30 15:49:28'),
+(73, 'Sap', 'Pink!', '2017-11-06', 'CA', 1, 'img/WhatsApp Image 2017-10-21 at 22.52.47.jpeg', '2017-11-29 20:40:53'),
+(74, 'Selfie perezosa', 'Perezoso molon haciendose una selfie', '2017-11-06', 'DM', 14, 'img/selfie.jpg', '2017-11-29 20:43:38');
 
 -- --------------------------------------------------------
 
@@ -374,6 +379,13 @@ CREATE TABLE `solicitudes` (
   `Coste` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`IdSolicitud`, `Album`, `Nombre`, `Titulo`, `Descripcion`, `Email`, `Direccion`, `Color`, `Copias`, `Resolucion`, `Fecha`, `IColor`, `FRegistro`, `Coste`) VALUES
+(6, 2, 'Dan a', 'Titulo molon', '&lt;?SAd&quot; &gt;', 'datrixz997@gmail.com', 'C/Dex, asd 5, 6D, <br>Ibi,Alicante 03440<br>Spain', '#f93f00', 17, 750, '2017-12-01', 1, '2017-11-28 17:17:24', 58);
+
 -- --------------------------------------------------------
 
 --
@@ -383,9 +395,9 @@ CREATE TABLE `solicitudes` (
 CREATE TABLE `usuarios` (
   `IdUsuario` int(11) NOT NULL,
   `NomUsuario` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `Clave` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Clave` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `Sexo` tinyint(4) NOT NULL,
+  `Sexo` tinyint(4) DEFAULT NULL,
   `FNacimiento` date NOT NULL,
   `Ciudad` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Pais` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -398,7 +410,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`IdUsuario`, `NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`, `FRegistro`) VALUES
-(1, 'Dan', '123', 'datrixz997@gmail.com', 0, '1997-08-21', 'Ibi', 'ES', 'img/Sona_profile.png', '2017-11-16 19:08:53');
+(1, 'Dan', '$2y$10$NVoVrE9Mxqz/Ogm1oaDJA.th86XlftaAYg80hZKrcpku6wO.47JsS', 'datrixz997@gmail.com', 0, '1997-08-21', 'Ibi', 'ES', 'img/Janna.png', '2017-11-30 16:00:02'),
+(3, 'asd', '$2y$10$vd1JgM7zNlUoj9NNqO9yv.fjKI9v8RREtlFt7futdcyguo23vGmEy', 'datrixz9972@gmail.com', 1, '2017-11-01', 'Alicante', 'AE', 'img/afd.jpg', '2017-11-28 20:31:24'),
+(34, 'FenixHielo', '$2y$10$Rt.FdJs1vEu/r88rhL7bGO.ucl6mT3360mXjgOQ8oHQAk8C9y2bj.', 'fenixhielo@gmail.com', 0, '2017-10-30', 'Alicante', 'ES', 'img/Midoriya.jpg', '2017-11-28 20:21:23'),
+(35, 'DanX', '$2y$10$K/QnB2bMWWA9COno/5Yl7.wV8jjSTl1CBYlPsZj3f75y5EXRvCCgy', 'datrixz997@gmail.co', 0, '2017-11-27', 'Ibi', 'ES', 'img/sg-soraka.png', '2017-11-28 20:26:18');
 
 --
 -- Indexes for dumped tables
@@ -449,25 +464,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `albumes`
 --
 ALTER TABLE `albumes`
-  MODIFY `IdAlbum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `IdAlbum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `IdFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `IdFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `IdSolicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdSolicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
