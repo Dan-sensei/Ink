@@ -103,7 +103,7 @@
 					</figure>";
 		} 
 		if($c==0){
-			echo "<h2 style='color:white;'> No hay resultados</h2>";
+			echo "<img style='max-height: 650px;' src='img/no-results-icon.png' alt='Sin resultados'>	";
 		}
   		?>
 	</section>

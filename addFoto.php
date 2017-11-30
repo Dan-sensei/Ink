@@ -60,7 +60,15 @@
 	}
 
 ?>
-
+	<nav>
+		<div>
+			<a href="albumes.php">Mis álbumes</a><br>
+			<a href="crear_album.php">Crear un nuevo álbum</a><br>
+			<a href="Solicitar.php">Solicitar álbum impreso</a><br>
+			<a href="addFoto.php">Añadir foto a album</a><br>
+			<a href="Baja.php">Darse de baja</a>
+		</div>
+	</nav>
 	<section id="crear_album">
 		<div>
 			<form action="INSERT_Foto.php" method="post" enctype="multipart/form-data" id = "addphoto">

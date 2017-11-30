@@ -30,12 +30,20 @@
 		unset($_SESSION['datosYerrores']);
 	}
 ?>
-
+	<nav>
+		<div>
+			<a href="albumes.php">Mis álbumes</a><br>
+			<a href="crear_album.php">Crear un nuevo álbum</a><br>
+			<a href="Solicitar.php">Solicitar álbum impreso</a><br>
+			<a href="addFoto.php">Añadir foto a album</a><br>
+			<a href="Baja.php">Darse de baja</a>
+		</div>
+	</nav>
 	<section id="crear_album">
 		<div>
 			<form action="INSERT_Album.php" method="post" enctype="multipart/form-data" id ="crea">
 				<h3>Crear álbum</h3>
-				<img src="img/album_icon.png">
+				<img src="img/add_album_icon.png">
 				<label for="title">Título<span>*</span></label>
 				<p><input type="text" name="titulo" id="titulo" value=<?php echo "'".$datosYerrores[0][0]."'";?> required></p>
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[0][1]; ?></span></p>

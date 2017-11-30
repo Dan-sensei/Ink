@@ -13,8 +13,9 @@
 
 	$id = intval($_GET['id']);
 
-	$sql = "SELECT COUNT(*) as 'exists'
-			FROM `fotos` INNER JOIN `albumes` ON Album=IdAlbum AND Album = ".$id;
+	$sql = "SELECT COUNT(*) as 'exists', Foto, IdUsuario, NomUsuario
+			FROM `usuarios`,`fotos` INNER JOIN `albumes` ON Album=IdAlbum AND Album = ".$id." 
+			WHERE IdUsuario = Usuario";
 	if(!($resultado = $inkbd->query($sql))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
 		echo "</p>"; 
@@ -28,7 +29,11 @@
 		exit;
 	}
 	else{
-		echo "<section id='albumes'>
+		echo "<section id='albumes'>";
+		if($image['IdUsuario'] != $_SESSION['IdUsuario'])
+			echo	"	<a id='u' href=#> <img id='user_mini_f' src='".$image['Foto']."'><span>". $image['NomUsuario'] . "</span></a>";
+
+		echo "<img style='display:block; margin: 0 auto; height: 150px;' src='img/album_icon.png'>
 				<h3>".$title['Titulo']."</h3>";
 		if($image['exists']==0){
 			echo "<h2 style=' margin:0; padding-top:20px; color:white; text-align:center;'>No hay fotos añadidas a este album</h2>";

@@ -197,7 +197,7 @@
 
 	function validate_album($album){
 		$error = "";
-		$sql = "SELECT COUNT(IdAlbum) as 'exists', Titulo FROM `albumes` WHERE Usuario=".$_SESSION['IdUsuario']." AND IdAlbum=".$album;
+		$sql = "SELECT COUNT(IdAlbum) as 'exists' FROM `albumes` WHERE Usuario=".$_SESSION['IdUsuario']." AND IdAlbum=".$album;
 		if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
 			$GLOBALS['fail_detector'] = true;
 			$error = "Error al comprobar album. Inténtelo de nuevo.".$pais; 

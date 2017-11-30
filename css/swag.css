@@ -5,6 +5,7 @@ html{
 	position: relative;
   	height: 100%;
   	width: 100%; 
+  	font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 }
 
 body{
@@ -12,6 +13,11 @@ body{
 	height: 100%;
 	margin:0;
 	padding:0;
+}
+
+p, label, img, input, header,span, section, div, table, figure, a{	
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 
 header{
@@ -294,7 +300,6 @@ header + section{
 	opacity: 0;
 }
 #columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo{font-size: 17px; color: #9741af;}
-
 #columnas3 figure a > div + div, #columnas_insercion figure a > div + div{color: white;}
 #columnas3 figure a > div + div > p, #columnas_insercion figure a > div + div > p {font-size: 15px; font-weight: bold; text-align: center;}
 #columnas3 figure a > div + div .titulo, #columnas_insercion figure a > div + div .titulo{font-size: 20px; color: #9741af;}
@@ -326,12 +331,6 @@ header + section{
 	transition: none;
 }
 #acceso span, #solicitar span, #crear_album span{color:red;}
-
-p, label, img, input, header,span, section, div, table, figure, a{	
-	-webkit-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-}
-
 #acceso .cookie span {color:#b049c1;}
 .fuente_centrada, .cookie{
 	clear:both;
@@ -427,9 +426,7 @@ input[type=file], input[type=radio]{
 	color: white;
 }
 #acceso input[type=file], #acceso input[type=email]{width: 40%;}
-input[type=submit], #detalle a, #cookie_div a, #crear_album a{
-	-webkit-transition: background-color,width 0.3s ease-in-out;
-	transition: background-color,width 0.3s ease-in-out;
+input[type=submit], #detalle a, #cookie_div a, #crear_album a, #albumes #u{
 	font-size: 1em;
 	background-color: #501b59;
 	color:white;
@@ -438,6 +435,8 @@ input[type=submit], #detalle a, #cookie_div a, #crear_album a{
 	border-radius: 7px;
 	padding:10px;
 	height: 48px;
+	-webkit-transition: background-color 0.3s ease-in-out;
+	transition: background-color 0.3s ease-in-out;
 }
 #cookie_div a{
 	text-decoration: none; 
@@ -448,12 +447,14 @@ input[type=submit], #detalle a, #cookie_div a, #crear_album a{
 	justify-content:center;
 	align-items:center;
 }
-input[type=submit]:hover, input[type=submit]:focus, #detalle a:hover, #cookie_div a:hover, #cookie_div a:focus, #cookie_div a:hover, #crear_album a:hover, #crear_album a:focus, #crear_album a:active{
-	background-color: #7c208c;
-	-moz-box-shadow: 0px 0px 30px #7c208c; 
-	-webkit-box-shadow: 0px 0px 30px #7c208c; 
-	box-shadow: 0px 0px 30px #7c208c;
+input[type=submit]:hover, input[type=submit]:focus, #detalle a:hover, #cookie_div a:hover, #cookie_div a:focus, #cookie_div a:hover, #crear_album a:hover, #crear_album a:focus, #crear_album a:active, #perfil input[type=submit]:hover, #perfil input[type=submit]:focus, #perfil input[type=submit]:active, 
+#albumes #u:hover, #albumes #u:focus, #albumes #u:active, #detalle div:first-child a:first-child:hover, #detalle div:first-child a:first-child:focus, #detalle div:first-child a:first-child:active{
+	background-color: #c05bff;
+	-moz-box-shadow: 0px 0px 30px #c05bff; 
+	-webkit-box-shadow: 0px 0px 30px #c05bff; 
+	box-shadow: 0px 0px 30px #c05bff;
 	cursor: pointer;
+
 }
 input[type=text]:hover, input[type=text]:focus, input[type=text]:active, input[type=number]:hover, input[type=number]:focus, input[type=number]:active, .extra:hover, .extra:focus, .extra:active, input[type=date]:hover, input[type=date]:focus, input[type=date]:active, .busqueda #search:hover, .busqueda #search:focus, .busqueda #search:active, 
 input[type=email]:hover, input[type=email]:focus, input[type=email]:active, input[type=password]:hover, input[type=password]:focus, input[type=password]:active{
@@ -507,12 +508,12 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 }
 
 #user_mini {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid purple;
-  object-fit: cover;
-  float: left;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	border: 2px solid purple;
+	object-fit: cover;
+	float: left;
 }
 
 #perfil{
@@ -529,7 +530,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	float:left;
 	display:table;
 }
-#perfil aside nav{
+#perfil aside nav, nav{
 	position: fixed;
     background-color: #191919;
     width: 160px;
@@ -537,7 +538,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
     display:flex;
     align-items:center;
 }
-#perfil aside nav a{
+#perfil aside nav a, nav a{
 	color: #e5e5e5;
 	display: block;
 	background-color: #364651;	
@@ -550,7 +551,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
     -webkit-transition: background-color,margin-left 0.3s ease-in-out;
 	transition: background-color,margin-left 0.3s ease-in-out;
 }
-#perfil aside nav a:hover{background-color: #343a47; margin-left: 0px;}
+#perfil aside nav a:hover, nav a:hover{background-color: #343a47; margin-left: 0px;}
 #perfil > div{
 	padding: 50px 0 20px;
 	width:85%;
@@ -575,7 +576,6 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	display: block;
 	font-family: Helvetica, Arial, Sans-Serif;
 	padding-bottom: 50px;
-
 }
 #perfil section div.encabezado{
 	font-size: 18px;
@@ -592,9 +592,11 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
     overflow: auto;
     background-color: #3a4b54;
     color: #e5e5e5;
-    padding: 5px 12px 5px;
+    padding: 5px 12px 12px;
     margin-bottom: 15px;
 }
+#perfil section div form > div + div {overflow: visible;}
+#perfil section div form > div + div > div:last-child{overflow: visible;}
 #perfil .fuente_centrada {width: auto; color: #ea4c44; font-size: 12px; font-weight: bold; padding-left: 4px; margin: 0;}
 #perfil section div form#cuenta > div, #perfil section div form#personal > div, #perfil section div form#password > div {width: 100%;float: left; padding: 0; margin: 0;}
 #perfil section div form#cuenta > div >div, #perfil section div form#personal > div > div{width: 50%;float: left; padding: 0; margin: 0;}
@@ -612,7 +614,6 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	background-color: #5d6f77;
 }
 #perfil input[type=submit]{border-radius:0; width: 50%; background-color:#7c208c; float: right; margin: 7px 35px 0 0;}
-#perfil input[type=submit]:hover{background-color: #882399;}
 #perfil label{width: 100%; font-weight: bold;}
 /*---------------------------------------------------------SOLICITAR---------------------------------------------------------*/
 #solicitar{
@@ -785,79 +786,97 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 	height: 100%;
 	margin: 0;
 	padding-top: 0;
-	overflow: hidden;
 	position: relative;
 	text-align: center;
+	overflow: initial;
 }
-#detalle a {
-	display: block;
+#detalle a, #detalle p, #albumes #u {
 	padding:5px;
 	border-radius: 50%;
 	margin: 0 auto;
-	background-color: #b238fd;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	text-decoration: none;
+	flex-direction: column;
+	background-color: #9a20e5;
+	font-weight: bold;
 }
-#user_mini_f {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-}
+
 #detalle div:first-child{
 	position: fixed;
-	clear: none;
-	padding-top: 100px;
+	padding-top: 150px;
 	height: 100%;
 	width: 20%;
 }
-#detalle div:first-child a{
-	height: 175px;
-	width: 175px;
+
+#user_mini_f {
+	border-radius: 50%;
+	width: 75%;
+	height: 75%;
+	object-fit: cover;
+	border: 2px solid #c05bff;	
+	-moz-box-shadow: 0px 0px 30px #c05bff; 
+	-webkit-box-shadow: 0px 0px 30px #c05bff; 
+	box-shadow: 0px 0px 30px #c05bff;
+}
+#user_mini_f + span{padding-top: 10px;}
+#detalle div:first-child a:first-child, #albumes > #u{
+	border-radius: 0;
+	background-color: #191919;
+	width: 11vw; 
+	height: 11vw;
 }
 #detalle div:first-child a + a{
-	height: 100px;
-	width: 100px;
+	height: 7vw;
+	width: 7vw;
 	float: right;
+	margin: 25% 10% 0 0;
 }
+#albumes #u{color: white; position: absolute; float: left; margin-left: 5%; margin-top: 30px; height: 7vw; width: 7vw;}
+#detalle div a + a img, #detalle div p img, #detalle div p + p img {height: 60%;}
+#detalle a:hover, #detalle a:focus, #detalle a:active{background-color: #c05bff;}
 #detalle div:nth-child(2){
-	display: inline-block;
-	width: auto;
-	height: auto;
-	max-width: 60%;
-	max-height: 65%;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction: column;
+	width: 60%;
+	height: 100%;
 	margin: 0 auto;
-	padding-top: 100px;
 	text-align: center;
 }
 #detalle div:nth-child(2) span{
-	font-size: 22px;
-	font-family: sans-serif;
+	display: block;
+	font-size: 25px;
+	text-transform: uppercase;
+
 	color: #b238fd;
+	padding-top: 10px;
 }
-#detalle div:nth-child(2) span + br + span{
-	font-size: 16px;
-	font-family: sans-serif;
+#detalle div:nth-child(2) span + span{
+	font-size: 17px;
 	color: white;
+	text-transform: initial;
+	padding: 0 0 50px;
 }
 #detalle div:nth-child(2) img{
+	padding-top: 100px;
 	height: initial;
-	width: initial;
 	max-width: 100%;
-	max-height: 100%;
+	max-height: 75%;
 }
+
 #detalle div+div+div{
 	position: fixed;
-	clear: none;
-	padding-top: 100px;
+	padding-top: 150px;
 	height: 100%;
-	width: 10%;
+	width: 20%;
 	top: 0;
 	right: 0;
 }
-#detalle p{
-	display: block;
-	width: 40%;
-}
-
+#detalle div + div + div p{width: 9vw; height: 9vw; background-color: #ff3b00; margin: 0 auto; color: white; font-weight: bold;}
+#detalle div + div + div p + p{ height: 7vw; width: 7vw; float: left; margin: 25% 0 0 10%; }
 .fuente_centrada2{
 	clear:both;
 	position: relative;
@@ -884,7 +903,7 @@ input[type=email]:hover, input[type=email]:focus, input[type=email]:active, inpu
 #crear_album{
 	width: 100%;
 	height: 100%;
-	background-color: #262626;
+	background-color: #232323;
 	padding: 0;
 	margin:0;
 }
@@ -994,9 +1013,20 @@ footer{
 
 #baja .fuente_centrada{width: 100%; font-size: 17px; font-weight: bold; text-align: center; padding-bottom: 1px;}
 #baja .fuente_centrada span {margin-top: 0;}
-#baja form{overflow: auto;}
+#baja form{overflow: visible;}
 #baja form img {display:block; width: 10%; margin: 0 auto; padding-top: 20px;}
+#baja form img:hover {	
+-webkit-filter: drop-shadow(3px 3px 2px #6ff1c1)
+				drop-shadow(-3px 3px 2px #6ff1c1)
+				drop-shadow(3px -3px 2px #6ff1c1)
+      			drop-shadow(-3px -3px 2px #6ff1c1);
+
+	filter: drop-shadow(3px 3px 2px #6ff1c1) 
+			drop-shadow(-3px 3px 2px #6ff1c1)
+			drop-shadow(3px -3px 2px #6ff1c1)
+       		drop-shadow(-3px -3px 2px #6ff1c1);
+}
 #baja span{width: 50%;}
-#baja form div {width: 20%; margin: 0 auto; display: block; overflow: auto;}
+#baja form div {width: 20%; margin: 0 auto; display: block; overflow: visible;}
 #baja form div input {width: 49%; float: left; clear: none;}
 #baja form div input:first-child {margin-left: 1px; margin-right: 4px;}

@@ -18,7 +18,7 @@ $image = $resultado->fetch_assoc();
 $foto = "'" . $image['Fichero'] . "'";
 $titulo = $image['fTitulo'];
 $descripcion = $image['fDescripcion'];
-$fecha = $fecha ? date_create($image['fFecha'])->format("d m Y") : "";
+$fecha = $image['fFecha'] ? date_create($image['fFecha'])->format("d m Y") : "";
 $pais= $image['NomPais'];
 $idAlbum = $image['IdAlbum'];	
 $album = $image['aTitulo'];
@@ -32,26 +32,24 @@ else{
 ?>
 	<section id="detalle">
 		<div>
-			<?php echo "<a href=#> <img id='user_mini_f' src='".$image['Foto']."'> <br><span>". $usuario . "</span></a>
-						<a href='Album.php?id=".$idAlbum."''> " . $album . "</a>"
+			<?php echo "<a href=#> <img id='user_mini_f' src='".$image['Foto']."'><span>". $usuario . "</span></a>
+						<a href='Album.php?id=".$idAlbum."''> <img src='img/album_icon.png'><span>" . $album . "</span></a>"
 			?>
 		</div>
 		<div>
 			<img src=<?php echo $foto?> alt="PI">
 			<?php 
-				echo "<span>".$titulo."</span><br>
+				echo "<span>".$titulo."</span>
 						<span>".$descripcion."</span>"; 
 			?>
 		</div>
 		<div>
 			<?php
-				if($fecha!=NULL) $detalle = "<p>" . $fecha . "</p>";
-				if($pais!="") $detalle =  "<p>" . $pais . "</p>";
-				
-				$detalle = $detalle . "<a href='Album.php?id=".$idAlbum."''> Album: " . $album . "</a>
-									<a href=#> Usuario: " . $usuario . "</a>";
-				echo $detalle;
+				$detalle ="";
+				if($fecha!=NULL) $detalle = "<p> <img src='img/date-icon.png'>" . $fecha . "</p>";
+				if($pais!="") $detalle .= "<p> <img src='img/location-icon.png'>" . $pais . "</p>";
 
+				echo $detalle;
 			?>
 		</div>
 	</section>

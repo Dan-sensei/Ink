@@ -13,7 +13,7 @@
 ?>
 
 	<section id="albumes">
-
+		<img style='display:block; margin: 0 auto; height: 150px;' src='img/multiple_albums_icon.png'>
 		<h3>Mis albumes</h3>
 		
 			<?php 
