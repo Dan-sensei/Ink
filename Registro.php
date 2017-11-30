@@ -58,8 +58,8 @@
 				<p class='fuente_centrada'><span>".$message."</span></p>
 				<input type='submit' value='Login'>";
 	}
-	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
 
+	$sql_getPais = "SELECT * FROM `paises` ORDER BY NomPais ASC";
 	if(!($resultado = $inkbd->query($sql_getPais))) { 
 	   echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: " . $inkbd->error; 
 	   echo "</p>"; 
@@ -77,7 +77,8 @@
 			6 => array("",""),
 			7 => array("","<span style='color:white; font-size:11px;'>Tamaño máximo de archivo: 4MB</span>")
 		);
-	}else{
+	}
+	else{
 		$datosYerrores = $_SESSION['datosYerrores'];
 		unset($_SESSION['datosYerrores']);
 	}
