@@ -49,32 +49,26 @@
 ?>
 	<div id="panel">
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="parametros">
-			<div class="filtro">
-				<label for="title">Título</label>
-				<p><input type="text" id="title" name="title" value=<?php echo "'".$title."'" ?>  ></p>
-			</div>
-			<div class="filtro">
-				<label for="date1">Fecha entre </label>
-				<p><input id="date1" type="date" value=<?php echo "'".$date1."'" ?> > <span>y</span> <input id="date2" type="date" value=<?php echo "'".$date2."'"?> ></p>
-			</div>
-			<div class="filtro">
-				<label for="country">País</label>
-				<?php 
-				if (!$error_paises){
-					echo "<select form='busqueda' class='extra' name='country' id='country'>
-						<option selected='selected' value=''></option>";
+			<label for="title">Título</label>
+			<p><input type="text" id="title" name="title" value=<?php echo "'".$title."'" ?>  ></p>
+
+			<label for="date1">Fecha entre </label>
+			<p><input id="date1" type="date" value=<?php echo "'".$date1."'" ?> > <span>y</span> <input id="date2" type="date" value=<?php echo "'".$date2."'"?> ></p>
+
+			<label for="country">País</label>
+			<?php 
+			if (!$error_paises){
+				echo "<select form='busqueda' class='extra' name='country' id='country'>
+					<option selected='selected' value=''></option>";
+				
+						while($option = $paises->fetch_assoc() ) { 
+							echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
+					 	} 
 					
-							while($option = $paises->fetch_assoc() ) { 
-								echo  "<option value='".$option['IdPais']."'>".$option['NomPais'] ."</option>"; 
-						 	} 
-						
-					echo "</select>";
-				}
-				?>
-			</div>
-			<div class="filtro">
-				<p><input type="submit" value="Buscar"></p>
-			</div>
+				echo "</select>";
+			}
+			?>
+			<p><input type="submit" value="Buscar"></p>
 		</form>
 	</div>
 	

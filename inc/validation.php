@@ -98,6 +98,10 @@
 			$GLOBALS['fail_detector'] = true;
 			$error = "Escoge una fecha válida.";//.$date;
 		}
+		else if( !(strtotime($date) < (time() - (16 * 60 * 60 * 24 * 365)))){
+			$GLOBALS['fail_detector'] = true;
+			$error = "Debes tener 16 años para registrarte.";
+		}
 		return $error;
 	}
 
