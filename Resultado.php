@@ -58,7 +58,7 @@
 			<label for="country">País</label>
 			<?php 
 			if (!$error_paises){
-				echo "<select form='busqueda' class='extra' name='country' id='country'>
+				echo "<select form='busqueda 'name='country' id='country'>
 					<option selected='selected' value=''></option>";
 				
 						while($option = $paises->fetch_assoc() ) { 

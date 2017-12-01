@@ -173,22 +173,22 @@
 				  	<h2>Datos</h2>
 				  	
 				  	<label for="name">Nombre<span>*</span></label>
-					<p><input type="text" name="name" id="name" placeholder="(obligatorio)" maxlength="200" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required>
-					<input type="text" name="surname" value=<?php echo "'".$datosYerrores[1][0]."'" ?> placeholder="(opcional)"></p>
+					<input type="text" name="name" id="name" placeholder="(obligatorio)" maxlength="200" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required>
+					<input type="text" name="surname" value=<?php echo "'".$datosYerrores[1][0]."'" ?> placeholder="(opcional)">
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[0][1]?></span></p>
 
 
 					<label for="talbum">Título del album<span>*</span></label>
-					<p><input type="text" name="talbum" id="talbum" placeholder="Album 1" maxlength="200" value=<?php echo "'".$datosYerrores[2][0]."'" ?> required></p>
+					<input type="text" name="talbum" id="talbum" placeholder="Album 1" maxlength="200" value=<?php echo "'".$datosYerrores[2][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[2][1]?></span></p>
 
 					<label for="destinatario">Destinatario (email)<span>*</span></label>
-					<p><input type="email" name="destinatario" id="destinatario" placeholder="example@gmail.com" maxlength="200" value=<?php echo "'".$datosYerrores[3][0]."'" ?> required></p>
+					<input type="email" name="destinatario" id="destinatario" placeholder="example@gmail.com" maxlength="200" value=<?php echo "'".$datosYerrores[3][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[3][1]?></span></p>
 
 
 					<label for="adicional">Comentario adicional</label>
-				  	<p><input type="text" name="adicional" id="adicional" maxlength="4000" value=<?php echo "'".$datosYerrores[4][0]."'" ?> placeholder="Escribe aquí..."></p>
+				  	<input type="text" name="adicional" id="adicional" maxlength="4000" value=<?php echo "'".$datosYerrores[4][0]."'" ?> placeholder="Escribe aquí...">
 				  	<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1]?></span></p>
 
 				</section>
@@ -197,14 +197,13 @@
 					<h2>Direccion</h2>
 
 					<label for="direccion">Dirección postal<span>*</span></label>
-					<p><input type="text" name="direccion" id="direccion" placeholder="Calle y número" value=<?php echo "'".$datosYerrores[5][0]."'" ?> required></p>
-					<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1]?></span></p>
+					<input type="text" name="direccion" id="direccion" placeholder="Calle y número" value=<?php echo "'".$datosYerrores[5][0]."'" ?> required>
+					<input type="text" name="direccion2" id="direccion2" placeholder="Bloque, piso, escalera, etc." value=<?php echo "'".$datosYerrores[6][0]."'" ?>>
 
-					<p><input type="text" name="direccion2" id="direccion2" placeholder="Bloque, piso, escalera, etc." value=<?php echo "'".$datosYerrores[6][0]."'" ?>></p>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
 
 					<label for="pais">País<span>*</span></label>
-					<select form="f_solicitar" class="extra" name="pais" id="pais" required>
+					<select form="f_solicitar" name="pais" id="pais" required>
 						<?php 
 							$p = $datosYerrores[7][0] ? $datosYerrores[7][0] : "ES";
 							while($option = $resultado2->fetch_assoc() ) {
@@ -219,17 +218,17 @@
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[7][1]?></span></p>
 
 					<label for="ciudad">Ciudad<?php echo $p?><span>*</span></label>
-					<p><input type="text" name="ciudad" id="ciudad" value=<?php echo "'".$datosYerrores[8][0]."'" ?> required></p>
+					<input type="text" name="ciudad" id="ciudad" value=<?php echo "'".$datosYerrores[8][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[8][1]?></span></p>
 
 
 					<label for="provincia">Provincia<span>*</span></label>
-					<p><input type="text" name="provincia" id="provincia" value=<?php echo "'".$datosYerrores[9][0]."'" ?> required></p>
+					<input type="text" name="provincia" id="provincia" value=<?php echo "'".$datosYerrores[9][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[9][1]?></span></p>
 
 
 					<label for="cp">Código postal<span>*</span></label>
-					<p><input type="text" name="cp" id="cp" maxlength="5" value=<?php echo "'".$datosYerrores[10][0]."'" ?> required></p>
+					<input type="text" name="cp" id="cp" maxlength="5" value=<?php echo "'".$datosYerrores[10][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[10][1]?></span></p>
 
 				</section>
@@ -237,17 +236,17 @@
 				<section>
 					<h2>Personalización</h2>
 					<label for="color">Color de la portada</label>
-					<p><input type="color" name="color" id="color" value=<?php echo "'".$datosYerrores[11][0]."'" ?>></p>	
+					<input type="color" name="color" id="color" value=<?php echo "'".$datosYerrores[11][0]."'" ?>>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[11][1]?></span></p>
 
 
 					<label for="copias">Número de copias<span>*</span></label>
-					<p><input type="number" name="copias" id="copias" min="1" value=<?php echo "'".$datosYerrores[12][0]."'" ?> required></p>
+					<input type="number" name="copias" id="copias" min="1" value=<?php echo "'".$datosYerrores[12][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[12][1]?></span></p>
 
 
 					<label for="res">Resolución de las fotos (DPI)<span>*</span></label>
-					<p><input type="number" name="res" id="res" min="150" max="900" step="150" value=<?php echo "'".$datosYerrores[13][0]."'" ?> required></p>
+					<input type="number" name="res" id="res" min="150" max="900" step="150" value=<?php echo "'".$datosYerrores[13][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[13][1]?></span></p>
 
 
@@ -266,8 +265,8 @@
 					</select> 
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[14][1]?></span></p>
 
-					<p><label for="date">Fecha de recepción<span>*</span></label></p>
-					<p><input id="date" type="date" name="date" value=<?php echo "'".$datosYerrores[15][0]."'" ?> required></p>
+					<label for="date">Fecha de recepción<span>*</span></label></p>
+					<input id="date" type="date" name="date" value=<?php echo "'".$datosYerrores[15][0]."'" ?> required>
 					<p class="fuente_centrada"><span><?php echo $datosYerrores[15][1]?></span></p>
 
 					<p class="centered"><br>Impresión</p>
@@ -283,7 +282,7 @@
 				</section>
 				<p class="fuente_centrada2"><span>*</span><span class="obligatorio">Obligatorio</span></p>
 				<p class="fuente_centrada" style="width: 39%; font-weight: bold;"><span><?php echo $message?></span></p>
-				<p><br><input type="submit" value="Comprar"></p>
+				<br><input type="submit" value="Comprar"></p>
 		  </form>
 		</div>
 	</section>

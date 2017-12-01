@@ -53,7 +53,7 @@
 				<p class='fuente_centrada'><span>*</span><span class='obligatorio'>Obligatorio</span></p>
 				<div class='fuente_centrada'>
 					<input type='checkbox' name='recordar' id='recordar' value='recordar'>
-					<label for='recordar'><span>Recuérdame</span></label>
+					<label for='recordar'>Recuérdame</label>
 				</div>
 				<p class='fuente_centrada'><span>".$message."</span></p>
 				<input type='submit' value='Login'>";
@@ -100,18 +100,18 @@
 		  <form action="INSERT_User.php" method="post" enctype="multipart/form-data" id="registro">
 		  		<h3>Registro</h3>
 		  		<label for="name2">Nombre<span>*</span></label>
-				<p><input type="text" name="name2" id="name2" placeholder="Nombre de usuario" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required></p>
-				<p class="fuente_centrada"><span><?php echo $datosYerrores[0][1]?></span></p>
+				<input type="text" name="name2" id="name2" placeholder="Nombre de usuario" value=<?php echo "'".$datosYerrores[0][0]."'" ?> required>
+				<span class="fuente_centrada"><?php echo $datosYerrores[0][1]?></span>
 
 				<label for="code">Contraseña<span>*</span></label>
-				<p><input type="password" name="code"  id="code" placeholder="Contraseña" required></p>
+				<input type="password" name="code"  id="code" placeholder="Contraseña" required>
 
 				<label for="code2">Confirmar contraseña<span>*</span></label>
-				<p><input type="password" name="code2"  id="code2" placeholder="Repetir contraseña" required></p>
+				<input type="password" name="code2"  id="code2" placeholder="Repetir contraseña" required>
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[1][1]?></span></p>
 
 				<label for="email">Email<span>*</span></label>
-				<p><input type="email" name="email" id="email" placeholder="example@gmail.com" value=<?php echo "'".$datosYerrores[2][0]."'" ?> required></p>
+				<input type="email" name="email" id="email" placeholder="example@gmail.com" value=<?php echo "'".$datosYerrores[2][0]."'" ?> required>
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[2][1]?></span></p>
 
 				<label for="otro">Sexo<span>*</span></label>
@@ -135,15 +135,15 @@
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[3][1]?></span></p>
 
 				<label for="date">Fecha de nacimiento<span>*</span></label>
-				<p><input id="date" name="date" type="date" value=<?php echo "'".$datosYerrores[4][0]."'" ?> required></p>
+				<input id="date" name="date" type="date" value=<?php echo "'".$datosYerrores[4][0]."'" ?> required>
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1]?></span></p>
 
 				<label for="city">Ciudad<span>*</span></label>
-				<p><input type="text" name="city" id="city" placeholder="Ciudad" value=<?php echo "'".$datosYerrores[5][0]."'" ?> required></p>
+				<input type="text" name="city" id="city" placeholder="Ciudad" value=<?php echo "'".$datosYerrores[5][0]."'" ?> required>
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1]?></span></p>
 
 				<label for="pais">País<span>*</span></label>
-				<select form="registro" class="extra" name="pais" id="pais">
+				<select form="registro" name="pais" id="pais">
 					<?php 
 						$p = $datosYerrores[6][0] ? $datosYerrores[6][0] : "ES";
 						while($option = $resultado->fetch_assoc() ) {
@@ -159,7 +159,7 @@
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[6][1]?></span></p>
 
 				<label for="pic">Foto</label>
-				<p><input type="file" name="pic" id="pic" accept="image/*"></p>
+				<input type="file" name="pic" id="pic" accept="image/*">
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[7][1]?></span></p>
 
 				<p class="fuente_centrada"><span>*</span><span class="obligatorio">Obligatorio</span></p>

@@ -2,7 +2,7 @@
 	include_once("inc/head.php");
 	include_once("inc/header_logged.php");
 
-	$sql_t = "SELECT Titulo from albumes WHERE IdAlbum = '".$_GET['id']."'";
+	$sql_t = "SELECT Titulo, Cover from albumes WHERE IdAlbum = '".$_GET['id']."'";
 	if(!($resultado = $inkbd->query($sql_t))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$sql_t</b>: " . $inkbd->error; 
 		echo "</p>"; 
@@ -33,7 +33,7 @@
 		if($image['IdUsuario'] != $_SESSION['IdUsuario'])
 			echo	"	<a id='u' href=#> <img id='user_mini_f' src='".$image['Foto']."'><span>". $image['NomUsuario'] . "</span></a>";
 
-		echo "<img style='display:block; margin: 0 auto; height: 150px;' src='img/album_icon.png'>
+		echo "<img style='display:block; margin: 0 auto; height: 150px;' src='".$title['Cover']."'>
 				<h3>".$title['Titulo']."</h3>";
 		if($image['exists']==0){
 			echo "<h2 style=' margin:0; padding-top:20px; color:white; text-align:center;'>No hay fotos añadidas a este album</h2>";
