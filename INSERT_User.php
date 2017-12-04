@@ -41,6 +41,9 @@
 	);
 	
 	$fail_detector = false;
+
+	$directory = "users/u_".$name2;
+
 	$datosYerrores[0][1] = validate_name($name2) ? validate_name($name2) : $datosYerrores[0][1];
 	$datosYerrores[1][1] = validate_password($code, $code2) ? validate_password($code, $code2) : $datosYerrores[1][1];
 	$datosYerrores[2][1] = validate_email($email, 1);
@@ -48,15 +51,29 @@
 	$datosYerrores[4][1] = validate_date($date);
 	$datosYerrores[5][1] = validate_city($city);
 	$datosYerrores[6][1] = validate_pais($pais);
-	$datosYerrores[7][1] = validate_pic() ? validate_pic() : $datosYerrores[7][1];
+
+	if(!$fail_detector){
+		if(is_dir($directory)){
+			deleteDirectory($directory);
+		}
+		
+		if(!mkdir($directory, 0700)){
+			$fail_detector = true;
+			$_SESSION['error2']="Hubo un error al crear tu espacio personal.";
+		}
+		else
+			$datosYerrores[7][1] = validate_pic() ? validate_pic() : $datosYerrores[7][1];
+	}
+
+
 
 	$_SESSION['datosYerrores'] = $datosYerrores;
-	
-	
+
 	if($fail_detector){
 		header("Location: http://$host$uri/Registro.php");
 		exit;
 	}
+
 
 	$sql_newUser = "INSERT INTO `usuarios`(`NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`) VALUES ('".$name2."','".password_hash($code, PASSWORD_DEFAULT)."', '".$email."', '".$gender."', '".$date."', '".$city."', '".$pais."', ".$pic.")";
 

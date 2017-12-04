@@ -32,19 +32,20 @@
 	//CONTRASEÑA
 	function validate_password($code, $code2){
 		$error = "";
-		$id=intval($_SESSION['IdUsuario']);
-		$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE IdUsuario =".$id." AND Clave='".$code."'";
-		if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
-			$GLOBALS['fail_detector'] = true;
-			$error = "Error al comprobar contraseña.".$pais; 
+		if(isset($_SESSION['IdUsuario'])){
+			$id=intval($_SESSION['IdUsuario']);
+			$sql = "SELECT COUNT(IdUsuario) as 'exists' FROM `usuarios` WHERE IdUsuario =".$id." AND Clave='".$code."'";
+			if(!($resultado = $GLOBALS['inkbd']->query($sql))) {
+				$GLOBALS['fail_detector'] = true;
+				$error = "Error al comprobar contraseña.".$pais; 
+			}
+			$exists = $resultado->fetch_assoc();
+			if($exists['exists'] == 1){
+				$GLOBALS['fail_detector'] = true;
+				$error = "Introduce una contraseña diferente a la actual.";
+			}
+			$resultado -> close();
 		}
-		$exists = $resultado->fetch_assoc();
-		if($exists['exists'] == 1){
-			$GLOBALS['fail_detector'] = true;
-			$error = "Introduce una contraseña diferente a la actual.";
-		}
-		$resultado -> close();
-
 		if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d_]{6,15}$/", $code) ){
 			$GLOBALS['fail_detector'] = true;
 			$error = "La contraseña solo puede contener letras, numeros y '_'. Debe tener al menos, una letra mayuscula, una minuscula, un numero y una lonitud de 6 a 15 caracteres.";//.$code;
@@ -147,14 +148,22 @@
 	function validate_pic(){
 		$error = "";
 		$name       = $_FILES['pic']['name'];  
-		$temp_name  = $_FILES['pic']['tmp_name'];  
+		$temp_name  = $_FILES['pic']['tmp_name'];
 		if(isset($name) && !empty($name)){
 	    	if ($_FILES["pic"]["size"] < 4194304) {
-	    		$location = 'img/';      
-	            if(move_uploaded_file($temp_name, $location.$name)){
-	            	$GLOBALS['pic'] = 	"'img/".$name."'"; 
+	    		$directory = "users/u_".$GLOBALS['name2']."/";
+	    		$path_parts = pathinfo($directory."/".$name);
+	    	
+	    		
+	    		echo "'".$directory.$name."'"."<br>";
+	    		echo "'".$directory."Profile.".$path_parts['extension'];
+
+	            if(move_uploaded_file($temp_name, $directory.$name) && rename($directory.$name, $directory."Profile.".$path_parts['extension'])){
+
+	            	$GLOBALS['pic'] = 	"'".$directory."Profile.".$path_parts['extension']."'"; 
 	            }
 	            else{
+	            	exit;
 	            	$GLOBALS['fail_detector'] = true;
 	            	$error = "Hubo un error al subir la imagen. Asegúrate de que es un formato de imagen valido y que ocupa menos de 4MB.";//.:".$name.":";
 	            }
@@ -213,5 +222,19 @@
 		}
 		$resultado -> close();
 		return $error;
+	}
+
+	function deleteDirectory($dir) {
+	    if (!file_exists($dir)) 
+	        return true;
+	    if (!is_dir($dir)) 
+	        return unlink($dir);
+	    foreach (scandir($dir) as $item) {
+	        if ($item == '.' || $item == '..') 
+	            continue;
+	        if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) 
+	            return false;    
+	    }
+	    return rmdir($dir);
 	}
 ?>

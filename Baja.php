@@ -1,5 +1,6 @@
 ﻿<?php 
 	require_once("inc/head.php");
+	require_once("inc/header_logged.php"); 
 	require_once("inc/validation.php");
 
 	$host = $_SERVER["HTTP_HOST"];
@@ -9,8 +10,11 @@
 	$erase = "DELETE FROM `usuarios` WHERE IdUsuario =".$id;
 	$message="";
 
+	
+
 	if(isset($_POST['si'])){
-		if(!($inkbd->query($erase))){
+		$directory="users/u_".$user['NomUsuario'];
+		if(!deleteDirectory($directory) || !($inkbd->query($erase))){
 			$message = "<span style='color:#ea4c44'>Algo salio mal, inténtalo de nuevo</span>";
 		}
 		else{

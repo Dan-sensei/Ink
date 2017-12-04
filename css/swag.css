@@ -16,7 +16,7 @@ body{
 	padding:0;
 }
 
-p, label, img, input, header,span, section, div, table, figure, a{	
+label, img, input, header, section, table, figure, a{	
 	-webkit-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 }
@@ -54,7 +54,7 @@ header > div:first-child{
 	background-image: url("../img/ink-2.png");
 	outline:none;
 }
-#logo span, #logo img, #logo_jl span, #logo_jl img, #busqueda_avanzada a > span, #baja a > span, .avanzada span{
+#login span, #logo span, #logo img, #logo_jl span, #logo_jl img, #busqueda_avanzada a > span, #baja a > span, .avanzada span{
 	margin-left:-100000px;
 }
 
@@ -193,10 +193,7 @@ header > div + div + div > div{
 	height:100%;
 	background:url("../img/acceder.png") center no-repeat;
 	background-size: 100%;
-	-webkit-transition: background-image 0.5s ease-in-out;
-	transition: background-image 0.5s ease-in-out;
 }
-#login span{display: none;}
 #login:hover{
 	background:url("../img/acceder2.png") center no-repeat;	
 	background-size: 100%;
@@ -204,11 +201,6 @@ header > div + div + div > div{
 
 /*---------------------------------------------------------MAIN---------------------------------------------------------*/
 
-header + section{
-	padding-top: 75px;
-	background-color: #232323;
-	overflow: auto;
-}
 
 @keyframes slide {
   from {
@@ -224,7 +216,6 @@ header + section{
 #columnas, #columnas2, #columnas3 {
 	width:100%;
 	overflow: hidden;
-	column-width:280px;
 	padding-top: 75px;
 	-webkit-column-gap: 2px;
 	-webkit-column-fill: auto;
@@ -237,15 +228,17 @@ header + section{
 	-webkit-transition: none;
 	transition: none;
 }
-#columnas{column-width: 300px}
+#columnas{
+	width: 80%;
+	-webkit-column-count: 4;
+	-moz-column-count: 4;
+	column-count: 4;
+}
 #columnas3, #columnas_insercion{
-	display: block;
 	padding: 40px 0 30px;
-	width:90%;
 	-webkit-column-count: 2;
 	-moz-column-count: 2;
 	column-count: 2;
-	margin: 0 auto;
 }
 #columnas_insercion{
 	-webkit-column-count: 1;
@@ -267,8 +260,6 @@ header + section{
 	height: 100%;
 	width:100%;
 	display: inline-block;
-	-webkit-transition: none;
-	transition: none;
 }
 #columnas figure img, #columnas2 figure img{
 	width: 100%; 
@@ -292,7 +283,6 @@ header + section{
 	right:0;
 	bottom:0;
 	text-align: center;
-	font-family: sans-serif;
 	color: white;
 	font-weight: bold;
 	transition: all 0.5s ease;
@@ -818,17 +808,24 @@ nav{
 	opacity: 0.8;
 }
 
-#panel{
+#panel, #selected{
 	float: left;
 	height: 100%;
 	width: 16%;
+	background-color: #191919;
 }
+#selected {
+	text-align: center;
+	color: #ffc300;
+	width: 20%; 
+}
+#selected h2{padding-top: 100px;}
 #panel .extra{width:62%; margin-left: 10px}
 #parametros{
-	background-color: #191919;
 	position:fixed;
 	height: 100%;
 	width:16%;
+	background-color: #191919;
 	padding-top: 120px;
 }
 

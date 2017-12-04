@@ -26,31 +26,31 @@
 				$data = json_decode($_COOKIE['recuerdame'], true);
 				$fecha="<br>ult. vez <br><span>".$data['3']['mday']."/".$data['3']['mon']."/".$data['3']['year']."</span> <span>".$data['3']['hours'].":".$data['3']['minutes']."</span>";
 			}
-		$id=intval($_SESSION['IdUsuario']);
-		$sql = "SELECT NomUsuario, Foto FROM `usuarios` WHERE IdUsuario =".$id;
-		if(!($resultado = $inkbd->query($sql))) { 
-			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
-			echo "</p>"; 
-			exit;
-		}
-		$user = $resultado->fetch_assoc();
+			$id=intval($_SESSION['IdUsuario']);
+			$sql = "SELECT NomUsuario, Foto FROM `usuarios` WHERE IdUsuario =".$id;
+			if(!($resultado = $inkbd->query($sql))) { 
+				echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+				echo "</p>"; 
+				exit;
+			}
+			$user = $resultado->fetch_assoc();
 
-			$logged =
-				"<a href='perfil.php'>
+				$logged =
+					"<a href='perfil.php'>
+						<div>
+							<img src='".$user['Foto']."' id='user_mini'>
+
+							<span class='saludo_small'> Hola, <span class='saludo_big'>" . $user['NomUsuario'] ."</span>".$fecha."</span>
+
+						</div>
+					</a>
 					<div>
-						<img src='".$user['Foto']."' id='user_mini'>
-
-						<span class='saludo_small'> Hola, <span class='saludo_big'>" . $user['NomUsuario'] ."</span>".$fecha."</span>
-
+						<a id='logout' href='access.php?logout=true'><span>Salir</span></a>
 					</div>
-				</a>
-				<div>
-					<a id='logout' href='access.php?logout=true'><span>Salir</span></a>
 				</div>
-			</div>
-		</header>";
+			</header>";
 
-		echo $logged;
+			echo $logged;
 		}
 		else{
 			$host = $_SERVER["HTTP_HOST"];

@@ -68,6 +68,13 @@
 		exit;
 	}
 	else{
+		$directory = "users/u_".$user['NomUsuario']."/album_".$inkbd->insert_id;
+		if(is_dir($directory)){
+			deleteDirectory($directory);
+		}
+		if(!mkdir($directory, 0700)){
+			die("Error al crear carpeta.")
+		}
 		header("Location: http://$host$uri/Insercion_album.php?id=".$inkbd->insert_id);
 		exit;
 	}

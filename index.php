@@ -10,6 +10,20 @@
 		exit; 
 	} 
 ?>
+
+	<div id="selected">
+		<h2>Fotos seleccionadas</h2>
+		<figure>
+			<a href='Detalle_foto.php?id=".$image['IdFoto']."'>
+				<div>
+					<img src='".$image['Fichero']."' alt='".$image['Titulo']."'>
+					<div><p>
+							<span class='titulo'>".$image['Titulo']."</span><br>".$date.$pais['NomPais']."</p>
+					</div>
+				</div>
+			</a>
+		</figure>
+	</div>
 	<section id="columnas">
 		<?php
 		while($image = $resultado->fetch_assoc() ) {
