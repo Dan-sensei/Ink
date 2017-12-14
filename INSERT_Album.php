@@ -45,7 +45,9 @@
 		$datosYerrores[3][1] = validate_pais($pais);
 		$pais = "'".$pais."'";
 	}
-	$datosYerrores[4][1] = validate_pic() ? validate_pic() : $datosYerrores[4][1];
+
+	$tmp = validate_pic();
+	$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
 
 	if(empty($date))
 		$date="NULL";
@@ -59,6 +61,8 @@
 		exit;
 	}
 
+	echo $pic;
+	exit;
 	$id=intval($_SESSION['IdUsuario']);
 	$album = "INSERT INTO `albumes`( `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES ('".$titulo."','".$descripcion."',".$date.",".$pais.",".$id.",".$pic.")";
 
@@ -68,12 +72,18 @@
 		exit;
 	}
 	else{
-		$directory = "users/u_".$user['NomUsuario']."/album_".$inkbd->insert_id;
+		$directory = "users/u_".$user['NomUsuario'];
 		if(is_dir($directory)){
 			deleteDirectory($directory);
 		}
 		if(!mkdir($directory, 0700)){
-			die("Error al crear carpeta.")
+			$_SESSION["error2"] = "Error al tu álbum.";
+			$album = "DELETE FROM `albumes` WHERE IdAlbum =".$inkbd->insert_id;
+			$inkbd->query($album);
+		}
+		else{
+			$tmp = insert_pic($directory."/", "album_".$inkbd->insert_id);
+			$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
 		}
 		header("Location: http://$host$uri/Insercion_album.php?id=".$inkbd->insert_id);
 		exit;

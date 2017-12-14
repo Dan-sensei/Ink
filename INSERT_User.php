@@ -52,6 +52,9 @@
 	$datosYerrores[5][1] = validate_city($city);
 	$datosYerrores[6][1] = validate_pais($pais);
 
+	$tmp = validate_pic();
+	$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
+
 	if(!$fail_detector){
 		if(is_dir($directory)){
 			deleteDirectory($directory);
@@ -61,8 +64,10 @@
 			$fail_detector = true;
 			$_SESSION['error2']="Hubo un error al crear tu espacio personal.";
 		}
-		else
-			$datosYerrores[7][1] = validate_pic() ? validate_pic() : $datosYerrores[7][1];
+		else{
+			$tmp = insert_pic($directory."/", "Profile");
+			$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
+		}
 	}
 
 

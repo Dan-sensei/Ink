@@ -150,30 +150,31 @@
 		$name       = $_FILES['pic']['name'];  
 		$temp_name  = $_FILES['pic']['tmp_name'];
 		if(isset($name) && !empty($name)){
-	    	if ($_FILES["pic"]["size"] < 4194304) {
-	    		$directory = "users/u_".$GLOBALS['name2']."/";
-	    		$path_parts = pathinfo($directory."/".$name);
-	    	
-	    		
-	    		echo "'".$directory.$name."'"."<br>";
-	    		echo "'".$directory."Profile.".$path_parts['extension'];
-
-	            if(move_uploaded_file($temp_name, $directory.$name) && rename($directory.$name, $directory."Profile.".$path_parts['extension'])){
-
-	            	$GLOBALS['pic'] = 	"'".$directory."Profile.".$path_parts['extension']."'"; 
-	            }
-	            else{
-	            	exit;
-	            	$GLOBALS['fail_detector'] = true;
-	            	$error = "Hubo un error al subir la imagen. Asegúrate de que es un formato de imagen valido y que ocupa menos de 4MB.";//.:".$name.":";
-	            }
-	    	}
-	    	else{
+	    	if ($_FILES["pic"]["size"] > 4194304) {
+	    		//$directory = "users/u_".$GLOBALS['name2']."/";
 	    		$GLOBALS['fail_detector'] = true;
 	    		$error = "La imagen ocupa más de 4MB.";
 	    	}
 	    }
 	    return $error;
+	}
+
+	function insert_pic($path, $new){
+
+		$name       = $_FILES['pic']['name'];  
+		$temp_name  = $_FILES['pic']['tmp_name'];
+		$path_parts = pathinfo($path.$name);
+
+		echo "'".$path.$name."'"."<br>";
+		echo "'".$path.$new.".".$path_parts['extension']."'";
+
+        if(move_uploaded_file($temp_name, $path.$name) && rename($path.$name, $path.$new.".".$path_parts['extension'])){
+        	$GLOBALS['pic'] = 	"'".$path.$new.".".$path_parts['extension']."'"; 
+        }
+        else{
+        	$GLOBALS['fail_detector'] = true;
+        	$error = "Hubo un error al subir la imagen. Asegúrate de que es un formato de imagen valido y que ocupa menos de 4MB.";
+        }
 	}
 
 	//CODIGO POSTAL
