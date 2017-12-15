@@ -95,7 +95,13 @@
 							<p><label for='pic'>Foto de perfil</label></p>
 							<input type='file' name='pic' id='pic' accept='image/*'>
 							<p class="fuente_centrada"><span><?php echo $errores[2]?></span></p>
-						</div>
+
+							<div class='fuente_centrada'>
+								<input type='checkbox' name='borrar' id='borrar' value='borrar'>
+								<label for='borrar'>Borrar foto de perfil</label>
+							</div>
+							
+						</div>		
 						<div>
 							<p><input type='submit' name='cuenta' value='Guardar'></p>
 						</div>

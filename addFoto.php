@@ -116,7 +116,7 @@
 					</select> 
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[4][1];?></span></p>
 
-				<label for="pic">Imagen</label>
+				<label for="pic">Imagen<span>*</span></label>
 				<p><input type="file" name="pic" id="pic" accept="image/*" required></p>
 				<p class="fuente_centrada"><span><?php echo $datosYerrores[5][1];?></span></p>
 

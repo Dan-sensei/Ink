@@ -1,6 +1,6 @@
 ﻿<?php 
 	require_once("inc/head.php");
-	require_once("inc/header_logged.php"); 
+	require_once("inc/header_logged.php");
 	require_once("inc/validation.php");
 
 	$host = $_SERVER["HTTP_HOST"];

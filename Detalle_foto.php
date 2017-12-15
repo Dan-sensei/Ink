@@ -32,7 +32,9 @@ else{
 ?>
 	<section id="detalle">
 		<div>
-			<?php echo "<a href=#> <img id='user_mini_f' src='".$image['Foto']."'><span>". $usuario . "</span></a>
+			<?php 
+			$a = $usuario == $user['NomUsuario'] ? "'Perfil.php'" : '#';
+					echo "<a href=".$a."> <img id='user_mini_f' src='".$image['Foto']."'><span>". $usuario . "</span></a>
 						<a href='Album.php?id=".$idAlbum."''> <img src='img/album_icon.png'><span>" . $album . "</span></a>"
 			?>
 		</div>

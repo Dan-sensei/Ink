@@ -27,7 +27,7 @@
 	$pais 	= 	validate_input($_POST["pais"]);
 
 	if(empty( validate_input($_FILES['pic']['name'])) )
-		$pic =	"'img/icon.png'";
+		$pic =	"img/Default.png";
 
 	$datosYerrores = array(
 		0 => array($name2,"<span style='color:white; font-size:11px;'>Solos letras y numeros, 3 a 15 caracteres.</span>"),
@@ -52,9 +52,6 @@
 	$datosYerrores[5][1] = validate_city($city);
 	$datosYerrores[6][1] = validate_pais($pais);
 
-	$tmp = validate_pic();
-	$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
-
 	if(!$fail_detector){
 		if(is_dir($directory)){
 			deleteDirectory($directory);
@@ -64,13 +61,11 @@
 			$fail_detector = true;
 			$_SESSION['error2']="Hubo un error al crear tu espacio personal.";
 		}
-		else{
-			$tmp = insert_pic($directory."/", "Profile");
+		else if(!empty(validate_input($_FILES['pic']['name'])) ){
+			$tmp = validate_pic($directory."/", "Profile");
 			$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
 		}
 	}
-
-
 
 	$_SESSION['datosYerrores'] = $datosYerrores;
 
@@ -80,7 +75,7 @@
 	}
 
 
-	$sql_newUser = "INSERT INTO `usuarios`(`NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`) VALUES ('".$name2."','".password_hash($code, PASSWORD_DEFAULT)."', '".$email."', '".$gender."', '".$date."', '".$city."', '".$pais."', ".$pic.")";
+	$sql_newUser = "INSERT INTO `usuarios`(`NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`) VALUES ('".$name2."','".password_hash($code, PASSWORD_DEFAULT)."', '".$email."', '".$gender."', '".$date."', '".$city."', '".$pais."', '".$pic."')";
 
 	if(!($inkbd->query($sql_newUser))) { 
 		$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.";
@@ -88,14 +83,7 @@
 		exit;
 	}
 	else{
-	 	$sql = "SELECT IdUsuario FROM `usuarios` WHERE NomUsuario='". $name2."'";
-		if(!($resultado = $inkbd->query($sql))) { 
-			echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
-			echo "</p>"; 
-			exit;
-		}
-		$c = $resultado->fetch_assoc();
-		$_SESSION["IdUsuario"]=$c['IdUsuario'];
+		$_SESSION["IdUsuario"]=$inkbd->insert_id;
 		header("Location: http://$host$uri/Insercion.php"); 
 	}
 ?>

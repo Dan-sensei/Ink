@@ -55,10 +55,20 @@
 				$booleano_molon = true;
 			}
 		}
-		if(!empty( validate_input($_FILES['pic']['name'])) ){
+		if(isset($_POST["borrar"]) && $_POST["borrar"]=="borrar"){
+			$path_parts = pathinfo($user['Foto']);
+			$directory = "users/u_".$user['NomUsuario']."/Profile.".$path_parts['extension'];
+			if(file_exists($directory))
+				unlink($directory);
+			$update .= "Foto ='img/Default.png' ";
+			$booleano_molon = true;
+		}
+		else if(!empty( validate_input($_FILES['pic']['name'])) ){
+			$directory = "users/u_".$user['NomUsuario'];
 			$pic=$user['Foto'];
-			$errores[2] = validate_pic();
-			$update .= "Foto =".$pic." ";
+			$errores[2] = validate_pic($directory."/", "Profile");
+
+			$update .= "Foto ='".$pic."' ";
 			$booleano_molon = true;
 		}
 		$result = 8;
@@ -121,6 +131,8 @@
 	}
 
 	$update .= "WHERE IdUsuario =".$id;
+
+
 	if(!$fail_detector && $booleano_molon && $result!=-1){
 		if(!($inkbd->query($update))) {
 			$errores[$result] = "<span style='color:#ea4c44'>| Algo salio mal, inténtalo de nuevo</span>";

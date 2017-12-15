@@ -27,7 +27,7 @@
 	 $date = validate_input($_POST['date']);
 	 $pais = validate_input($_POST['pais']);
 	 if(empty(validate_input($_FILES['pic']['name'])) )
-		$pic =	"'img/icon.png'";
+		$pic =	"img/Default.png";
 
 	$datosYerrores = array(
 		0 => array($titulo,""),			//Nombre
@@ -46,13 +46,22 @@
 		$pais = "'".$pais."'";
 	}
 
-	$tmp = validate_pic();
-	$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
+	$directory = "users/u_".$user['NomUsuario']."/album_tmp";
+	if(!$fail_detector){
+		if(is_dir($directory)){
+			deleteDirectory($directory);
+		}
+		if(!mkdir($directory, 0700)){
+			$fail_detector = true;
+			$_SESSION['error2']="Hubo un error al crear tu espacio personal.";
+		}
+		else if(!empty(validate_input($_FILES['pic']['name'])) ){
+			$tmp = validate_pic($directory."/", "Cover");
+			$datosYerrores[4][1] = $tmp ? $tmp : $datosYerrores[4][1];
+		}
+	}
 
-	if(empty($date))
-		$date="NULL";
-	else
-		$date = "'".$date."'";
+	$date = $date ? "'".$date."'" : "NULL";
 
 	$_SESSION['datosYerrores'] = $datosYerrores;
 
@@ -61,31 +70,40 @@
 		exit;
 	}
 
-	echo $pic;
-	exit;
 	$id=intval($_SESSION['IdUsuario']);
-	$album = "INSERT INTO `albumes`( `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES ('".$titulo."','".$descripcion."',".$date.",".$pais.",".$id.",".$pic.")";
+	$album = "INSERT INTO `albumes`( `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES ('".$titulo."','".$descripcion."',".$date.",".$pais.",".$id.",'".$pic."')";
+
+	echo "<br><br><br><br>".$pic."<br>";
 
 	if(!($inkbd->query($album))) {
-		$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.";
+		$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.1";
 	   	header("Location: http://$host$uri/crear_album.php");
 		exit;
 	}
 	else{
-		$directory = "users/u_".$user['NomUsuario'];
-		if(is_dir($directory)){
+		$id = $inkbd->insert_id;
+		
+		$new = "users/u_".$user['NomUsuario']."/album_".$id;
+
+		$path_parts = pathinfo($pic);
+
+		$album = "UPDATE `albumes` SET Cover='".$new."/Cover.".$path_parts['extension']."' WHERE IdAlbum=".$id;
+
+		$fail_detector = !rename($directory, $new);	
+		if(!empty(validate_input($_FILES['pic']['name'])))
+			$fail_detector = $fail_detector ? $fail_detector : !$inkbd->query($album);
+
+		if($fail_detector){
 			deleteDirectory($directory);
-		}
-		if(!mkdir($directory, 0700)){
-			$_SESSION["error2"] = "Error al tu álbum.";
-			$album = "DELETE FROM `albumes` WHERE IdAlbum =".$inkbd->insert_id;
+			deleteDirectory($new);
+			$album = "DELETE FROM `albumes` WHERE IdAlbum=".$id;
 			$inkbd->query($album);
+			$_SESSION["error2"] = "Hubo un error al procesar la solicitud. Inténtelo de nuevo.2";
+	   		header("Location: http://$host$uri/crear_album.php");
+	   		exit;
 		}
-		else{
-			$tmp = insert_pic($directory."/", "album_".$inkbd->insert_id);
-			$datosYerrores[7][1] = $tmp ? $tmp : $datosYerrores[7][1];
-		}
-		header("Location: http://$host$uri/Insercion_album.php?id=".$inkbd->insert_id);
+		
+		header("Location: http://$host$uri/Insercion_album.php?id=".$id);
 		exit;
 	}
 	require_once("inc/footer.php"); 

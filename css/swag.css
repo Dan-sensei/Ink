@@ -213,7 +213,7 @@ header > div + div + div > div{
   }
 }
 
-#columnas, #columnas2, #columnas3 {
+#columnas, #columnas2, #columnas3, #selected{
 	width:100%;
 	overflow: hidden;
 	padding-top: 75px;
@@ -234,6 +234,11 @@ header > div + div + div > div{
 	-moz-column-count: 4;
 	column-count: 4;
 }
+#selected{
+	-webkit-column-count: 1;
+	-moz-column-count: 1;
+	column-count: 1;
+}
 #columnas3, #columnas_insercion{
 	padding: 40px 0 30px;
 	-webkit-column-count: 2;
@@ -245,7 +250,7 @@ header > div + div + div > div{
 	-moz-column-count: 1;
 	column-count: 1;
 }
-#columnas figure, #columnas2 figure, #columnas3 figure, #columnas_insercion figure{
+#columnas figure, #columnas2 figure, #columnas3 figure, #columnas_insercion figure, #selected figure{
 	animation: slide 1s ease-out 0s 1;
 	position: relative;
 	width: 100%;
@@ -255,13 +260,14 @@ header > div + div + div > div{
 	-webkit-transition: none;
 	transition: none;
 }
+#selected figure{width: 95%; margin: 0  auto 15px;}
 #columnas3 figure, #columnas_insercion figure{background-color: #191919;}
-#columnas figure a > div, #columnas2 figure a > div, #columnas3 figure a > div, #columnas_insercion figure a > div{
+#columnas figure a > div, #columnas2 figure a > div, #columnas3 figure a > div, #columnas_insercion figure a > div, #selected figure a > div{
 	height: 100%;
 	width:100%;
 	display: inline-block;
 }
-#columnas figure img, #columnas2 figure img{
+#columnas figure img, #columnas2 figure img, #selected figure img{
 	width: 100%; 
 	vertical-align: bottom;
 }
@@ -272,7 +278,7 @@ header > div + div + div > div{
 	max-width: 100%;
 	max-height: 1000px;
 }
-#columnas figure a > div > div, #columnas2 figure a > div > div{
+#columnas figure a > div > div, #columnas2 figure a > div > div, #selected figure a > div > div{
 	background-color: black;
 	position: absolute;
 	display:flex;
@@ -287,8 +293,12 @@ header > div + div + div > div{
 	font-weight: bold;
 	transition: all 0.5s ease;
 	opacity: 0;
+	padding: 10px;
 }
-#columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo{font-size: 17px; color: #9741af;}
+#selected figure a > div > div{background-color: #e0b31f; color: #ffffff;}
+#selected figure a > div > div .titulo{font-size: 17px; color: #8c0037;}
+#selected figure a:hover > div > div{opacity: 0.8;}
+#columnas figure a > div > div .titulo, #columnas2 figure a > div > div .titulo {font-size: 17px; color: #9741af;}
 #columnas3 figure a > div + div, #columnas_insercion figure a > div + div{color: white;}
 #columnas3 figure a > div + div > p, #columnas_insercion figure a > div + div > p {font-size: 15px; font-weight: bold; text-align: center;}
 #columnas3 figure a > div + div .titulo, #columnas_insercion figure a > div + div .titulo{font-size: 20px; color: #9741af;}
@@ -819,7 +829,7 @@ nav{
 	color: #ffc300;
 	width: 20%; 
 }
-#selected h2{padding-top: 100px;}
+
 #panel .extra{width:62%; margin-left: 10px}
 #parametros{
 	position:fixed;
@@ -959,3 +969,4 @@ footer{
 #baja form div {width: 65%; height: auto; margin: 0 auto; display: block; overflow: visible;}
 #baja form div input {width: 49%; float: left; clear: none;}
 #baja form div input:first-child {margin-left: 1px; margin-right: 4px;}
+
