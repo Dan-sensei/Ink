@@ -312,7 +312,8 @@ header > div + div + div > div{
 	margin-right:2%;
 	margin-left:auto;
 }
-
+#selected > h3 {color: #ffc300;}
+#selected > h3:first-child{padding-top: 75px;}
 /*---------------------------------------------------------ACCEDER---------------------------------------------------------*/
 #acceso{
 	width: 100%;

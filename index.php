@@ -57,8 +57,11 @@
 ?>
 
 	<div id="selected">
+
+		<h3>Últimas fotos subidas</h3>
 		<?php require_once("inc/graph.php"); ?>
-		<h2>Foto seleccionada</h2>
+
+		<h3>Foto seleccionada</h3>
 		<?php
 		$i = 0;
 
