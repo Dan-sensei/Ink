@@ -227,6 +227,7 @@
 	}
 
 	function deleteDirectory($dir) {
+		$dir = validate_input($dir);
 	    if (!file_exists($dir)) 
 	        return true;
 	    if (!is_dir($dir)) 

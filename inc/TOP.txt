@@ -1,20 +1,5 @@
-[SELECTED]
-Photo_62.jpg
-ElRich
-El contraste de colores entre el cielo y la estela crean una gran composición.
-
-Photo_99.jpg
-Dan-sensei
-Una auténtica obra de arte
-
-Photo_67.jpg
-El fantástico Ralph!
-Tiene colores molones, como el rojo, el negro y el rojo, sobre todo el rojo.
-
-Photo_59.gif
-ElRich
-No necesita una razón para estar entre las obras más selectas
-
-Photo_1.jpg
-Perezoso anónimo
-El conocmiento es poder
+Photo_62.jpg 	| ElRich 				| El contraste de colores entre el cielo y la estela crean una gran composición.
+Photo_99.jpg 	| Dan-sensei 			| Una auténtica obra de arte
+Photo_67.jpg 	| El fantástico Ralph! 	| Tiene colores molones, como el rojo, el negro y el rojo, sobre todo el rojo.
+Photo_59.gif 	| ElRich 				| No necesita una razón para estar entre las obras más selectas
+Photo_1.jpg 	| Perezoso anónimo 		| El conocimiento es poder

@@ -1,20 +1,41 @@
 ﻿<?php 
 	require_once("inc/head.php");
-	require_once("inc/header_logged.php");
 	require_once("inc/validation.php");
 
 	$host = $_SERVER["HTTP_HOST"];
 	$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
 
+	if(!isset($_SESSION["IdUsuario"])){
+		$host = $_SERVER["HTTP_HOST"];
+		$uri  = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
+		header("Location: http://$host$uri/Registro.php"); 
+		exit;
+	}
+
 	$id=intval(validate_input($_SESSION['IdUsuario']));
+	$sql = "SELECT NomUsuario, Foto FROM `usuarios` WHERE IdUsuario =".$id;
+	if(!($resultado = $inkbd->query($sql))) { 
+		echo "<p>Error al ejecutar la sentencia <b>$sql</b>: " . $inkbd->error; 
+		echo "</p>"; 
+		exit;
+	}
+	$user = $resultado->fetch_assoc();
+	
 	$erase = "DELETE FROM `usuarios` WHERE IdUsuario =".$id;
 	$message="";
 
-	
+	$fail_detector = false;
 
 	if(isset($_POST['si'])){
 		$directory="users/u_".$user['NomUsuario'];
-		if(!deleteDirectory($directory) || !($inkbd->query($erase))){
+		if(!deleteDirectory($directory) )
+			$fail_detector = true;
+
+		if (!($inkbd->query($erase))) {
+			$fail_detector = true;
+		}
+
+		if($fail_detector){
 			$message = "<span style='color:#ea4c44'>Algo salio mal, inténtalo de nuevo</span>";
 		}
 		else{
