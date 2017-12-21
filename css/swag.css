@@ -970,3 +970,23 @@ footer{
 #baja form div input {width: 49%; float: left; clear: none;}
 #baja form div input:first-child {margin-left: 1px; margin-right: 4px;}
 
+#albumes > img {display:block; margin: 0 auto;}
+#albumes > h2 {margin:0; padding-top:20px; color:white; text-align:center;}
+
+.pagination{margin: 0 auto; width: 400px; padding: 50px 0 100px;}
+.pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+/* Style the active/current link */
+.pagination a.active {
+    background-color: #930088;
+    color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: #511e4d;}
