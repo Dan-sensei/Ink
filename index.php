@@ -97,7 +97,7 @@
 	</div>
 	<section id="columnas">
 		<?php
-
+		
 		while($image = $resultado->fetch_assoc() ) {
 			if($image['Fecha']!=NULL)
 				$date = date_create($image['Fecha'])->format('d-m-Y')."<br>";

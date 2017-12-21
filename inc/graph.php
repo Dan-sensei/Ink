@@ -11,20 +11,43 @@
 	 
 	if($inkbd->connect_errno) 
 	   $error = 1;
+/*
+	$last_7_days = "SELECT FRegistro, COUNT(*) as total
+      FROM (SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) the_day) a
+      LEFT JOIN fotos b ON YEAR(b.FRegistro) = YEAR(a.the_day) 
+      AND MONTH(b.FRegistro)=MONTH(a.the_day) AND DAY(b.FRegistro) = DAY(a.the_day)
+      GROUP BY DAY(FRegistro)";
+      */
 
-	$last_7_days = "SELECT * 
-FROM (SELECT DATEDIFF(now(), FROM_UNIXTIME(FRegistro)) AS days_ago, COUNT(id) AS num_texts 
-      FROM fotos 
-      GROUP BY DATE(FROM_UNIXTIME(start_date))) AS temp 
-WHERE days_ago <= 7";
-
-if(!($resultado = $inkbd->query($last_7_days))) { 
+      $last_7_days = "SELECT (DATE(NOW()) - INTERVAL day DAY) AS DayDate, count(IdFoto) as total
+      FROM (SELECT 0 AS day
+      		UNION SELECT 1
+      		UNION SELECT 2
+      		UNION SELECT 3
+      		UNION SELECT 4
+      		UNION SELECT 5
+      		UNION SELECT 6
+      		UNION SELECT 7
+      	) AS week
+      	LEFT JOIN fotos ON DATE(FRegistro) = (DATE(NOW()) - INTERVAL `day` DAY)
+      GROUP BY `DayDate`
+      ORDER BY `DayDate` ASC";
+//FROM (SELECT FRegistro FROM fotos BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() ) a
+//FRegistro BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()
+	if(!($graph = $inkbd->query($last_7_days))) { 
 		echo "<p>Error al ejecutar la sentencia <b>$last_7_days</b>: " . $inkbd->error; 
 		echo "</p>"; 
 		exit; 
 	} 
+	
+	$data = array();
+	while ($item = $graph -> fetch_assoc()) {
+		$data[$item['DayDate']] = $item['total'];
+	}
 
-
+	foreach ($data as $key => $value) {
+		echo $key." ".$value."<br>";
+	}
 	$data = array(
 		"Dia 1"=>40,
 		"Dia 2"=>2,
@@ -35,6 +58,7 @@ if(!($resultado = $inkbd->query($last_7_days))) {
 		"Dia 7"=>70
     );
 
+	exit;
     $img 			=	imagecreatetruecolor(WIDTH, HEIGHT); 
     $bg_color 		= 	imagecolorallocate($img, 255, 255, 255); 	// WHITE
 	$text_color 	= 	imagecolorallocate($img, 255, 255, 255); 	// BLACK
