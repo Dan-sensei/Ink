@@ -2,10 +2,10 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 15, 2017 at 03:01 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-12-2017 a las 11:39:43
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `inkbd`
+-- Base de datos: `inkbd`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `albumes`
+-- Estructura de tabla para la tabla `albumes`
 --
 
 CREATE TABLE `albumes` (
@@ -39,7 +39,7 @@ CREATE TABLE `albumes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `albumes`
+-- Volcado de datos para la tabla `albumes`
 --
 
 INSERT INTO `albumes` (`IdAlbum`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usuario`, `Cover`) VALUES
@@ -48,12 +48,14 @@ INSERT INTO `albumes` (`IdAlbum`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Usu
 (3, 'GIFs', 'GIFs molones', NULL, NULL, 1, 'users/u_Dan/album_3/Cover.gif'),
 (4, 'Landscapes', 'Diferentes paisajes del mundo', '2017-11-14', NULL, 1, 'users/u_Dan/album_4/Cover.jpg'),
 (14, 'El conocimiento es poder', 'Perezoso molon', '2017-11-07', 'SJ', 1, 'users/u_Dan/album_14/Cover.jpg'),
-(32, 'Album molon', 'Hi I\'m Sona', NULL, NULL, 39, 'users/u_Sona/album_32/Cover.jpg');
+(32, 'Album molon', 'Hi I\'m Sona', NULL, NULL, 39, 'users/u_Sona/album_32/Cover.jpg'),
+(33, 'Me!', 'Hi I\'m Sona', NULL, NULL, 39, 'img/Default.png'),
+(34, 'Album  molon 3', 'Este es el tercer album que completa la trilogia', '2017-12-12', 'AO', 1, 'img/Default.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fotos`
+-- Estructura de tabla para la tabla `fotos`
 --
 
 CREATE TABLE `fotos` (
@@ -68,7 +70,7 @@ CREATE TABLE `fotos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fotos`
+-- Volcado de datos para la tabla `fotos`
 --
 
 INSERT INTO `fotos` (`IdFoto`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Album`, `Fichero`, `FRegistro`) VALUES
@@ -89,13 +91,16 @@ INSERT INTO `fotos` (`IdFoto`, `Titulo`, `Descripcion`, `Fecha`, `Pais`, `Album`
 (67, 'Zed', 'League of Legends', NULL, 'ES', 2, 'users/u_Dan/album_2/Photo_67.jpg', '2017-12-14 22:12:03'),
 (68, 'Smug Riko', 'Best sticker Telegram EU West', '2017-11-15', 'JP', 2, 'users/u_Dan/album_2/Photo_68.png', '2017-12-14 22:12:10'),
 (74, 'Selfie perezosa', 'Perezoso molon haciendose una selfie', '2017-11-06', 'DM', 14, 'users/u_Dan/album_14/Photo_74.jpg', '2017-12-14 22:17:35'),
-(98, 'Me!', 'Hi I\'m Sona', NULL, NULL, 32, 'users/u_Sona/album_32/Photo_98.png', '2017-12-14 23:05:02'),
-(99, 'Battlefield', 'Heroes never die', NULL, NULL, 32, 'users/u_Sona/album_32/Photo_99.jpg', '2017-12-15 00:11:05');
+(98, 'Me!', 'Hi I\'m Sona', NULL, NULL, 32, 'users/u_Sona/album_32/Photo_98.png', '2017-12-17 23:05:02'),
+(99, 'Battlefield', 'Heroes never die', NULL, NULL, 32, 'users/u_Sona/album_32/Photo_99.jpg', '2017-12-18 00:11:05'),
+(101, '2B', 'Trying', NULL, NULL, 33, 'users/u_Sona/album_33/Photo_101.jpg', '2017-12-21 19:33:32'),
+(102, 'Imagen molona', '1', '2017-07-20', NULL, 34, 'users/u_Dan/album_34/Photo_102.jpg', '2017-12-21 20:19:08'),
+(103, 'LA FOTO', 'LA MEJOR FOTO DEL MUNDO', '2017-11-28', 'AI', 34, 'users/u_Dan/album_34/Photo_103.jpg', '2017-12-21 19:49:08');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paises`
+-- Estructura de tabla para la tabla `paises`
 --
 
 CREATE TABLE `paises` (
@@ -104,7 +109,7 @@ CREATE TABLE `paises` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `paises`
+-- Volcado de datos para la tabla `paises`
 --
 
 INSERT INTO `paises` (`IdPais`, `NomPais`) VALUES
@@ -363,7 +368,7 @@ INSERT INTO `paises` (`IdPais`, `NomPais`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `solicitudes`
+-- Estructura de tabla para la tabla `solicitudes`
 --
 
 CREATE TABLE `solicitudes` (
@@ -384,7 +389,7 @@ CREATE TABLE `solicitudes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `solicitudes`
+-- Volcado de datos para la tabla `solicitudes`
 --
 
 INSERT INTO `solicitudes` (`IdSolicitud`, `Album`, `Nombre`, `Titulo`, `Descripcion`, `Email`, `Direccion`, `Color`, `Copias`, `Resolucion`, `Fecha`, `IColor`, `FRegistro`, `Coste`) VALUES
@@ -395,7 +400,7 @@ INSERT INTO `solicitudes` (`IdSolicitud`, `Album`, `Nombre`, `Titulo`, `Descripc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -412,7 +417,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`IdUsuario`, `NomUsuario`, `Clave`, `Email`, `Sexo`, `FNacimiento`, `Ciudad`, `Pais`, `Foto`, `FRegistro`) VALUES
@@ -423,11 +428,11 @@ INSERT INTO `usuarios` (`IdUsuario`, `NomUsuario`, `Clave`, `Email`, `Sexo`, `FN
 (39, 'Sona', '$2y$10$fgORCFhJL46MRto.9QEon.Etu4.ufkHhHDNMiOwPEL8ksg7JlKoVS', 'sona@gmail.com', 1, '1985-04-05', 'Demacia', 'SG', 'users/u_Sona/Profile.jpg', '2017-12-14 23:24:49');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `albumes`
+-- Indices de la tabla `albumes`
 --
 ALTER TABLE `albumes`
   ADD PRIMARY KEY (`IdAlbum`),
@@ -435,7 +440,7 @@ ALTER TABLE `albumes`
   ADD KEY `Usuario` (`Usuario`);
 
 --
--- Indexes for table `fotos`
+-- Indices de la tabla `fotos`
 --
 ALTER TABLE `fotos`
   ADD PRIMARY KEY (`IdFoto`),
@@ -443,20 +448,20 @@ ALTER TABLE `fotos`
   ADD KEY `Album` (`Album`);
 
 --
--- Indexes for table `paises`
+-- Indices de la tabla `paises`
 --
 ALTER TABLE `paises`
   ADD PRIMARY KEY (`IdPais`);
 
 --
--- Indexes for table `solicitudes`
+-- Indices de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
   ADD PRIMARY KEY (`IdSolicitud`),
   ADD KEY `Album` (`Album`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`IdUsuario`),
@@ -464,59 +469,59 @@ ALTER TABLE `usuarios`
   ADD KEY `Pais` (`Pais`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `albumes`
+-- AUTO_INCREMENT de la tabla `albumes`
 --
 ALTER TABLE `albumes`
-  MODIFY `IdAlbum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `IdAlbum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `fotos`
+-- AUTO_INCREMENT de la tabla `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `IdFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `IdFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
--- AUTO_INCREMENT for table `solicitudes`
+-- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
   MODIFY `IdSolicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `albumes`
+-- Filtros para la tabla `albumes`
 --
 ALTER TABLE `albumes`
   ADD CONSTRAINT `albumes_ibfk_2` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`IdUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `albumes_ibfk_4` FOREIGN KEY (`Pais`) REFERENCES `paises` (`IdPais`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `fotos`
+-- Filtros para la tabla `fotos`
 --
 ALTER TABLE `fotos`
   ADD CONSTRAINT `fotos_ibfk_2` FOREIGN KEY (`Album`) REFERENCES `albumes` (`IdAlbum`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fotos_ibfk_3` FOREIGN KEY (`Pais`) REFERENCES `paises` (`IdPais`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `solicitudes`
+-- Filtros para la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
   ADD CONSTRAINT `solicitudes_ibfk_1` FOREIGN KEY (`Album`) REFERENCES `albumes` (`IdAlbum`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuarios`
+-- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`Pais`) REFERENCES `paises` (`IdPais`) ON DELETE CASCADE ON UPDATE CASCADE;
