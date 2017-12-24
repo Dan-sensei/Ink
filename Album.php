@@ -48,8 +48,9 @@
 	}
 	$image = $resultado->fetch_assoc();
 	$n_imagenes = $image['exists'];
-
-	if(isset($_GET['page']) && ($_GET['page'] < 1 || $_GET['page'] > floor($n_imagenes/5)+1)){
+	$add = 0;
+	if($n_imagenes%limit != 0)	$add = 1;
+	if(isset($_GET['page']) && ($_GET['page'] < 1 || $_GET['page'] > floor($n_imagenes/limit)+$add ) ){
 		$error=0;
 		require("inc/error.php");
 		exit;
@@ -119,7 +120,7 @@
 			} while($image = $resultado->fetch_assoc() );
 			//================================================================================================
 			echo "</div>";
-			$n_imagenes = floor($n_imagenes/5)+1;
+			$n_imagenes = floor($n_imagenes/limit)+$add;
 			if(!isset($_GET['page'])){
 				$previous = 1;
 				$current = 1;

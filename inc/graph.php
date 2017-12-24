@@ -11,13 +11,6 @@
 	 
 	if($inkbd->connect_errno) 
 	   $error = 1;
-/*
-	$last_7_days = "SELECT FRegistro, COUNT(*) as total
-      FROM (SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) the_day) a
-      LEFT JOIN fotos b ON YEAR(b.FRegistro) = YEAR(a.the_day) 
-      AND MONTH(b.FRegistro)=MONTH(a.the_day) AND DAY(b.FRegistro) = DAY(a.the_day)
-      GROUP BY DAY(FRegistro)";
-      */
 
       $last_7_days = "SELECT (DATE(NOW()) - INTERVAL day DAY) AS DayDate, count(IdFoto) as total
       FROM (SELECT 0 AS day
