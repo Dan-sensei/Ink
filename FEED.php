@@ -18,7 +18,7 @@
 	$atom = $dom -> createElement("atom:link");
 	$atom->setAttribute("href","http://localhost"); //url of the feed
 	$atom->setAttribute("rel","self");
-	$atom->setAttribute("type","application/rss+dom");
+	$atom->setAttribute("type","application/rss+xml");
 	$channelNode->appendChild($atom); 
 
 	$title 			= 	$dom->createElement("title", "Ink");
